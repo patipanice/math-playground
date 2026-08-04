@@ -172,6 +172,68 @@ td{font-variant-numeric:tabular-nums}
 tbody tr:nth-child(even) td{background:var(--surface-2)}
 .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:.9rem}
 
+/* ============ vocabulary ============ */
+.vbar{display:flex; flex-wrap:wrap; gap:.6rem; align-items:center}
+.vsearch{
+  flex:1 1 220px; min-width:0; font:inherit; font-size:.9rem; color:var(--ink);
+  background:var(--surface-2); border:1px solid var(--line); border-radius:9px; padding:.42rem .7rem;
+}
+.vsearch::placeholder{color:var(--ink-faint)}
+.vcount{font-family:var(--mono); font-size:.76rem; color:var(--ink-faint); white-space:nowrap}
+.vlist{margin-top:1rem; display:flex; flex-direction:column; gap:1.1rem; max-height:min(70vh,620px); overflow-y:auto; padding-right:.3rem}
+.vgroup h5{font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); margin-bottom:.4rem; position:sticky; top:0; background:var(--surface); padding:.2rem 0}
+.vgroup ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:.4rem}
+.vgroup li{
+  background:var(--surface-2); border:1px solid var(--line); border-radius:9px; padding:.5rem .7rem;
+  display:flex; flex-direction:column; gap:.1rem;
+}
+.vgroup li b{font-family:var(--display); font-size:.92rem; font-weight:600}
+.vgroup li i{font-style:normal; font-family:var(--mono); font-size:.72rem; color:var(--p2)}
+.vgroup li span{font-size:.84rem; color:var(--ink-soft); line-height:1.5}
+.vempty{color:var(--ink-faint); font-size:.88rem; padding:1rem 0}
+
+/* ============ flashcard ============ */
+.fc-top{display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; justify-content:space-between}
+.fc-sel{font:inherit; font-size:.83rem; color:var(--ink); background:var(--surface-2); border:1px solid var(--line); border-radius:8px; padding:.32rem .5rem}
+.fc-stage{perspective:1400px; margin:1rem 0 0}
+.fc-card{
+  position:relative; width:100%; min-height:250px; cursor:pointer;
+  transform-style:preserve-3d; transition:transform .5s cubic-bezier(.4,.1,.2,1);
+}
+.fc-card.flip{transform:rotateY(180deg)}
+.fc-face{
+  position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+  border:1px solid var(--line); border-radius:14px; padding:1.4rem;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.6rem; text-align:center;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:22px 22px; background-color:var(--surface-2);
+}
+.fc-back{transform:rotateY(180deg); background-color:var(--accent-soft)}
+.fc-kicker{font-family:var(--mono); font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint)}
+.fc-term{font-family:var(--display); font-size:clamp(1.4rem,4.5vw,2.1rem); font-weight:600; line-height:1.3; text-wrap:balance}
+.fc-en{font-family:var(--mono); font-size:.88rem; color:var(--p2)}
+.fc-def{font-size:.98rem; color:var(--ink-soft); max-width:46ch; line-height:1.65}
+.fc-tap{font-size:.74rem; color:var(--ink-faint); margin-top:.3rem}
+.fc-acts{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; align-items:center}
+.fcbtn{
+  appearance:none; font:inherit; font-size:.86rem; cursor:pointer; border-radius:9px;
+  padding:.45rem .9rem; border:1px solid var(--line); background:var(--surface-2); color:var(--ink);
+}
+.fcbtn:hover{border-color:var(--accent)}
+.fcbtn.no{border-color:var(--bad); color:var(--bad)}
+.fcbtn.yes{border-color:var(--good); color:var(--good)}
+.fcbtn.ghost{color:var(--ink-faint); font-size:.79rem; padding:.4rem .6rem}
+.fcbtn kbd{font-family:var(--mono); font-size:.68rem; opacity:.7; margin-left:.3rem; border:1px solid currentColor; border-radius:4px; padding:0 .2rem}
+.fc-meter{margin-top:.9rem}
+.fc-track{height:6px; border-radius:4px; background:var(--line); overflow:hidden}
+.fc-fill{height:100%; background:var(--good); width:0%; transition:width .3s}
+.fc-stats{display:flex; flex-wrap:wrap; gap:.3rem .45rem; margin-top:.55rem; font-family:var(--mono); font-size:.76rem}
+.fc-stats span{background:var(--surface-2); border:1px solid var(--line); border-radius:7px; padding:.2rem .5rem; color:var(--ink-faint)}
+.fc-stats span b{color:var(--ink)}
+.fc-done{text-align:center; padding:2rem 1rem; color:var(--ink-soft)}
+.fc-done b{display:block; font-family:var(--display); font-size:1.2rem; color:var(--good); margin-bottom:.4rem}
+@media (prefers-reduced-motion:reduce){.fc-card{transition:none}}
+
 .sheet{padding:2.8rem 0 1rem; border-top:1px solid var(--line)}
 .sheet-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:.8rem; margin-top:1.2rem}
 .sheet-grid section{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:.85rem .95rem}
@@ -199,7 +261,7 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
     </svg>
     <b>Math Playground<br>คณิต A-Level</b>
   </div>
-  <p class="sub">22 เครื่องมือให้ลากเล่น · 16 บทตามหลักสูตร</p>
+  <p class="sub">24 เครื่องมือให้ลากเล่น · 16 บท + คลังศัพท์ 128 คำ</p>
   <nav aria-label="สารบัญเครื่องมือ"><p class="idx-group">พื้นฐาน</p><ul class="idx" id="idx"></ul></nav>
   <div class="side-foot"><button class="tbtn" id="theme">◐ สลับโหมดสว่าง / กระดานดำ</button></div>
 </aside>
@@ -213,6 +275,7 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
     <span class="pill">🖱️ <b>ลาก</b> จุดในกราฟได้เลย</span>
     <span class="pill">🎚️ <b>เลื่อน</b> สไลเดอร์ดูค่าเปลี่ยน</span>
     <span class="pill">🔢 <b>อ่าน</b> ตัวเลขสดใต้ภาพ</span>
+    <span class="pill">🃏 <b>Flashcard</b> สุ่มศัพท์ 128 คำ</span>
     <span class="pill">◐ <b>กระดานดำ</b> สำหรับอ่านกลางคืน</span>
   </div>
 </header>
@@ -636,6 +699,73 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
   <div class="keys"><b>ติดตัวไป</b><span>f′(x) = lim<sub>h→0</sub> <span class="fr"><span>f(x+h) − f(x)</span><span>h</span></span></span><span><span class="fr"><span>d</span><span>dx</span></span>xⁿ = nxⁿ⁻¹</span><span>∫xⁿdx = <span class="fr"><span>xⁿ⁺¹</span><span>n+1</span></span> + C</span><span>∫<sub>a</sub><sup>b</sup>f = F(b) − F(a)</span></div>
 </section>
 
+<section class="ch" id="vocab" data-n="ก" data-title="คลังคำศัพท์" data-group="ท่องจำ &amp; คำศัพท์">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ก</span><span class="ch-tag">เครื่องมือ: ค้นศัพท์ + กรองตามบท</span></div>
+    <h2>คลังคำศัพท์คณิต A-Level</h2>
+    <p class="ch-why">ศัพท์เทคนิคที่โจทย์ใช้จริง พร้อมคำอังกฤษคู่กัน (เจอในตำราและข้อสอบภาษาอังกฤษ) — <b>อ่านคำอธิบายให้จบใน 1 บรรทัด</b> ไม่ต้องเปิดหนังสือ พิมพ์ค้นได้ทั้งไทย อังกฤษ และคำในคำอธิบาย</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>ค้นหาและกรองตามบท</h4><span>tool 23</span></div>
+    <div class="lab-body">
+      <div class="vbar">
+        <input class="vsearch" id="vq" type="search" placeholder="พิมพ์ค้น เช่น โดเมน, discriminant, ลู่เข้า, เส้นสัมผัส…" aria-label="ค้นหาคำศัพท์">
+        <span class="vcount" id="vcount"></span>
+      </div>
+      <div class="chips" id="vChips" style="margin-top:.7rem"></div>
+      <div class="vlist" id="vlist"></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="flash" data-n="ข" data-title="Flashcard สุ่ม" data-group="ท่องจำ &amp; คำศัพท์">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ข</span><span class="ch-tag">เครื่องมือ: การ์ดท่องจำสุ่มลำดับ</span></div>
+    <h2>Flashcard — ท่องแบบสุ่ม</h2>
+    <p class="ch-why">การ์ดสุ่มลำดับใหม่ทุกครั้ง กดพลิกดูเฉลย แล้วตอบตัวเองว่าจำได้หรือยัง — <b>คำที่ตอบว่า “ยังไม่ได้” จะถูกวนกลับมาถามซ้ำท้ายกอง</b> ส่วนคำที่จำได้จะถูกจดไว้ในเครื่อง เปิดหน้าใหม่ก็ยังจำความคืบหน้าได้</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>พลิกการ์ด · ให้คะแนนตัวเอง · วนคำที่ยังไม่แม่น</h4><span>tool 24 · กดได้ / คีย์บอร์ด</span></div>
+    <div class="lab-body">
+      <div class="fc-top">
+        <div class="chips" id="fcMode"></div>
+        <select class="fc-sel" id="fcTopic" aria-label="เลือกบท"></select>
+      </div>
+      <div class="fc-stage" id="fcStage">
+        <div class="fc-card" id="fcCard" tabindex="0" role="button" aria-label="การ์ดคำศัพท์ กดเพื่อพลิก">
+          <div class="fc-face fc-front">
+            <span class="fc-kicker" id="fcTag">—</span>
+            <span class="fc-term" id="fcFront">—</span>
+            <span class="fc-tap">กดการ์ดเพื่อพลิกดูเฉลย</span>
+          </div>
+          <div class="fc-face fc-back">
+            <span class="fc-kicker" id="fcTag2">—</span>
+            <span class="fc-term" id="fcBackTerm" style="font-size:1.25rem">—</span>
+            <span class="fc-en" id="fcEn">—</span>
+            <span class="fc-def" id="fcDef">—</span>
+          </div>
+        </div>
+      </div>
+      <div class="fc-acts">
+        <button class="fcbtn" id="fcFlip" type="button">พลิกการ์ด<kbd>space</kbd></button>
+        <button class="fcbtn no" id="fcNo" type="button">ยังไม่ได้ — ถามซ้ำ<kbd>1</kbd></button>
+        <button class="fcbtn yes" id="fcYes" type="button">จำได้แล้ว<kbd>2</kbd></button>
+        <button class="fcbtn ghost" id="fcShuffle" type="button">↻ สับกองใหม่</button>
+        <button class="fcbtn ghost" id="fcReset" type="button">ล้างความคืบหน้า</button>
+      </div>
+      <div class="fc-meter">
+        <div class="fc-track"><div class="fc-fill" id="fcFill"></div></div>
+        <div class="fc-stats" id="fcStats"></div>
+      </div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>วิธีใช้ 1</b>ปั่นทั้งกอง 128 คำวันละรอบ ใช้เวลาประมาณ 8 นาที</div>
+    <div><b>วิธีใช้ 2</b>เลือกบทเดียวก่อนสอบบทนั้น เช่นกรอง <em>แคลคูลัส</em> เหลือ 10 คำ</div>
+    <div><b>วิธีใช้ 3</b>สลับโหมดเป็น <em>นิยาม → ศัพท์</em> จะยากขึ้นและใกล้เคียงการทำโจทย์จริง</div>
+  </div>
+</section>
+
 <section class="sheet" id="sheet">
   <div class="ch-kicker"><span class="ch-num">▤</span><span class="ch-tag">แผ่นเดียวก่อนเข้าห้องสอบ</span></div>
   <h2>สรุปสูตรที่ต้องจำจริง ๆ</h2>
@@ -859,7 +989,7 @@ document.getElementById("theme").addEventListener("click",()=>{
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>requestAnimationFrame(redraw));
 function buildIndex(){
   const ul=document.getElementById("idx"); ul.innerHTML="";
-  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส"];
+  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส","ท่องจำ & คำศัพท์"];
   const groups={}; order.forEach(g=>groups[g]=[]);
   document.querySelectorAll("section.ch").forEach(s=>(groups[s.dataset.group]||groups["พื้นฐาน"]).push(s));
   let first=true;
@@ -1817,6 +1947,263 @@ function buildIndex(){
   chipset(document.getElementById("intChips"),FN,it=>{cur=it;F.render&&F.render()});
   chipset(mbox,[{t:"จุดกลาง",v:"mid"},{t:"ขอบซ้าย",v:"left"},{t:"ขอบขวา",v:"right"}],
     it=>{mode=it.v;F.render&&F.render()});
+})();
+/* ===== คลังคำศัพท์ (data) ===== */
+const VOCAB=[];
+const V=(g,rows)=>rows.forEach(r=>VOCAB.push({g,t:r[0],e:r[1],d:r[2]}));
+V("เซต",[
+ ["เซตว่าง","empty set","เซตที่ไม่มีสมาชิกเลย เขียน ∅ หรือ { } — ระวัง {∅} มีสมาชิก 1 ตัว จึงไม่ใช่เซตว่าง"],
+ ["สับเซต","subset","B ⊂ A เมื่อสมาชิกทุกตัวของ B อยู่ใน A · เซตที่มี n สมาชิกมีสับเซต 2ⁿ เซต"],
+ ["เพาเวอร์เซต","power set","เซตที่เอาสับเซตทั้งหมดมาเป็นสมาชิก มีสมาชิก 2ⁿ ตัว"],
+ ["คอมพลีเมนต์","complement","A′ คือทุกอย่างในเอกภพสัมพัทธ์ที่ไม่อยู่ใน A"],
+ ["ยูเนียน","union","A ∪ B รวมสมาชิกของทั้งสองเซตเข้าด้วยกัน (นับตัวซ้ำครั้งเดียว)"],
+ ["อินเตอร์เซกชัน","intersection","A ∩ B เอาเฉพาะสมาชิกที่อยู่ในทั้งสองเซต"],
+ ["ผลต่างสมมาตร","symmetric difference","A ∆ B อยู่เซตใดเซตหนึ่งแต่ไม่อยู่ทั้งคู่ = (A−B) ∪ (B−A)"],
+ ["เอกภพสัมพัทธ์","universal set","U ขอบเขตของทุกสิ่งที่โจทย์ข้อนั้นสนใจ"]
+]);
+V("ตรรกศาสตร์",[
+ ["ประพจน์","proposition","ข้อความที่ตัดสินได้ว่าจริงหรือเท็จอย่างใดอย่างหนึ่งเท่านั้น (คำถาม/คำสั่งไม่ใช่ประพจน์)"],
+ ["นิเสธ","negation","~p กลับค่าความจริงของประพจน์"],
+ ["ตัวเชื่อม “และ”","conjunction","p ∧ q เป็นจริงเมื่อจริงทั้งสองตัวเท่านั้น"],
+ ["ตัวเชื่อม “หรือ”","disjunction","p ∨ q เป็นเท็จเมื่อเท็จทั้งสองตัวเท่านั้น"],
+ ["ประพจน์เงื่อนไข","conditional","p → q เป็นเท็จกรณีเดียวคือเหตุจริงแต่ผลเท็จ (T → F)"],
+ ["สมมูลตรรกศาสตร์","logically equivalent","p ≡ q เมื่อค่าความจริงตรงกันทุกกรณี ใช้แทนกันได้"],
+ ["สัจนิรันดร์","tautology","ประพจน์ที่เป็นจริงทุกกรณี ตรวจโดยไล่ตารางให้ครบ 2ⁿ แถว"],
+ ["ตัวบ่งปริมาณ","quantifier","∀ = สำหรับทุก · ∃ = มีอย่างน้อยหนึ่ง · นิเสธแล้วสลับชนิดกัน"]
+]);
+V("จำนวนจริง & อสมการ",[
+ ["จำนวนตรรกยะ","rational number","เขียนเป็นเศษส่วน p/q ได้ (q ≠ 0) รวมทศนิยมซ้ำ"],
+ ["จำนวนอตรรกยะ","irrational number","เขียนเป็นเศษส่วนไม่ได้ เช่น √2, π, e"],
+ ["ค่าสัมบูรณ์","absolute value","|x| = ระยะจากศูนย์ ไม่เคยติดลบ · |x−a| อ่านว่าระยะจาก x ถึง a"],
+ ["ตารางเครื่องหมาย","sign chart","ไล่เครื่องหมายบนเส้นจำนวนเพื่อแก้อสมการ เครื่องหมายสลับที่รากกำลังคี่"],
+ ["ทฤษฎีบทเศษเหลือ","remainder theorem","เศษของ P(x) ÷ (x − c) เท่ากับ P(c)"],
+ ["ทฤษฎีบทตัวประกอบ","factor theorem","P(c) = 0 เมื่อและเมื่อ (x − c) เป็นตัวประกอบของ P(x)"],
+ ["ช่วง","interval","[a, b] รวมปลาย · (a, b) ไม่รวมปลาย · วงกลมทึบ/กลวงบนเส้นจำนวน"],
+ ["อสมการ","inequality","ประโยคที่ใช้ <, >, ≤, ≥ — คูณหรือหารด้วยจำนวนลบต้องกลับเครื่องหมาย"]
+]);
+V("เลขยกกำลัง & กรณฑ์",[
+ ["เลขชี้กำลัง","exponent","จำนวนครั้งที่คูณฐานซ้ำ · aᵐaⁿ = aᵐ⁺ⁿ"],
+ ["กรณฑ์","radical","ⁿ√a เขียนเป็นเลขยกกำลังได้เป็น a^(1/n)"],
+ ["คู่สังยุค","conjugate surd","a + √b กับ a − √b คูณกันแล้วหายกรณฑ์ ใช้ทำส่วนไม่ให้ติดราก"],
+ ["เลขชี้กำลังลบ","negative exponent","a⁻ⁿ = 1/aⁿ เป็นส่วนกลับ ไม่ใช่ค่าลบ"],
+ ["สัญกรณ์วิทยาศาสตร์","scientific notation","a × 10ⁿ โดย 1 ≤ |a| < 10"],
+ ["ฟังก์ชันกำลัง","power function","y = xⁿ · n คู่สมมาตรแกน y · n คี่สมมาตรจุดกำเนิด"]
+]);
+V("ฟังก์ชัน",[
+ ["โดเมน","domain","เซตของค่า x ทั้งหมดที่ใส่เข้าฟังก์ชันได้ (ห้ามส่วนเป็น 0 ห้ามในรากที่สองติดลบ)"],
+ ["เรนจ์","range","เซตของค่า y ทั้งหมดที่ฟังก์ชันให้ออกมา"],
+ ["ฟังก์ชันหนึ่งต่อหนึ่ง","one-to-one (injective)","x ต่างกันให้ y ต่างกันเสมอ ทดสอบด้วยเส้นแนวนอนตัดไม่เกิน 1 จุด"],
+ ["ฟังก์ชันผกผัน","inverse function","f⁻¹ สลับบทบาท x กับ y · กราฟเป็นภาพสะท้อนรอบเส้น y = x · มีได้เมื่อ f เป็นหนึ่งต่อหนึ่ง"],
+ ["ฟังก์ชันประกอบ","composite function","(f ∘ g)(x) = f(g(x)) ทำ g ก่อนแล้วส่งผลเข้า f"],
+ ["ฟังก์ชันคู่ / คี่","even / odd function","คู่: f(−x) = f(x) สมมาตรแกน y · คี่: f(−x) = −f(x) สมมาตรจุดกำเนิด"],
+ ["เส้นกำกับ","asymptote","เส้นที่กราฟเข้าไปใกล้เรื่อย ๆ แต่ไม่แตะ พบในฟังก์ชันตรรกยะและเอกซ์โพ"],
+ ["การเลื่อนขนาน","translation","f(x − h) + k เลื่อนขวา h และขึ้น k (ในวงเล็บเลื่อนสวนเครื่องหมาย)"],
+ ["จุดตัดแกน","intercept","จุดตัดแกน x คือราก · จุดตัดแกน y คือค่า f(0)"],
+ ["ฟังก์ชันเพิ่ม / ลด","increasing / decreasing","x มากขึ้นแล้ว y มากขึ้น = เพิ่ม · ตรวจด้วยเครื่องหมายของอนุพันธ์"]
+]);
+V("พาราโบลา",[
+ ["ดิสคริมิแนนต์","discriminant","b² − 4ac · บวก = 2 ราก, ศูนย์ = 1 ราก (ซ้ำ), ลบ = ไม่มีรากจำนวนจริง"],
+ ["จุดยอด","vertex","จุดสูงสุดหรือต่ำสุด อยู่ที่ x = −b/2a"],
+ ["แกนสมมาตร","axis of symmetry","เส้นตรง x = −b/2a ที่พับกราฟทับกันพอดี"],
+ ["ราก / ศูนย์ของฟังก์ชัน","root / zero","ค่า x ที่ทำให้ f(x) = 0 ตรงกับจุดตัดแกน x"],
+ ["สูตรกำลังสอง","quadratic formula","x = (−b ± √(b² − 4ac)) / 2a ใช้ได้ทุกกรณีเมื่อแยกตัวประกอบไม่ออก"],
+ ["ค่าสูงสุด-ต่ำสุด","maximum / minimum","a > 0 พาราโบลาหงาย มีค่าต่ำสุดที่จุดยอด · a < 0 คว่ำ มีค่าสูงสุด"]
+]);
+V("เอกซ์โพ & ลอการิทึม",[
+ ["ลอการิทึม","logarithm","log_b x คือเลขชี้กำลังที่ทำให้ b ยกกำลังนั้นได้ x"],
+ ["ลอการิทึมสามัญ","common logarithm","ลอการิทึมฐาน 10 เขียนย่อว่า log x"],
+ ["ลอการิทึมธรรมชาติ","natural logarithm","ลอการิทึมฐาน e ≈ 2.718 เขียนว่า ln x"],
+ ["การเปลี่ยนฐาน","change of base","log_b x = log x / log b ใช้กดเครื่องคิดเลขได้"],
+ ["การเติบโตแบบเอกซ์โพเนนเชียล","exponential growth","bˣ เมื่อ b > 1 โตเร็วขึ้นเรื่อย ๆ"],
+ ["การสลายตัว","exponential decay","bˣ เมื่อ 0 < b < 1 ลดลงเข้าใกล้ศูนย์แต่ไม่ถึง"]
+]);
+V("ตรีโกณมิติ",[
+ ["วงกลมหนึ่งหน่วย","unit circle","วงกลมรัศมี 1 จุดบนวงคือ (cos θ, sin θ) — ที่มาของค่าตรีโกณทุกมุม"],
+ ["เรเดียน","radian","หน่วยวัดมุมจากความยาวส่วนโค้ง · π เรเดียน = 180°"],
+ ["มุมอ้างอิง","reference angle","มุมแหลมที่รัศมีทำกับแกน x ใช้หาค่าตรีโกณของมุมใหญ่"],
+ ["แอมพลิจูด","amplitude","|a| ระยะจากเส้นกลางถึงยอดคลื่น"],
+ ["คาบ","period","ความยาวช่วงก่อนกราฟซ้ำรอบ · sin(bx) มีคาบ 2π/b"],
+ ["การเลื่อนเฟส","phase shift","ค่า c ใน sin(b(x − c)) เลื่อนคลื่นไปทางขวา c หน่วย"],
+ ["เอกลักษณ์พีทาโกรัส","Pythagorean identity","sin²θ + cos²θ = 1 และ 1 + tan²θ = sec²θ"],
+ ["กฎของไซน์","law of sines","a/sin A = b/sin B = c/sin C ใช้เมื่อรู้มุมคู่กับด้านตรงข้าม"],
+ ["กฎของโคไซน์","law of cosines","c² = a² + b² − 2ab cos C ใช้เมื่อรู้สองด้านกับมุมระหว่าง"],
+ ["ฟังก์ชันตรีโกณผกผัน","inverse trig function","arcsin, arccos, arctan คืนค่ามุมจากอัตราส่วน (มีช่วงหลักจำกัด)"]
+]);
+V("เมทริกซ์",[
+ ["ดีเทอร์มิแนนต์","determinant","ad − bc · บอกพื้นที่หลังการแปลง และบอกว่ามีอินเวอร์สหรือไม่"],
+ ["เมทริกซ์เอกลักษณ์","identity matrix","I มี 1 ตามแนวทแยง คูณแล้วได้ตัวเดิม"],
+ ["เมทริกซ์ผกผัน","inverse matrix","A⁻¹A = I มีได้เมื่อ det ≠ 0 · A⁻¹ = (1/det)[[d,−b],[−c,a]]"],
+ ["ทรานสโพส","transpose","Aᵗ สลับแถวกับหลัก"],
+ ["เมทริกซ์เอกฐาน","singular matrix","เมทริกซ์ที่ det = 0 หาอินเวอร์สไม่ได้ (การแปลงยุบเป็นเส้น)"],
+ ["ไมเนอร์ & โคแฟกเตอร์","minor & cofactor","ตัวช่วยหาดีเทอร์มิแนนต์และอินเวอร์สของเมทริกซ์ 3×3"],
+ ["กฎคราเมอร์","Cramer's rule","แก้ระบบสมการเชิงเส้นด้วยอัตราส่วนของดีเทอร์มิแนนต์"]
+]);
+V("เวกเตอร์",[
+ ["ขนาดของเวกเตอร์","magnitude","|u| = √(u₁² + u₂²) ความยาวของลูกศร"],
+ ["เวกเตอร์หนึ่งหน่วย","unit vector","เวกเตอร์ขนาด 1 หาได้จาก u/|u|"],
+ ["ผลคูณเชิงสเกลาร์","dot product","u · v = |u||v| cos θ ผลลัพธ์เป็นตัวเลข · เป็น 0 เมื่อตั้งฉาก"],
+ ["ผลคูณเชิงเวกเตอร์","cross product","ผลลัพธ์เป็นเวกเตอร์ตั้งฉากกับทั้งคู่ ขนาดเท่าพื้นที่สี่เหลี่ยมด้านขนาน"],
+ ["โปรเจกชัน","projection","เงาของเวกเตอร์หนึ่งที่ทอดลงบนอีกเวกเตอร์"],
+ ["ตั้งฉาก","orthogonal","u ⊥ v เมื่อ u · v = 0"],
+ ["ขนาน","parallel","u = kv สำหรับ k บางค่า · พื้นที่สี่เหลี่ยมด้านขนานเป็น 0"]
+]);
+V("จำนวนเชิงซ้อน",[
+ ["หน่วยจินตภาพ","imaginary unit","i โดย i² = −1 · i³ = −i, i⁴ = 1 วนซ้ำทุก 4"],
+ ["ส่วนจริง & ส่วนจินตภาพ","real & imaginary part","z = a + bi มีส่วนจริง a และส่วนจินตภาพ b"],
+ ["สังยุค","complex conjugate","z̄ = a − bi พลิกเครื่องหมายส่วนจินตภาพ · z·z̄ = |z|²"],
+ ["มอดุลัส","modulus","|z| = √(a² + b²) ระยะจากจุดกำเนิดในระนาบเชิงซ้อน"],
+ ["อาร์กิวเมนต์","argument","มุมที่เวกเตอร์ z ทำกับแกนจริง · arg(z₁z₂) = arg z₁ + arg z₂"],
+ ["รูปเชิงขั้ว","polar form","z = r(cos θ + i sin θ) ใช้คูณ หาร และยกกำลังได้ง่าย"],
+ ["ระนาบเชิงซ้อน","complex plane","แกนนอนคือส่วนจริง แกนตั้งคือส่วนจินตภาพ"]
+]);
+V("ภาคตัดกรวย",[
+ ["ภาคตัดกรวย","conic section","รูปที่ได้จากการตัดกรวยด้วยระนาบ: วงกลม วงรี พาราโบลา ไฮเพอร์โบลา"],
+ ["โฟกัส","focus","จุดคงที่ที่ใช้นิยามภาคตัดกรวย วงรีมี 2 จุด พาราโบลามี 1 จุด"],
+ ["ไดเรกทริกซ์","directrix","เส้นคงที่ · ทุกจุดบนพาราโบลาห่างจากโฟกัสเท่ากับห่างจากเส้นนี้"],
+ ["ความเยื้องศูนย์กลาง","eccentricity","e = c/a · วงกลม 0, วงรี < 1, พาราโบลา = 1, ไฮเพอร์โบลา > 1"],
+ ["แกนเอก & แกนโท","major & minor axis","แกนยาวและแกนสั้นของวงรี ยาว 2a และ 2b"],
+ ["เส้นกำกับไฮเพอร์โบลา","asymptote of hyperbola","y = ±(b/a)x กราฟวิ่งแนบไปตามเส้นนี้"],
+ ["จุดยอดของภาคตัดกรวย","vertex of a conic","จุดปลายแกนหลัก เป็นจุดบนเส้นโค้งที่ใกล้โฟกัสที่สุด"]
+]);
+V("ลำดับ & อนุกรม",[
+ ["ลำดับ","sequence","รายการตัวเลขที่เรียงตามตำแหน่ง a₁, a₂, a₃, …"],
+ ["อนุกรม","series","ผลบวกของพจน์ในลำดับ Sₙ = a₁ + a₂ + … + aₙ"],
+ ["ผลต่างร่วม","common difference","ค่า d ที่บวกเพิ่มทุกพจน์ในลำดับเลขคณิต"],
+ ["อัตราส่วนร่วม","common ratio","ค่า r ที่คูณทุกพจน์ในลำดับเรขาคณิต"],
+ ["ลู่เข้า","convergent","ผลบวกเข้าใกล้ค่าคงที่ · อนุกรมเรขาคณิตลู่เข้าเมื่อ |r| < 1"],
+ ["ลู่ออก","divergent","ผลบวกไม่เข้าหาค่าใด ใช้สูตรผลบวกอนันต์ไม่ได้"],
+ ["สัญกรณ์ซิกมา","sigma notation","Σ เขียนผลบวกแบบย่อ ระบุตัวเริ่มและตัวจบ"]
+]);
+V("การนับ & ความน่าจะเป็น",[
+ ["กฎการคูณ","multiplication principle","งานหลายขั้นตอน เอาจำนวนวิธีแต่ละขั้นคูณกัน"],
+ ["การเรียงสับเปลี่ยน","permutation","P(n,r) = n!/(n−r)! ใช้เมื่อลำดับสำคัญ เช่นเรียงแถว จัดตำแหน่ง"],
+ ["การจัดหมู่","combination","C(n,r) = n!/(r!(n−r)!) ใช้เมื่อลำดับไม่สำคัญ เช่นเลือกคณะกรรมการ"],
+ ["แซมเปิลสเปซ","sample space","S เซตของผลลัพธ์ที่เป็นไปได้ทั้งหมด"],
+ ["เหตุการณ์","event","สับเซตของแซมเปิลสเปซที่เราสนใจ"],
+ ["เหตุการณ์ไม่เกิดร่วม","mutually exclusive","เกิดพร้อมกันไม่ได้ · P(A ∩ B) = 0"],
+ ["เหตุการณ์อิสระ","independent events","เกิดอันหนึ่งไม่กระทบอีกอัน · P(A ∩ B) = P(A)P(B)"],
+ ["ความน่าจะเป็นมีเงื่อนไข","conditional probability","P(A|B) = P(A ∩ B)/P(B) ความน่าจะเป็นของ A เมื่อรู้ว่า B เกิดแล้ว"],
+ ["ทฤษฎีบททวินาม","binomial theorem","กระจาย (x + y)ⁿ โดยสัมประสิทธิ์คือ C(n,r) ตรงกับสามเหลี่ยมปาสกาล"]
+]);
+V("สถิติ",[
+ ["ค่าเฉลี่ยเลขคณิต","arithmetic mean","x̄ = Σx/N ไวต่อค่าผิดปกติมากที่สุด"],
+ ["มัธยฐาน","median","ค่ากลางเมื่อเรียงข้อมูลแล้ว ทนต่อค่าผิดปกติ"],
+ ["ฐานนิยม","mode","ค่าที่ปรากฏบ่อยที่สุด อาจมีหลายค่าหรือไม่มีเลย"],
+ ["ควอร์ไทล์","quartile","จุดแบ่งข้อมูลเป็น 4 ส่วน Q₁, Q₂ (มัธยฐาน), Q₃"],
+ ["เปอร์เซ็นไทล์","percentile","จุดแบ่ง 100 ส่วน · P₅₀ คือมัธยฐาน"],
+ ["พิสัย","range","ค่าสูงสุด − ค่าต่ำสุด บอกการกระจายอย่างหยาบ"],
+ ["พิสัยควอร์ไทล์","interquartile range (IQR)","Q₃ − Q₁ ความกว้างของกล่องในบ็อกซ์พลอต"],
+ ["ส่วนเบี่ยงเบนมาตรฐาน","standard deviation","s วัดว่าข้อมูลกระจายห่างค่าเฉลี่ยเฉลี่ยเท่าไร"],
+ ["ความแปรปรวน","variance","s² กำลังสองของส่วนเบี่ยงเบนมาตรฐาน"],
+ ["คะแนนมาตรฐาน","z-score","z = (x − μ)/σ บอกว่าห่างค่าเฉลี่ยกี่ส่วนเบี่ยงเบน"],
+ ["การแจกแจงปกติ","normal distribution","โค้งระฆังคว่ำ สมมาตรที่ μ · ±1σ ≈ 68%, ±2σ ≈ 95%"],
+ ["ค่าผิดปกติ","outlier","ข้อมูลที่ห่างจากกลุ่มมาก ดึงค่าเฉลี่ยแต่แทบไม่ขยับมัธยฐาน"]
+]);
+V("แคลคูลัส",[
+ ["ลิมิต","limit","ค่าที่ฟังก์ชันเข้าใกล้เมื่อ x เข้าใกล้จุดหนึ่ง (ไม่จำเป็นต้องมีค่าที่จุดนั้น)"],
+ ["ความต่อเนื่อง","continuity","กราฟลากได้ไม่ต้องยกปากกา · ลิมิตเท่ากับค่าฟังก์ชันที่จุดนั้น"],
+ ["อนุพันธ์","derivative","f′(x) อัตราการเปลี่ยนแปลงขณะนั้น = ความชันของเส้นสัมผัส"],
+ ["เส้นสัมผัส","tangent line","เส้นตรงที่แตะกราฟที่จุดหนึ่งด้วยความชัน f′(x₀)"],
+ ["กฎลูกโซ่","chain rule","อนุพันธ์ของฟังก์ชันประกอบ: (f(g(x)))′ = f′(g(x))·g′(x)"],
+ ["จุดวิกฤต","critical point","จุดที่ f′(x) = 0 หรือหาอนุพันธ์ไม่ได้ — ที่ตั้งของค่าสูงสุด/ต่ำสุด"],
+ ["ค่าสุดขีดสัมพัทธ์","relative extremum","ค่าสูงสุดหรือต่ำสุดเฉพาะที่ ตรวจด้วยเครื่องหมาย f′ ที่เปลี่ยน"],
+ ["ปฏิยานุพันธ์","antiderivative","ฟังก์ชันที่หาอนุพันธ์แล้วได้ f กลับมา ต้องบวกค่าคงตัว C"],
+ ["ปริพันธ์จำกัดเขต","definite integral","พื้นที่ใต้กราฟจาก a ถึง b เท่ากับ F(b) − F(a)"],
+ ["ทฤษฎีบทหลักมูลของแคลคูลัส","fundamental theorem of calculus","เชื่อมอนุพันธ์กับปริพันธ์: การหาพื้นที่คือการย้อนกระบวนการหาความชัน"]
+]);
+const TOPICS=[...new Set(VOCAB.map(v=>v.g))];
+
+/* ===== tool 23 · glossary ===== */
+(()=>{
+  const list=document.getElementById("vlist"); if(!list)return;
+  const q=document.getElementById("vq"), count=document.getElementById("vcount");
+  let topic="ทั้งหมด";
+  const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  function draw(){
+    const term=(q.value||"").trim().toLowerCase();
+    const hits=VOCAB.filter(v=>(topic==="ทั้งหมด"||v.g===topic)&&
+      (!term||(v.t+" "+v.e+" "+v.d).toLowerCase().includes(term)));
+    count.textContent=`แสดง ${hits.length} / ${VOCAB.length} คำ`;
+    if(!hits.length){list.innerHTML='<p class="vempty">ไม่พบคำที่ค้น — ลองพิมพ์สั้นลง หรือกด “ทั้งหมด”</p>';return}
+    const by={};
+    hits.forEach(v=>(by[v.g]=by[v.g]||[]).push(v));
+    list.innerHTML=Object.entries(by).map(([g,items])=>
+      `<div class="vgroup"><h5>${esc(g)} · ${items.length} คำ</h5><ul>`+
+      items.map(v=>`<li><b>${esc(v.t)}</b><i>${esc(v.e)}</i><span>${esc(v.d)}</span></li>`).join("")+
+      "</ul></div>").join("");
+  }
+  q.addEventListener("input",draw);
+  chipset(document.getElementById("vChips"),
+    [{t:"ทั้งหมด"},...TOPICS.map(g=>({t:g}))],
+    it=>{topic=it.t;draw()});
+})();
+
+/* ===== tool 24 · flashcards ===== */
+(()=>{
+  const card=document.getElementById("fcCard"); if(!card)return;
+  const MODES=[{t:"ไทย → นิยาม",f:v=>v.t},{t:"นิยาม → ศัพท์",f:v=>v.d},{t:"อังกฤษ → ไทย",f:v=>v.e}];
+  const KEY="mp-vocab-known-v1";
+  const load=()=>{try{return new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){return new Set()}};
+  const save=s=>{try{localStorage.setItem(KEY,JSON.stringify([...s]))}catch(e){}};
+  let known=load(), mode=MODES[0], topic="ทั้งหมด", queue=[], cur=null, again=0, visible=false;
+  const el=id=>document.getElementById(id);
+  const sel=el("fcTopic");
+  sel.innerHTML=[`<option>ทั้งหมด (${VOCAB.length} คำ)</option>`,
+    ...TOPICS.map(g=>`<option value="${g}">${g} (${VOCAB.filter(v=>v.g===g).length} คำ)</option>`)].join("");
+  const pool=()=>VOCAB.filter(v=>topic==="ทั้งหมด"||v.g===topic);
+  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  function build(onlyUnknown){
+    const p=pool().filter(v=>!onlyUnknown||!known.has(v.t));
+    queue=shuffle(p.length?p:pool().slice()); again=0; next();
+  }
+  function stats(){
+    const p=pool(), k=p.filter(v=>known.has(v.t)).length;
+    el("fcFill").style.width=(p.length?k/p.length*100:0).toFixed(1)+"%";
+    el("fcStats").innerHTML=
+      `<span>จำได้ <b>${k}</b> / ${p.length}</span>`+
+      `<span>เหลือในกอง <b>${queue.length}</b></span>`+
+      `<span>รอทวนซ้ำ <b>${again}</b></span>`+
+      `<span>โหมด <b>${mode.t}</b></span>`;
+  }
+  function next(){
+    card.classList.remove("flip");
+    cur=queue.shift()||null;
+    if(!cur){
+      el("fcTag").textContent="จบกอง";
+      el("fcFront").textContent="จบกองนี้แล้ว 🎉";
+      card.querySelector(".fc-front .fc-tap").textContent="กด “↻ สับกองใหม่” เพื่อวนอีกรอบ หรือเปลี่ยนบทด้านบน";
+      stats(); return;
+    }
+    card.querySelector(".fc-front .fc-tap").textContent="กดการ์ดเพื่อพลิกดูเฉลย";
+    el("fcTag").textContent=cur.g;
+    el("fcTag2").textContent=cur.g;
+    el("fcFront").textContent=mode.f(cur);
+    el("fcBackTerm").textContent=cur.t;
+    el("fcEn").textContent=cur.e;
+    el("fcDef").textContent=cur.d;
+    stats();
+  }
+  const flip=()=>{ if(cur)card.classList.toggle("flip") };
+  card.addEventListener("click",flip);
+  card.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();flip()}});
+  el("fcFlip").addEventListener("click",flip);
+  el("fcYes").addEventListener("click",()=>{ if(!cur)return; known.add(cur.t); save(known); next() });
+  el("fcNo").addEventListener("click",()=>{ if(!cur)return; known.delete(cur.t); save(known); queue.push(cur); again++; next() });
+  el("fcShuffle").addEventListener("click",()=>build(false));
+  el("fcReset").addEventListener("click",()=>{ known=new Set(); save(known); build(false) });
+  sel.addEventListener("change",()=>{ topic=sel.selectedIndex===0?"ทั้งหมด":sel.value; build(false) });
+  chipset(el("fcMode"),MODES,it=>{mode=it;if(cur){card.classList.remove("flip");el("fcFront").textContent=mode.f(cur);stats()}});
+  new IntersectionObserver(es=>es.forEach(e=>visible=e.isIntersecting),{threshold:.25})
+    .observe(document.getElementById("flash"));
+  document.addEventListener("keydown",e=>{
+    if(!visible)return;
+    const tag=(e.target.tagName||"").toLowerCase();
+    if(tag==="input"||tag==="select"||tag==="textarea")return;
+    if(e.key===" "||e.key==="f"){e.preventDefault();flip()}
+    else if(e.key==="1")el("fcNo").click();
+    else if(e.key==="2")el("fcYes").click();
+  });
+  build(false);
 })();
 /*LABS*/
 </script>
