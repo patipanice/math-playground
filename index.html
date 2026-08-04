@@ -261,7 +261,7 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
     </svg>
     <b>Math Playground<br>คณิต A-Level</b>
   </div>
-  <p class="sub">24 เครื่องมือให้ลากเล่น · 16 บท + คลังศัพท์ 128 คำ</p>
+  <p class="sub">24 เครื่องมือ · 16 บทคณิต + ศัพท์อังกฤษ 188 คำ</p>
   <nav aria-label="สารบัญเครื่องมือ"><p class="idx-group">พื้นฐาน</p><ul class="idx" id="idx"></ul></nav>
   <div class="side-foot"><button class="tbtn" id="theme">◐ สลับโหมดสว่าง / กระดานดำ</button></div>
 </aside>
@@ -275,7 +275,7 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
     <span class="pill">🖱️ <b>ลาก</b> จุดในกราฟได้เลย</span>
     <span class="pill">🎚️ <b>เลื่อน</b> สไลเดอร์ดูค่าเปลี่ยน</span>
     <span class="pill">🔢 <b>อ่าน</b> ตัวเลขสดใต้ภาพ</span>
-    <span class="pill">🃏 <b>Flashcard</b> สุ่มศัพท์ 128 คำ</span>
+    <span class="pill">🃏 <b>Flashcard</b> ศัพท์อังกฤษ 188 คำ</span>
     <span class="pill">◐ <b>กระดานดำ</b> สำหรับอ่านกลางคืน</span>
   </div>
 </header>
@@ -699,17 +699,18 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
   <div class="keys"><b>ติดตัวไป</b><span>f′(x) = lim<sub>h→0</sub> <span class="fr"><span>f(x+h) − f(x)</span><span>h</span></span></span><span><span class="fr"><span>d</span><span>dx</span></span>xⁿ = nxⁿ⁻¹</span><span>∫xⁿdx = <span class="fr"><span>xⁿ⁺¹</span><span>n+1</span></span> + C</span><span>∫<sub>a</sub><sup>b</sup>f = F(b) − F(a)</span></div>
 </section>
 
-<section class="ch" id="vocab" data-n="ก" data-title="คลังคำศัพท์" data-group="ท่องจำ &amp; คำศัพท์">
+<section class="ch" id="vocab" data-n="ก" data-title="คลังคำศัพท์ อังกฤษ" data-group="ท่องจำ &amp; คำศัพท์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ก</span><span class="ch-tag">เครื่องมือ: ค้นศัพท์ + กรองตามบท</span></div>
-    <h2>คลังคำศัพท์คณิต A-Level</h2>
-    <p class="ch-why">ศัพท์เทคนิคที่โจทย์ใช้จริง พร้อมคำอังกฤษคู่กัน (เจอในตำราและข้อสอบภาษาอังกฤษ) — <b>อ่านคำอธิบายให้จบใน 1 บรรทัด</b> ไม่ต้องเปิดหนังสือ พิมพ์ค้นได้ทั้งไทย อังกฤษ และคำในคำอธิบาย</p>
+    <h2>คลังคำศัพท์ A-Level</h2>
+    <p class="ch-why">ชุดหลักคือ <b>ศัพท์อังกฤษที่ออกสอบ A-Level ภาษาอังกฤษ</b> — คำวิชาการในบทอ่าน คำบอกน้ำเสียงผู้เขียน คำเชื่อม phrasal verb สำนวน และคู่คำที่คนสับสน แต่ละคำบอกชนิดคำ คำแปล นิยามอังกฤษ และประโยคตัวอย่าง · สลับไปดูชุดศัพท์เทคนิคคณิตได้ที่ปุ่มด้านล่าง</p>
   </header>
   <div class="lab">
-    <div class="lab-head"><h4>ค้นหาและกรองตามบท</h4><span>tool 23</span></div>
+    <div class="lab-head"><h4>ค้นหาและกรองตามหมวด</h4><span>tool 23</span></div>
     <div class="lab-body">
+      <div class="chips" id="vDeck" style="margin-bottom:.8rem"></div>
       <div class="vbar">
-        <input class="vsearch" id="vq" type="search" placeholder="พิมพ์ค้น เช่น โดเมน, discriminant, ลู่เข้า, เส้นสัมผัส…" aria-label="ค้นหาคำศัพท์">
+        <input class="vsearch" id="vq" type="search" placeholder="พิมพ์ค้น เช่น ambiguous, บ่อนทำลาย, rule out, อคติ…" aria-label="ค้นหาคำศัพท์">
         <span class="vcount" id="vcount"></span>
       </div>
       <div class="chips" id="vChips" style="margin-top:.7rem"></div>
@@ -721,12 +722,13 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
 <section class="ch" id="flash" data-n="ข" data-title="Flashcard สุ่ม" data-group="ท่องจำ &amp; คำศัพท์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ข</span><span class="ch-tag">เครื่องมือ: การ์ดท่องจำสุ่มลำดับ</span></div>
-    <h2>Flashcard — ท่องแบบสุ่ม</h2>
-    <p class="ch-why">การ์ดสุ่มลำดับใหม่ทุกครั้ง กดพลิกดูเฉลย แล้วตอบตัวเองว่าจำได้หรือยัง — <b>คำที่ตอบว่า “ยังไม่ได้” จะถูกวนกลับมาถามซ้ำท้ายกอง</b> ส่วนคำที่จำได้จะถูกจดไว้ในเครื่อง เปิดหน้าใหม่ก็ยังจำความคืบหน้าได้</p>
+    <h2>Flashcard — ท่องศัพท์แบบสุ่ม</h2>
+    <p class="ch-why">การ์ดสุ่มลำดับใหม่ทุกครั้ง กดพลิกดูเฉลย แล้วตอบตัวเองว่าจำได้หรือยัง — <b>คำที่ตอบว่า “ยังไม่ได้” จะถูกวนกลับมาถามซ้ำท้ายกอง</b> ส่วนคำที่จำได้จะถูกจดไว้ในเครื่อง เปิดหน้าใหม่ก็ยังจำความคืบหน้าได้ (แยกความคืบหน้าของแต่ละชุดคำ)</p>
   </header>
   <div class="lab">
     <div class="lab-head"><h4>พลิกการ์ด · ให้คะแนนตัวเอง · วนคำที่ยังไม่แม่น</h4><span>tool 24 · กดได้ / คีย์บอร์ด</span></div>
     <div class="lab-body">
+      <div class="chips" id="fcDeck" style="margin-bottom:.8rem"></div>
       <div class="fc-top">
         <div class="chips" id="fcMode"></div>
         <select class="fc-sel" id="fcTopic" aria-label="เลือกบท"></select>
@@ -760,9 +762,9 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
     </div>
   </div>
   <div class="try">
-    <div><b>วิธีใช้ 1</b>ปั่นทั้งกอง 128 คำวันละรอบ ใช้เวลาประมาณ 8 นาที</div>
-    <div><b>วิธีใช้ 2</b>เลือกบทเดียวก่อนสอบบทนั้น เช่นกรอง <em>แคลคูลัส</em> เหลือ 10 คำ</div>
-    <div><b>วิธีใช้ 3</b>สลับโหมดเป็น <em>นิยาม → ศัพท์</em> จะยากขึ้นและใกล้เคียงการทำโจทย์จริง</div>
+    <div><b>วิธีใช้ 1</b>ปั่นทั้งกอง 188 คำวันละรอบ ประมาณ 12 นาที ด้วยคีย์ <em>space / 2 / 1</em> รวดเดียว</div>
+    <div><b>วิธีใช้ 2</b>เลือกหมวดเดียวก่อน เช่น <em>Phrasal verbs</em> 18 คำ หรือ <em>คู่คำที่คนสับสน</em> 14 คำ</div>
+    <div><b>วิธีใช้ 3</b>สลับโหมดเป็น <em>ความหมาย → ศัพท์</em> หรือ <em>นิยาม/ตัวอย่าง → ศัพท์</em> จะยากขึ้นและใกล้ข้อสอบจริง</div>
   </div>
 </section>
 
@@ -2111,7 +2113,236 @@ V("แคลคูลัส",[
  ["ปริพันธ์จำกัดเขต","definite integral","พื้นที่ใต้กราฟจาก a ถึง b เท่ากับ F(b) − F(a)"],
  ["ทฤษฎีบทหลักมูลของแคลคูลัส","fundamental theorem of calculus","เชื่อมอนุพันธ์กับปริพันธ์: การหาพื้นที่คือการย้อนกระบวนการหาความชัน"]
 ]);
-const TOPICS=[...new Set(VOCAB.map(v=>v.g))];
+/* ===== ศัพท์อังกฤษ A-Level (data) ===== */
+const ENV=[];
+const E=(g,rows)=>rows.forEach(r=>ENV.push({g,t:r[0],e:r[1],d:r[2]}));
+E("กริยาวิชาการในบทอ่าน",[
+ ["accumulate","v. · สะสมพอกพูนขึ้นเรื่อย ๆ","to increase gradually over time — Plastic waste accumulates in the ocean for centuries."],
+ ["allocate","v. · จัดสรร (งบ/ทรัพยากร)","to give out for a specific purpose — The school allocated 20% of its budget to sports."],
+ ["alleviate","v. · บรรเทา ทำให้ทุเลาลง","to make pain or a problem less severe — The new road alleviated traffic downtown."],
+ ["advocate","v./n. · สนับสนุนอย่างเปิดเผย / ผู้สนับสนุน","to publicly support an idea — She advocates stricter rules on emissions."],
+ ["attribute (to)","v. · ยกให้เป็นผลมาจาก","to say something is caused by — He attributes his success to daily practice."],
+ ["undermine","v. · บ่อนทำลาย ทำให้อ่อนแอลงทีละน้อย","to weaken gradually and secretly — Constant criticism undermined her confidence."],
+ ["implement","v. · นำไปปฏิบัติจริง","to put a plan into action — The policy was implemented last May."],
+ ["undertake","v. · รับทำ (ภารกิจใหญ่)","to take on a task or responsibility — The team undertook a two-year study."],
+ ["comprise","v. · ประกอบด้วย","to consist of — The course comprises ten units. (ส่วนรวมนำหน้า ไม่ต้องมี of)"],
+ ["constitute","v. · เป็น / นับเป็น","to be or form something — Women constitute 60% of the class."],
+ ["derive (from)","v. · ได้มาจาก มีที่มาจาก","to get or come from a source — The word derives from Latin."],
+ ["deteriorate","v. · เสื่อมลง แย่ลง","to become worse — Air quality deteriorated after the fires."],
+ ["diminish","v. · ลดลง เล็กลง","to become or make less — Interest in the sport has diminished."],
+ ["emerge","v. · ปรากฏขึ้น โผล่ออกมา","to appear or become known — New evidence emerged during the trial."],
+ ["exaggerate","v. · พูดเกินจริง","to make something seem bigger than it is — The report exaggerated the risks."],
+ ["facilitate","v. · ทำให้ง่ายขึ้น เอื้อให้เกิด","to make an action easier — Technology facilitates remote learning."],
+ ["hinder","v. · ขัดขวาง หน่วงไว้","to make progress difficult — Heavy rain hindered the rescue."],
+ ["illustrate","v. · แสดงให้เห็น ยกตัวอย่างประกอบ","to make something clear with an example — This case illustrates the problem."],
+ ["imply","v. · บอกเป็นนัย (ผู้พูดเป็นคนทำ)","to suggest without saying directly — His silence implied disagreement."],
+ ["infer","v. · อนุมาน สรุปเอาจากหลักฐาน (ผู้ฟัง/ผู้อ่านเป็นคนทำ)","to conclude from evidence — We can infer from the graph that sales fell."],
+ ["justify","v. · แสดงเหตุผลรองรับ","to give a good reason for — Nothing justifies cheating on an exam."],
+ ["speculate","v. · คาดเดา สันนิษฐาน","to guess without firm evidence — Analysts speculate that prices will rise."],
+ ["refute","v. · หักล้าง โต้แย้งว่าไม่จริง","to prove a claim wrong — The data refutes his theory."],
+ ["convey","v. · สื่อ ถ่ายทอด (ความหมาย/ความรู้สึก)","to communicate an idea — The poem conveys deep loneliness."],
+ ["yield","v. · ให้ผลออกมา / ยอมจำนน","to produce a result, or to give way — The experiment yielded surprising data."],
+ ["compel","v. · บังคับ ทำให้ต้อง","to force someone to act — Poverty compelled him to leave school."]
+]);
+E("คุณศัพท์ที่ออกสอบบ่อย",[
+ ["ambiguous","adj. · กำกวม ตีความได้หลายทาง","having more than one possible meaning — The instructions were ambiguous."],
+ ["arbitrary","adj. · ตามอำเภอใจ ไม่มีเหตุผลรองรับ","based on random choice, not reason — The deadline felt arbitrary."],
+ ["coherent","adj. · เป็นเหตุเป็นผล ต่อเนื่องกลมกลืน","clear and logically connected — She gave a coherent argument."],
+ ["comprehensive","adj. · ครอบคลุมทั่วถึง","including everything needed — a comprehensive review of the literature"],
+ ["controversial","adj. · เป็นที่ถกเถียง","causing public disagreement — a controversial decision"],
+ ["crucial","adj. · สำคัญยิ่ง ชี้เป็นชี้ตาย","extremely important — Sleep is crucial before an exam."],
+ ["detrimental","adj. · ส่งผลเสีย เป็นอันตราย","causing harm — Smoking is detrimental to health."],
+ ["feasible","adj. · ทำได้จริงในทางปฏิบัติ","possible to do — The plan is feasible on this budget."],
+ ["inevitable","adj. · หลีกเลี่ยงไม่ได้","certain to happen — Change is inevitable."],
+ ["inherent","adj. · มีอยู่ในตัวโดยธรรมชาติ","existing as a natural part of something — the inherent risk of surgery"],
+ ["negligible","adj. · น้อยจนไม่ต้องคำนึง","too small to matter — The cost difference is negligible."],
+ ["notorious","adj. · มีชื่อเสียงในทางลบ","famous for something bad — a street notorious for traffic"],
+ ["obsolete","adj. · ล้าสมัย เลิกใช้แล้ว","no longer used — Fax machines are now obsolete."],
+ ["plausible","adj. · ฟังดูน่าเชื่อ","seeming reasonable or probable — a plausible explanation"],
+ ["prevalent","adj. · แพร่หลาย พบทั่วไป","common in a place or time — The virus is prevalent in winter."],
+ ["profound","adj. · ลึกซึ้ง ส่งผลลึก","very great or deeply felt — a profound influence on her work"],
+ ["redundant","adj. · เกินความจำเป็น ซ้ำซ้อน","not needed because it repeats — Delete the redundant sentence."],
+ ["reluctant","adj. · ไม่เต็มใจ ลังเลที่จะทำ","unwilling and hesitating — He was reluctant to admit the mistake."],
+ ["subtle","adj. · ละเอียดอ่อน สังเกตยาก","not obvious; delicate — a subtle change in tone"],
+ ["superficial","adj. · ผิวเผิน ไม่ลึก","only on the surface — a superficial understanding of the topic"],
+ ["vulnerable","adj. · เปราะบาง เสี่ยงถูกทำร้าย","easily harmed — Elderly people are vulnerable to the flu."],
+ ["viable","adj. · ใช้การได้ อยู่รอดได้","able to work successfully — a viable alternative"],
+ ["scarce","adj. · ขาดแคลน หายาก","not enough available — Water became scarce during the drought."],
+ ["abundant","adj. · มีอยู่มากมายเหลือเฟือ","existing in large quantities — Fish were once abundant here."],
+ ["ambivalent","adj. · สองจิตสองใจ รู้สึกทั้งสองทาง","having mixed feelings — She felt ambivalent about moving abroad."],
+ ["indispensable","adj. · ขาดไม่ได้ จำเป็นอย่างยิ่ง","absolutely necessary — A dictionary is indispensable for this course."]
+]);
+E("คำนามนามธรรม",[
+ ["consensus","n. · ฉันทามติ ความเห็นพ้องของกลุ่ม","general agreement — There is scientific consensus on climate change."],
+ ["discrepancy","n. · ความไม่ตรงกันของข้อมูล","a difference between things that should match — a discrepancy in the accounts"],
+ ["dilemma","n. · สภาวะที่ต้องเลือกทางที่ยากทั้งสองทาง","a difficult choice between two options — He faced a moral dilemma."],
+ ["implication","n. · นัย / ผลที่จะตามมา","a likely result, or something suggested — the implications of the new law"],
+ ["incentive","n. · สิ่งจูงใจ","something that encourages action — Tax cuts are an incentive to invest."],
+ ["constraint","n. · ข้อจำกัด สิ่งที่รัดกุมไว้","a limit on what you can do — time constraints"],
+ ["criterion","n. · เกณฑ์ (พหูพจน์ criteria)","a standard used to judge — Price is not the only criterion."],
+ ["hypothesis","n. · สมมติฐาน (พหูพจน์ hypotheses)","an idea to be tested — The data supports our hypothesis."],
+ ["phenomenon","n. · ปรากฏการณ์ (พหูพจน์ phenomena)","an observable event — a natural phenomenon"],
+ ["paradox","n. · ภาวะย้อนแย้ง","a statement that seems to contradict itself but may be true"],
+ ["perspective","n. · มุมมอง แง่มอง","a particular way of viewing things — from a historical perspective"],
+ ["prerequisite","n. · สิ่งที่ต้องมีมาก่อน","something required beforehand — Basic calculus is a prerequisite."],
+ ["scrutiny","n. · การตรวจสอบอย่างละเอียด","careful and critical examination — under public scrutiny"],
+ ["setback","n. · อุปสรรคที่ทำให้ถอยหลัง","a problem that delays progress — a serious setback for the project"],
+ ["surplus","n. · ส่วนเกิน ส่วนที่เหลือ","an amount more than needed — a food surplus"],
+ ["deficit","n. · การขาดดุล ส่วนที่ขาด","the amount by which something is too small — a budget deficit"],
+ ["bias","n. · อคติ ความลำเอียง","an unfair preference — The study showed clear bias."],
+ ["integrity","n. · ความซื่อตรง / ความสมบูรณ์ครบถ้วน","honesty, or the state of being whole — academic integrity"]
+]);
+E("คำบอกน้ำเสียง/ทัศนคติผู้เขียน",[
+ ["objective","adj. · เป็นกลาง อิงข้อเท็จจริง","based on facts, not feelings — an objective account of the events"],
+ ["subjective","adj. · อิงความรู้สึกส่วนตัว","based on personal opinion — Beauty is subjective."],
+ ["skeptical","adj. · คลางแคลงใจ ไม่ค่อยเชื่อ","doubting that something is true — Scientists remain skeptical of the claim."],
+ ["indifferent","adj. · เฉยเมย ไม่สนใจไยดี","showing no interest or concern — He seemed indifferent to the result."],
+ ["sarcastic","adj. · ถากถาง เสียดสีแบบเจ็บแสบ","saying the opposite of what is meant, to mock — a sarcastic remark"],
+ ["ironic","adj. · ตรงข้ามกับที่คาดไว้ ย้อนแย้ง","opposite to what is expected — It is ironic that the fire station burned down."],
+ ["optimistic","adj. · มองโลกในแง่ดี คาดหวังผลดี","expecting good things — an optimistic forecast"],
+ ["pessimistic","adj. · มองโลกในแง่ร้าย","expecting the worst — a pessimistic view of the economy"],
+ ["critical","adj. · วิพากษ์วิจารณ์ / สำคัญยิ่ง","expressing disapproval, or crucial — critical of the government"],
+ ["sympathetic","adj. · เห็นอกเห็นใจ","showing understanding of others' feelings — a sympathetic tone"],
+ ["nostalgic","adj. · คิดถึงอดีตอย่างอบอุ่น","longing fondly for the past — a nostalgic essay about childhood"],
+ ["cautious","adj. · ระมัดระวัง ไม่ฟันธง","careful to avoid risk — a cautious conclusion"],
+ ["assertive","adj. · หนักแน่น มั่นใจในจุดยืน","confident and direct — an assertive argument"],
+ ["condescending","adj. · วางท่าเหนือกว่า ดูถูกกลาย ๆ","treating others as inferior — a condescending remark"],
+ ["impartial","adj. · ไม่ลำเอียง เป็นกลาง","not favoring one side — an impartial judge"],
+ ["witty","adj. · ฉลาดเฉลียวขบขัน","clever and amusing — a witty response"]
+]);
+E("คำเชื่อม & ตัวชี้ทิศทางความคิด",[
+ ["nevertheless / nonetheless","adv. · กระนั้นก็ตาม","despite what was just said — It rained; nevertheless, we went."],
+ ["moreover / furthermore","adv. · ยิ่งกว่านั้น (เพิ่มน้ำหนัก)","in addition, and more importantly — The plan is costly; moreover, it is slow."],
+ ["consequently / hence","adv. · ดังนั้น จึงเป็นผลให้","as a result — Sales fell; consequently, staff were cut."],
+ ["whereas","conj. · ในขณะที่ (เปรียบต่าง)","in contrast to the fact that — He likes tea, whereas she prefers coffee."],
+ ["albeit","conj. · แม้ว่า (ภาษาทางการ)","although — The result was good, albeit unexpected."],
+ ["despite / in spite of","prep. · แม้ว่า + คำนาม","followed by a noun, NOT a clause — despite the rain (ไม่ใช่ despite it rained)"],
+ ["although / even though","conj. · แม้ว่า + ประโยค","followed by subject + verb — although it rained"],
+ ["thereby","adv. · โดยการนั้น ส่งผลให้","by that means — cutting costs, thereby raising profit"],
+ ["otherwise","adv. · มิฉะนั้น / ในทางอื่น","if not — Leave now; otherwise you will be late."],
+ ["likewise","adv. · ในทำนองเดียวกัน","in the same way — Sales rose in Asia; likewise in Europe."],
+ ["namely","adv. · กล่าวคือ ระบุเจาะจง","that is to say — Two students passed, namely Ann and Ben."],
+ ["provided that","conj. · หากว่า โดยมีเงื่อนไขว่า","only if — You may go, provided that you finish first."],
+ ["on the contrary","phr. · ในทางกลับกัน (แก้ความเข้าใจผิด)","used to deny what was just said — He is not lazy; on the contrary, he works hard."],
+ ["in contrast","phr. · ต่างกันโดยสิ้นเชิง","showing a clear difference — In contrast, rural areas grew."],
+ ["regardless of","prep. · ไม่ว่าจะ...ก็ตาม","without being affected by — regardless of the cost"],
+ ["as a result of","phr. · เป็นผลมาจาก","because of — as a result of the storm"]
+]);
+E("Phrasal verbs",[
+ ["account for","อธิบายสาเหตุ / คิดเป็นสัดส่วน","to explain, or to make up a proportion — Exports account for 40% of income."],
+ ["bring about","ทำให้เกิดขึ้น","to cause something to happen — The reform brought about real change."],
+ ["carry out","ดำเนินการ (แผน/การทดลอง)","to perform or complete — They carried out a survey."],
+ ["come up with","คิดออก เสนอ (ไอเดีย)","to produce an idea — She came up with a clever solution."],
+ ["cut down on","ลดปริมาณลง","to reduce consumption — Cut down on sugar."],
+ ["figure out","คิดออก เข้าใจในที่สุด","to understand after thinking — I finally figured out the answer."],
+ ["give in","ยอมแพ้ ยอมตาม","to stop resisting — Do not give in to pressure."],
+ ["look into","สืบสวน ตรวจสอบ","to investigate — Police are looking into the case."],
+ ["put off","เลื่อนออกไป","to postpone — They put off the meeting until Friday."],
+ ["point out","ชี้ให้เห็น","to draw attention to a fact — She pointed out the error."],
+ ["run out of","...หมด ใช้จนไม่เหลือ","to have none left — We ran out of time."],
+ ["rule out","ตัดออกจากความเป็นไปได้","to exclude a possibility — Doctors ruled out an allergy."],
+ ["take over","เข้าควบคุม รับช่วงต่อ","to gain control — A new manager took over."],
+ ["turn down","ปฏิเสธข้อเสนอ / หรี่เสียงลง","to reject, or to reduce — He turned down the job offer."],
+ ["get rid of","กำจัด ทำให้หมดไป","to remove something unwanted — get rid of old files"],
+ ["keep up with","ตามให้ทัน","to stay level with — hard to keep up with the reading"],
+ ["stand out","โดดเด่น สะดุดตา","to be clearly noticeable — Her essay stood out."],
+ ["carry on","ทำต่อไป","to continue — Carry on without me."]
+]);
+E("สำนวน & คำที่ไปด้วยกัน",[
+ ["a double-edged sword","ดาบสองคม มีทั้งข้อดีข้อเสีย","something with both good and bad effects — Social media is a double-edged sword."],
+ ["in the long run","ในระยะยาว","over a long period — Saving pays off in the long run."],
+ ["take (something) for granted","มองข้ามคุณค่า คิดว่าเป็นเรื่องธรรมดา","to fail to appreciate — We take clean water for granted."],
+ ["a blessing in disguise","โชคดีที่แฝงมาในรูปเรื่องร้าย","something bad that turns out to be good"],
+ ["cut corners","ทำลวก ๆ เพื่อประหยัดเวลาหรือเงิน","to do something badly to save time or money"],
+ ["on the verge of","ใกล้จะ... จ่อจะ...","very close to — a species on the verge of extinction"],
+ ["at odds with","ขัดแย้งกับ ไม่ลงรอย","in disagreement with — His view is at odds with the data."],
+ ["bear in mind","จำไว้ว่า คำนึงถึง","to remember and consider — Bear in mind that space is limited."],
+ ["play a crucial role in","มีบทบาทสำคัญยิ่งใน","to be very important in — Bees play a crucial role in farming."],
+ ["pose a threat to","เป็นภัยคุกคามต่อ","to be dangerous to — Plastic poses a threat to marine life."],
+ ["shed light on","ช่วยให้เข้าใจกระจ่างขึ้น","to make something clearer — The study sheds light on the cause."],
+ ["raise awareness of","สร้างความตระหนักรู้เรื่อง","to make people more conscious of an issue"],
+ ["come to terms with","ยอมรับสิ่งที่ยากจะรับได้","to accept a difficult situation — He came to terms with the loss."],
+ ["be prone to","มีแนวโน้มจะเป็น/เกิด","likely to suffer from — The area is prone to flooding."]
+]);
+E("คู่คำที่คนสับสน",[
+ ["affect vs effect","affect = v. ส่งผลต่อ · effect = n. ผลกระทบ","Noise affects sleep. · Noise has an effect on sleep."],
+ ["principal vs principle","principal = ครูใหญ่/สำคัญที่สุด · principle = หลักการ","the principal reason · a matter of principle"],
+ ["economic vs economical","economic = ทางเศรษฐกิจ · economical = ประหยัด คุ้มค่า","economic growth · an economical car"],
+ ["sensitive vs sensible","sensitive = อ่อนไหว รับรู้ไว · sensible = มีเหตุผล สมเหตุสมผล","sensitive skin · a sensible decision"],
+ ["adopt vs adapt","adopt = รับมาใช้/รับเป็นบุตร · adapt = ปรับให้เข้ากับ","adopt a policy · adapt to a new school"],
+ ["complement vs compliment","complement = เสริมให้ครบ · compliment = คำชม","The wine complements the dish. · a kind compliment"],
+ ["rise vs raise","rise = ขึ้นเอง (ไม่มีกรรม) · raise = ยกขึ้น (ต้องมีกรรม)","Prices rise. · They raise prices."],
+ ["lie vs lay","lie = นอน/วางอยู่ (lay, lain) · lay = วางลง (laid, laid)","She lies down. · She lays the book down."],
+ ["among vs between","between = ระหว่างสองสิ่ง · among = ท่ามกลางหลายสิ่ง","between you and me · popular among teenagers"],
+ ["fewer vs less","fewer = นับได้ · less = นับไม่ได้","fewer cars · less traffic"],
+ ["stationary vs stationery","stationary = อยู่นิ่ง ไม่เคลื่อน · stationery = เครื่องเขียน","a stationary car · buy stationery"],
+ ["assure / ensure / insure","assure = ทำให้มั่นใจ (คน) · ensure = ทำให้แน่ใจว่าเกิด · insure = ทำประกัน","I assure you. · Ensure the door is locked. · insure the house"],
+ ["literally vs figuratively","literally = ตามตัวอักษรจริง ๆ · figuratively = เป็นการเปรียบเทียบ","He literally ran 10 km. · figuratively speaking"],
+ ["practice vs practise","practice = คำนาม (US ใช้เป็นกริยาด้วย) · practise = กริยา (UK)","daily practice · practise the piano"]
+]);
+E("ศัพท์บทอ่านวิทยาศาสตร์ & สิ่งแวดล้อม",[
+ ["sustainable","adj. · ยั่งยืน ใช้ได้ต่อเนื่องไม่หมด","able to continue without damaging the environment — sustainable farming"],
+ ["emission","n. · การปล่อย (ก๊าซ/มลพิษ)","gas or heat released into the air — carbon emissions"],
+ ["habitat","n. · ถิ่นที่อยู่อาศัยตามธรรมชาติ","the natural home of a plant or animal — destroyed habitats"],
+ ["biodiversity","n. · ความหลากหลายทางชีวภาพ","the variety of living things in an area"],
+ ["extinct","adj. · สูญพันธุ์ไปแล้ว","no longer existing — The species went extinct in 1936."],
+ ["deforestation","n. · การทำลายป่า","the clearing of forests — Deforestation drives climate change."],
+ ["drought","n. · ภาวะแห้งแล้งฝนไม่ตกนาน","a long period without rain"],
+ ["contaminate","v. · ปนเปื้อน ทำให้เป็นพิษ","to make something dirty or poisonous — contaminated water"],
+ ["renewable","adj. · หมุนเวียนใช้ใหม่ได้ (พลังงาน)","naturally replaced — renewable energy such as solar"],
+ ["fossil fuel","n. · เชื้อเพลิงฟอสซิล","coal, oil, or gas formed from ancient remains"],
+ ["greenhouse effect","n. · ปรากฏการณ์เรือนกระจก","the trapping of heat by gases in the atmosphere"],
+ ["outbreak","n. · การระบาดขึ้นอย่างฉับพลัน","a sudden start of disease — a cholera outbreak"],
+ ["immune","adj. · มีภูมิคุ้มกัน ไม่ได้รับผล","protected against a disease — immune to measles"],
+ ["symptom","n. · อาการของโรค","a sign of illness — Fever is a common symptom."],
+ ["adapt to","v. · ปรับตัวเข้ากับ","to change in order to survive — Animals adapt to warmer seas."],
+ ["depletion","n. · การร่อยหรอลดลงจนใกล้หมด","the reduction of a resource — ozone depletion"]
+]);
+E("ศัพท์บทอ่านสังคม & เศรษฐกิจ",[
+ ["urbanization","n. · การขยายตัวของเมือง","the growth of cities as people move in"],
+ ["inequality","n. · ความไม่เท่าเทียม","an unfair difference between groups — income inequality"],
+ ["literacy","n. · การอ่านออกเขียนได้","the ability to read and write — a high literacy rate"],
+ ["unemployment","n. · การว่างงาน","the state of having no job — rising unemployment"],
+ ["inflation","n. · ภาวะเงินเฟ้อ ราคาสินค้าสูงขึ้น","a general rise in prices"],
+ ["revenue","n. · รายรับ รายได้ (ขององค์กร/รัฐ)","money coming in — tax revenue"],
+ ["subsidy","n. · เงินอุดหนุนจากรัฐ","money given by a government to lower costs"],
+ ["welfare","n. · สวัสดิการ ความอยู่ดีมีสุข","health and happiness, or state support"],
+ ["migration","n. · การย้ายถิ่น","movement of people or animals to a new area"],
+ ["discrimination","n. · การเลือกปฏิบัติอย่างไม่เป็นธรรม","unfair treatment based on race, sex, age, etc."],
+ ["poverty","n. · ความยากจน","the state of being very poor — living in poverty"],
+ ["infrastructure","n. · โครงสร้างพื้นฐาน","basic systems such as roads, power, and water"],
+ ["legislation","n. · กฎหมายที่ออกใช้","laws made by a government — new environmental legislation"],
+ ["monopoly","n. · การผูกขาด","complete control of a market by one company"]
+]);
+E("คำนำหน้า & ปัจจัย (เดาความหมายได้)",[
+ ["un- / in- / im- / il- / ir-","ปฏิเสธ = ไม่","unfair, incapable, impossible, illegal, irregular"],
+ ["dis-","ตรงกันข้าม / แยกออก","disagree, disappear, disconnect"],
+ ["mis-","ผิด คลาดเคลื่อน","misunderstand, misuse, mislead"],
+ ["re-","ทำใหม่ อีกครั้ง","rewrite, reconsider, renewable"],
+ ["pre- / post-","ก่อน / หลัง","prehistoric, prerequisite · postwar, postpone"],
+ ["over- / under-","มากเกินไป / น้อยเกินไป","overestimate, overcrowded · underestimate, underdeveloped"],
+ ["-able / -ible","สามารถ...ได้","sustainable, reliable, visible, feasible"],
+ ["-less","ไร้ ปราศจาก","harmless, endless, worthless"],
+ ["-ify / -en","ทำให้เป็น (กริยา)","simplify, clarify · strengthen, widen"],
+ ["-ness / -ity / -tion","ทำให้เป็นคำนาม","awareness, diversity, pollution"]
+]);
+/* ===== decks ===== */
+const DECKS=[
+  {id:"en",label:"ศัพท์อังกฤษ A-Level",items:ENV},
+  {id:"math",label:"ศัพท์เทคนิคคณิต",items:VOCAB}
+];
+let DECK=DECKS[0];
+const deckSubs=[];
+function setDeck(d){ DECK=d; deckSubs.forEach(f=>f()) }
+function deckChips(hostId){
+  const host=document.getElementById(hostId); if(!host)return;
+  const bs=chipset(host,DECKS.map(d=>({t:`${d.label} · ${d.items.length} คำ`,d})),it=>{
+    if(DECK!==it.d)setDeck(it.d);
+  });
+  /* keep both switchers in sync */
+  deckSubs.push(()=>bs.forEach((b,i)=>b.setAttribute("aria-pressed",DECKS[i]===DECK?"true":"false")));
+}
+const topicsOf=d=>[...new Set(d.items.map(v=>v.g))];
 
 /* ===== tool 23 · glossary ===== */
 (()=>{
@@ -2121,9 +2352,9 @@ const TOPICS=[...new Set(VOCAB.map(v=>v.g))];
   const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
   function draw(){
     const term=(q.value||"").trim().toLowerCase();
-    const hits=VOCAB.filter(v=>(topic==="ทั้งหมด"||v.g===topic)&&
+    const hits=DECK.items.filter(v=>(topic==="ทั้งหมด"||v.g===topic)&&
       (!term||(v.t+" "+v.e+" "+v.d).toLowerCase().includes(term)));
-    count.textContent=`แสดง ${hits.length} / ${VOCAB.length} คำ`;
+    count.textContent=`แสดง ${hits.length} / ${DECK.items.length} คำ`;
     if(!hits.length){list.innerHTML='<p class="vempty">ไม่พบคำที่ค้น — ลองพิมพ์สั้นลง หรือกด “ทั้งหมด”</p>';return}
     const by={};
     hits.forEach(v=>(by[v.g]=by[v.g]||[]).push(v));
@@ -2133,24 +2364,34 @@ const TOPICS=[...new Set(VOCAB.map(v=>v.g))];
       "</ul></div>").join("");
   }
   q.addEventListener("input",draw);
-  chipset(document.getElementById("vChips"),
-    [{t:"ทั้งหมด"},...TOPICS.map(g=>({t:g}))],
-    it=>{topic=it.t;draw()});
+  const chipHost=document.getElementById("vChips");
+  function buildChips(){
+    chipHost.innerHTML=""; topic="ทั้งหมด";
+    chipset(chipHost,[{t:"ทั้งหมด"},...topicsOf(DECK).map(g=>({t:g}))],it=>{topic=it.t;draw()});
+  }
+  deckChips("vDeck");
+  deckSubs.push(buildChips);
+  buildChips();
 })();
 
 /* ===== tool 24 · flashcards ===== */
 (()=>{
   const card=document.getElementById("fcCard"); if(!card)return;
-  const MODES=[{t:"ไทย → นิยาม",f:v=>v.t},{t:"นิยาม → ศัพท์",f:v=>v.d},{t:"อังกฤษ → ไทย",f:v=>v.e}];
-  const KEY="mp-vocab-known-v1";
-  const load=()=>{try{return new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){return new Set()}};
-  const save=s=>{try{localStorage.setItem(KEY,JSON.stringify([...s]))}catch(e){}};
+  const MODES=[{t:"ศัพท์ → ความหมาย",f:v=>v.t},{t:"ความหมาย → ศัพท์",f:v=>v.e},{t:"นิยาม/ตัวอย่าง → ศัพท์",f:v=>v.d}];
+  const KEY=()=>"mp-known-"+DECK.id+"-v1";
+  const load=()=>{try{return new Set(JSON.parse(localStorage.getItem(KEY())||"[]"))}catch(e){return new Set()}};
+  const save=s=>{try{localStorage.setItem(KEY(),JSON.stringify([...s]))}catch(e){}};
   let known=load(), mode=MODES[0], topic="ทั้งหมด", queue=[], cur=null, again=0, visible=false;
   const el=id=>document.getElementById(id);
   const sel=el("fcTopic");
-  sel.innerHTML=[`<option>ทั้งหมด (${VOCAB.length} คำ)</option>`,
-    ...TOPICS.map(g=>`<option value="${g}">${g} (${VOCAB.filter(v=>v.g===g).length} คำ)</option>`)].join("");
-  const pool=()=>VOCAB.filter(v=>topic==="ทั้งหมด"||v.g===topic);
+  function fillTopics(){
+    topic="ทั้งหมด";
+    sel.innerHTML=[`<option>ทั้งหมด (${DECK.items.length} คำ)</option>`,
+      ...topicsOf(DECK).map(g=>`<option value="${g}">${g} (${DECK.items.filter(v=>v.g===g).length} คำ)</option>`)].join("");
+    sel.selectedIndex=0;
+  }
+  fillTopics();
+  const pool=()=>DECK.items.filter(v=>topic==="ทั้งหมด"||v.g===topic);
   const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
   function build(onlyUnknown){
     const p=pool().filter(v=>!onlyUnknown||!known.has(v.t));
@@ -2160,6 +2401,7 @@ const TOPICS=[...new Set(VOCAB.map(v=>v.g))];
     const p=pool(), k=p.filter(v=>known.has(v.t)).length;
     el("fcFill").style.width=(p.length?k/p.length*100:0).toFixed(1)+"%";
     el("fcStats").innerHTML=
+      `<span>ชุด <b>${DECK.label}</b></span>`+
       `<span>จำได้ <b>${k}</b> / ${p.length}</span>`+
       `<span>เหลือในกอง <b>${queue.length}</b></span>`+
       `<span>รอทวนซ้ำ <b>${again}</b></span>`+
@@ -2192,6 +2434,8 @@ const TOPICS=[...new Set(VOCAB.map(v=>v.g))];
   el("fcShuffle").addEventListener("click",()=>build(false));
   el("fcReset").addEventListener("click",()=>{ known=new Set(); save(known); build(false) });
   sel.addEventListener("change",()=>{ topic=sel.selectedIndex===0?"ทั้งหมด":sel.value; build(false) });
+  deckChips("fcDeck");
+  deckSubs.push(()=>{ known=load(); fillTopics(); build(false) });
   chipset(el("fcMode"),MODES,it=>{mode=it;if(cur){card.classList.remove("flip");el("fcFront").textContent=mode.f(cur);stats()}});
   new IntersectionObserver(es=>es.forEach(e=>visible=e.isIntersecting),{threshold:.25})
     .observe(document.getElementById("flash"));
