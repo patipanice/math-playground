@@ -1,0 +1,1823 @@
+<title>Math Playground — คณิต A-Level ที่กดเล่นได้</title>
+
+<style>
+/* ============ tokens ============ */
+:root{
+  --paper:#F1F4F7; --surface:#FFFFFF; --surface-2:#F7F9FB;
+  --ink:#14243A; --ink-soft:#4E5F76; --ink-faint:#8A9AAE;
+  --line:#D8E0E8; --grid:rgba(20,36,58,.075); --grid-bold:rgba(20,36,58,.16);
+  --accent:#1B4FD8; --accent-soft:#E7EDFD; --mark:#FFD24A;
+  --p1:#1B4FD8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
+  --good:#0F8A5F; --warn:#C97A0A; --bad:#C8322B;
+  --shadow:0 1px 2px rgba(20,36,58,.06),0 10px 28px -18px rgba(20,36,58,.3);
+  --display:"Kanit","Prompt","Noto Sans Thai","IBM Plex Sans Thai",system-ui,sans-serif;
+  --body:"Sarabun","IBM Plex Sans Thai","Noto Sans Thai","Thonburi",system-ui,sans-serif;
+  --math:"Cambria Math","STIX Two Math","Latin Modern Math",Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"JetBrains Mono","SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0E141C; --surface:#161F2A; --surface-2:#1B2530;
+    --ink:#E7EEF5; --ink-soft:#9FB0C2; --ink-faint:#6F8095;
+    --line:#28323F; --grid:rgba(231,238,245,.07); --grid-bold:rgba(231,238,245,.16);
+    --accent:#7AA2FF; --accent-soft:#1C2942; --mark:#FFCE5C;
+    --p1:#7AA2FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
+    --good:#43C98D; --warn:#FFC163; --bad:#FF7B72;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -20px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E141C; --surface:#161F2A; --surface-2:#1B2530;
+  --ink:#E7EEF5; --ink-soft:#9FB0C2; --ink-faint:#6F8095;
+  --line:#28323F; --grid:rgba(231,238,245,.07); --grid-bold:rgba(231,238,245,.16);
+  --accent:#7AA2FF; --accent-soft:#1C2942; --mark:#FFCE5C;
+  --p1:#7AA2FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
+  --good:#43C98D; --warn:#FFC163; --bad:#FF7B72;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -20px rgba(0,0,0,.85);
+}
+:root[data-theme="light"]{
+  --paper:#F1F4F7; --surface:#FFFFFF; --surface-2:#F7F9FB;
+  --ink:#14243A; --ink-soft:#4E5F76; --ink-faint:#8A9AAE;
+  --line:#D8E0E8; --grid:rgba(20,36,58,.075); --grid-bold:rgba(20,36,58,.16);
+  --accent:#1B4FD8; --accent-soft:#E7EDFD; --mark:#FFD24A;
+  --p1:#1B4FD8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
+  --good:#0F8A5F; --warn:#C97A0A; --bad:#C8322B;
+  --shadow:0 1px 2px rgba(20,36,58,.06),0 10px 28px -18px rgba(20,36,58,.3);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--body); font-size:16.5px; line-height:1.7; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:26px 26px;
+}
+h1,h2,h3,h4,h5{font-family:var(--display); font-weight:600; line-height:1.25; text-wrap:balance; margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:2.5px solid var(--accent); outline-offset:2px; border-radius:5px}
+
+.m{font-family:var(--math); font-size:1.06em; white-space:nowrap}
+.m i,i.v{font-family:var(--math); font-style:italic}
+.fr{display:inline-flex; flex-direction:column; vertical-align:-.48em; text-align:center; font-size:.86em; line-height:1.22; margin:0 .15em}
+.fr>span:first-child{border-bottom:1.2px solid currentColor; padding:0 .3em}
+.fr>span:last-child{padding:0 .3em}
+mark{background:linear-gradient(transparent 55%,var(--mark) 55%); color:inherit; padding:0 .1em}
+
+/* ============ shell ============ */
+.wrap{display:grid; grid-template-columns:262px minmax(0,1fr); max-width:1420px; margin:0 auto}
+.side{
+  position:sticky; top:0; align-self:start; height:100dvh; overflow-y:auto;
+  padding:1.5rem 1rem 3rem; border-right:1px solid var(--line);
+  background:color-mix(in srgb,var(--paper) 88%,transparent); backdrop-filter:blur(8px);
+}
+.brand{display:flex; gap:.55rem; align-items:center}
+.brand svg{width:30px; height:30px; flex:0 0 auto}
+.brand b{font-family:var(--display); font-size:1rem; letter-spacing:-.01em; line-height:1.2}
+.side .sub{font-size:.75rem; color:var(--ink-faint); margin:.5rem 0 1rem}
+.idx{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1px}
+.idx a{
+  display:grid; grid-template-columns:1.7rem 1fr; align-items:baseline; gap:.3rem;
+  padding:.32rem .5rem; border-radius:8px; text-decoration:none; color:var(--ink-soft); font-size:.87rem;
+}
+.idx a:hover{background:var(--surface); color:var(--ink)}
+.idx a.on{background:var(--accent-soft); color:var(--accent); font-weight:600}
+.idx .n{font-family:var(--mono); font-size:.68rem; color:var(--ink-faint); font-variant-numeric:tabular-nums}
+.idx a.on .n{color:var(--accent)}
+.idx-group{font-size:.66rem; text-transform:uppercase; letter-spacing:.14em; color:var(--ink-faint); margin:1rem 0 .3rem .5rem}
+.side-foot{margin-top:1.4rem; padding-top:.9rem; border-top:1px solid var(--line)}
+.tbtn{
+  appearance:none; background:var(--surface); border:1px solid var(--line); color:var(--ink-soft);
+  border-radius:9px; padding:.42rem .6rem; font:inherit; font-size:.79rem; cursor:pointer; text-align:left; width:100%;
+}
+.tbtn:hover{border-color:var(--accent); color:var(--accent)}
+main{min-width:0; padding:0 clamp(1rem,3vw,2.8rem) 5rem}
+
+/* ============ hero ============ */
+.hero{padding:clamp(2.2rem,5vw,3.8rem) 0 1.6rem}
+.eyebrow{font-size:.71rem; text-transform:uppercase; letter-spacing:.18em; color:var(--accent); font-weight:600; margin:0 0 .7rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem); letter-spacing:-.02em}
+.hero h1 em{font-style:normal; color:var(--accent)}
+.hero .lead{font-size:1.08rem; color:var(--ink-soft); max-width:54ch; margin:.9rem 0 0}
+.hero-how{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.4rem}
+.pill{
+  font-size:.79rem; background:var(--surface); border:1px solid var(--line); color:var(--ink-soft);
+  padding:.3rem .7rem; border-radius:20px;
+}
+.pill b{color:var(--ink)}
+
+/* ============ chapter = playground ============ */
+.ch{padding:2.6rem 0 .6rem; border-top:1px solid var(--line)}
+.ch-head{margin-bottom:1.1rem}
+.ch-kicker{display:flex; align-items:center; gap:.6rem; margin-bottom:.45rem}
+.ch-num{font-family:var(--mono); font-size:.7rem; background:var(--ink); color:var(--paper); padding:.14rem .42rem; border-radius:5px}
+.ch-tag{font-size:.71rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint)}
+.ch h2{font-size:clamp(1.45rem,3vw,1.95rem); letter-spacing:-.015em}
+.ch-why{color:var(--ink-soft); max-width:62ch; margin:.4rem 0 0; font-size:.98rem}
+.ch-why b{color:var(--ink)}
+
+.lab{margin:1.3rem 0; background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); overflow:hidden}
+.lab-head{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; padding:.75rem 1rem; border-bottom:1px solid var(--line); background:var(--surface-2)}
+.lab-head h4{font-size:.92rem}
+.lab-head span{font-family:var(--mono); font-size:.68rem; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); white-space:nowrap}
+.lab-body{padding:1rem}
+.lab-canvas{
+  position:relative; width:100%; aspect-ratio:16/10; min-height:240px;
+  border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--surface-2); touch-action:none;
+}
+.lab-canvas.tall{aspect-ratio:4/3}
+.lab-canvas.flat{aspect-ratio:16/6; min-height:150px}
+.lab-canvas.grab{cursor:grab}
+.lab-canvas canvas{display:block; width:100%; height:100%}
+.ctrls{display:flex; flex-wrap:wrap; gap:.7rem 1.3rem; margin-top:.9rem}
+.ctrl{display:flex; flex-direction:column; gap:.1rem; min-width:140px; flex:1 1 140px}
+.ctrl label{font-size:.75rem; color:var(--ink-soft); display:flex; justify-content:space-between; gap:.5rem; font-family:var(--mono); font-variant-numeric:tabular-nums}
+.ctrl label b{color:var(--accent)}
+input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:20px; background:transparent; cursor:grab; margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:4px; border-radius:3px; background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:16px; height:16px; margin-top:-6px; border-radius:50%; background:var(--accent); border:2px solid var(--surface); box-shadow:0 1px 3px rgba(0,0,0,.35)}
+input[type=range]::-moz-range-track{height:4px; border-radius:3px; background:var(--line)}
+input[type=range]::-moz-range-thumb{width:14px; height:14px; border-radius:50%; background:var(--accent); border:2px solid var(--surface)}
+.chips{display:flex; flex-wrap:wrap; gap:.35rem}
+.chip{appearance:none; font:inherit; font-size:.8rem; cursor:pointer; background:var(--surface-2); border:1px solid var(--line); color:var(--ink-soft); padding:.28rem .62rem; border-radius:20px}
+.chip:hover{border-color:var(--accent); color:var(--accent)}
+.chip[aria-pressed=true]{background:var(--accent); border-color:var(--accent); color:#fff}
+.readout{display:flex; flex-wrap:wrap; gap:.35rem .45rem; margin-top:.85rem; font-family:var(--mono); font-size:.79rem; font-variant-numeric:tabular-nums}
+.readout span{background:var(--surface-2); border:1px solid var(--line); border-radius:7px; padding:.24rem .55rem; color:var(--ink-faint)}
+.readout span b{color:var(--ink)}
+.readout span.hi{border-color:var(--accent); background:var(--accent-soft)}
+.readout span.hi b{color:var(--accent)}
+.legend{display:flex; flex-wrap:wrap; gap:.3rem .9rem; margin-top:.7rem; font-size:.78rem; color:var(--ink-soft)}
+.legend i{display:inline-block; width:15px; height:3px; border-radius:2px; margin-right:.3rem; vertical-align:middle}
+.hint{font-size:.79rem; color:var(--ink-faint); margin:.75rem 0 0}
+.hint::before{content:"↳ "; color:var(--accent)}
+
+/* try-this: the point of the page */
+.try{margin:1.1rem 0 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.6rem}
+.try>div{
+  background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--mark);
+  border-radius:0 10px 10px 0; padding:.6rem .8rem; font-size:.87rem; color:var(--ink-soft);
+}
+.try>div b{display:block; font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--warn); margin-bottom:.15rem}
+.try>div em{font-style:normal; color:var(--ink)}
+.keys{margin:1rem 0 0; padding:.7rem .9rem; background:var(--surface-2); border:1px solid var(--line); border-radius:10px; font-family:var(--math); font-size:1.02rem; display:flex; flex-wrap:wrap; gap:.3rem 1.4rem; overflow-x:auto}
+.keys b{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); align-self:center}
+.tblwrap{overflow-x:auto; margin:.9rem 0 0}
+table{border-collapse:collapse; font-size:.86rem; min-width:100%}
+th,td{border:1px solid var(--line); padding:.38rem .65rem; text-align:left}
+th{background:var(--surface-2); font-family:var(--display); font-weight:500; font-size:.8rem}
+td{font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td{background:var(--surface-2)}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:.9rem}
+
+.sheet{padding:2.8rem 0 1rem; border-top:1px solid var(--line)}
+.sheet-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:.8rem; margin-top:1.2rem}
+.sheet-grid section{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:.85rem .95rem}
+.sheet-grid h4{font-size:.83rem; margin-bottom:.45rem; color:var(--accent)}
+.sheet-grid ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.3rem; font-family:var(--math); font-size:.96rem; color:var(--ink-soft)}
+footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-faint); font-size:.83rem; max-width:66ch}
+
+@media (max-width:940px){
+  .wrap{grid-template-columns:1fr}
+  .side{position:static; height:auto; border-right:0; border-bottom:1px solid var(--line); padding:.9rem 1rem 1rem}
+  .side .idx{display:grid; grid-template-columns:repeat(auto-fill,minmax(145px,1fr)); gap:2px}
+  .idx-group{grid-column:1/-1}
+  main{padding:0 1rem 4rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="wrap">
+<aside class="side">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="1" y="1" width="30" height="30" rx="6" fill="none" stroke="var(--line)"/>
+      <path d="M4 24C10 24 12 8 16 8s6 16 12 16" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="16" cy="8" r="2.6" fill="var(--mark)"/>
+    </svg>
+    <b>Math Playground<br>คณิต A-Level</b>
+  </div>
+  <p class="sub">22 เครื่องมือให้ลากเล่น · 16 บทตามหลักสูตร</p>
+  <nav aria-label="สารบัญเครื่องมือ"><p class="idx-group">พื้นฐาน</p><ul class="idx" id="idx"></ul></nav>
+  <div class="side-foot"><button class="tbtn" id="theme">◐ สลับโหมดสว่าง / กระดานดำ</button></div>
+</aside>
+
+<main>
+<header class="hero">
+  <p class="eyebrow">คณิตศาสตร์ประยุกต์ 1 · TCAS A-Level</p>
+  <h1>อย่าอ่านคณิต —<br><em>ลากมันเล่น</em>ดูก่อน</h1>
+  <p class="lead">ทุกเรื่องที่ใช้สอบเข้ามหาวิทยาลัย เปลี่ยนเป็นเครื่องมือที่กดเล่นได้ เลื่อนค่าแล้วดูว่ากราฟ วงกลม เมทริกซ์ หรือพื้นที่ใต้กราฟขยับยังไง — เข้าใจก่อน แล้วสูตรจะตามมาเอง</p>
+  <div class="hero-how">
+    <span class="pill">🖱️ <b>ลาก</b> จุดในกราฟได้เลย</span>
+    <span class="pill">🎚️ <b>เลื่อน</b> สไลเดอร์ดูค่าเปลี่ยน</span>
+    <span class="pill">🔢 <b>อ่าน</b> ตัวเลขสดใต้ภาพ</span>
+    <span class="pill">◐ <b>กระดานดำ</b> สำหรับอ่านกลางคืน</span>
+  </div>
+</header>
+<section class="ch" id="ch1" data-n="01" data-title="เซต" data-group="พื้นฐาน">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">01</span><span class="ch-tag">เครื่องมือ: เวนน์ไดอะแกรม</span></div>
+    <h2>เซต</h2>
+    <p class="ch-why">กดชื่อนิพจน์ แล้วดูว่ามัน<b>ระบายพื้นที่ไหน</b> — พอเห็นพื้นที่ ก็ไม่ต้องท่องกฎเดอมอร์แกนอีก</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>กดเปลี่ยนนิพจน์ → ดูพื้นที่ที่ถูกระบาย</h4><span>tool 01</span></div>
+    <div class="lab-body">
+      <div class="chips" id="vennChips"></div>
+      <div class="lab-canvas tall" id="venn" style="margin-top:.8rem"></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>กด <em>(A ∩ B)′</em> แล้วกด <em>A′ ∪ B′</em> สลับไปมา — พื้นที่ต่างกันไหม</div>
+    <div><b>ลองข้อ 2</b>กด <em>A ∩ (B ∪ C)</em> เทียบกับ <em>(A∩B) ∪ (A∩C)</em> นี่คือกฎการแจกแจง</div>
+    <div><b>ลองข้อ 3</b>หา 2 นิพจน์ที่ระบายพื้นที่ “นอกวงทั้งหมด” ได้เหมือนกัน</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>n(A∪B) = n(A)+n(B) − n(A∩B)</span><span>สับเซตทั้งหมด = 2<sup>n</sup></span><span>A − B = A ∩ B′</span></div>
+</section>
+
+<section class="ch" id="ch2" data-n="02" data-title="ตรรกศาสตร์" data-group="พื้นฐาน">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">02</span><span class="ch-tag">เครื่องมือ: สวิตช์ค่าความจริง</span></div>
+    <h2>ตรรกศาสตร์</h2>
+    <p class="ch-why">กดสวิตช์ <b>p</b> กับ <b>q</b> เป็นจริง/เท็จ แล้วดูว่านิพจน์ทุกอันสว่างขึ้นพร้อมกันแบบไหน แถวที่ไฮไลต์คือกรณีที่คุณกดอยู่</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>สวิตช์ p, q → ตารางค่าความจริงสด</h4><span>tool 02</span></div>
+    <div class="lab-body">
+      <div class="chips" id="ttSwitch"></div>
+      <div class="tblwrap" id="ttTable"></div>
+      <p class="hint">คอลัมน์ที่มีค่าเหมือนกันทุกแถว = <b>สมมูลกัน</b> ใช้แทนกันได้ในข้อสอบ</p>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>หาคอลัมน์ที่เหมือน <em>p → q</em> เป๊ะทุกแถว (มี 2 คอลัมน์)</div>
+    <div><b>ลองข้อ 2</b>ตั้ง p จริง, q เท็จ — สังเกตว่าเป็นกรณี<em>เดียว</em>ที่ p → q เป็นเท็จ</div>
+    <div><b>ลองข้อ 3</b>มีคอลัมน์ไหนเป็น T ทั้ง 4 แถว (สัจนิรันดร์) บ้าง</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>p → q ≡ ~p ∨ q ≡ ~q → ~p</span><span>~(p → q) ≡ p ∧ ~q</span><span>~∀x[P] ≡ ∃x[~P]</span></div>
+</section>
+
+<section class="ch" id="ch3" data-n="03" data-title="อสมการ &amp; ค่าสัมบูรณ์" data-group="พื้นฐาน">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">03</span><span class="ch-tag">เครื่องมือ: ตารางเครื่องหมาย + เส้นจำนวน</span></div>
+    <h2>อสมการ &amp; ค่าสัมบูรณ์</h2>
+    <p class="ch-why">เลื่อนรากไปมา แล้วดูว่าช่วงคำตอบ<b>วิ่งตาม</b>ยังไง โดยเฉพาะตอนที่ราก 2 ตัวชนกัน (กำลังคู่) — เครื่องหมายจะไม่สลับ</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>ลากรากของ (x−r₁)(x−r₂)(x−r₃) → อ่านช่วงคำตอบ</h4><span>tool 03</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas" id="sign"></div>
+      <div id="signCtl"></div>
+      <div class="chips" id="signChips" style="margin-top:.6rem"></div>
+      <div id="signOut"></div>
+      <p class="hint">พื้นหลังเขียว = นิพจน์เป็นบวก · ชมพู = เป็นลบ · แถบน้ำเงินล่างสุด = คำตอบตามเงื่อนไขที่กด</p>
+    </div>
+  </div>
+  <div class="lab">
+    <div class="lab-head"><h4>|x − a| คือ “ระยะจาก x ถึง a” — เลื่อนดู</h4><span>tool 04</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas flat" id="abs"></div>
+      <div id="absCtl"></div>
+      <div class="chips" id="absChips" style="margin-top:.6rem"></div>
+      <div id="absOut"></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ตั้ง r₂ = r₃ (รากซ้อนกัน) แล้วดูว่าเครื่องหมายยัง<em>สลับ</em>ไหม</div>
+    <div><b>ลองข้อ 2</b>กด ≥ 0 เทียบ &gt; 0 — จุดวงกลมกลวงกับทึบต่างกันตรงไหน</div>
+    <div><b>ลองข้อ 3</b>ทำให้ <em>|x − a| &gt; r</em> ได้คำตอบสองช่วงที่แยกห่างกันมากที่สุด</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>|x − a| &lt; r ⇔ a−r &lt; x &lt; a+r</span><span>√(x²) = |x|</span><span>a + b ≥ 2√(ab) เมื่อ a,b &gt; 0</span></div>
+</section>
+
+<section class="ch" id="ch4" data-n="04" data-title="เลขยกกำลัง" data-group="พื้นฐาน">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">04</span><span class="ch-tag">เครื่องมือ: มอร์ฟกราฟ xⁿ</span></div>
+    <h2>เลขยกกำลัง &amp; กรณฑ์</h2>
+    <p class="ch-why">เลื่อนเลขชี้กำลังทีละ 0.25 ดูกราฟค่อย ๆ กลายรูป — จากพาราโบลา ไปเป็นรากที่สอง ไปเป็นไฮเพอร์โบลาตอนติดลบ</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>y = xⁿ เมื่อ n เปลี่ยนจาก −3 ถึง 4</h4><span>tool 05</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas" id="pow"></div>
+      <div id="powCtl"></div>
+      <div class="chips" id="powChips" style="margin-top:.6rem"></div>
+      <div class="legend"><span><i style="background:var(--p1)"></i>y = xⁿ</span><span><i style="background:var(--p3)"></i>y = x</span></div>
+      <div id="powOut"></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ตั้ง n = 0.5 — ทำไมกราฟหายไปฝั่ง x ติดลบ</div>
+    <div><b>ลองข้อ 2</b>สลับ n = 2 กับ n = 3 ดูความสมมาตร (คู่ = กระจกแกน y, คี่ = หมุน 180°)</div>
+    <div><b>ลองข้อ 3</b>ตั้ง n = −1 แล้วหาว่ากราฟ<em>ไม่เคยแตะ</em>เส้นไหน</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>a<sup>m</sup>a<sup>n</sup> = a<sup>m+n</sup></span><span>a<sup>−n</sup> = 1/a<sup>n</sup></span><span>a<sup>m/n</sup> = <sup>n</sup>√(a<sup>m</sup>)</span></div>
+</section>
+
+<section class="ch" id="ch5" data-n="05" data-title="ฟังก์ชัน &amp; การเลื่อนกราฟ" data-group="ฟังก์ชัน &amp; กราฟ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">05</span><span class="ch-tag">เครื่องมือ: ตัวเลื่อนกราฟ + กระจกอินเวอร์ส</span></div>
+    <h2>ฟังก์ชันและการแปลงกราฟ</h2>
+    <p class="ch-why">ข้อสอบชอบถาม “กราฟนี้คือกราฟเดิมที่ถูกทำอะไร” — เลื่อน a, h, k ดูสัก 20 วินาที แล้วจะจำได้เองว่า h เลื่อน<b>สวนทาง</b>เครื่องหมาย</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>y = a·f(x − h) + k · เลือก f แล้วเลื่อนได้เลย</h4><span>tool 06</span></div>
+    <div class="lab-body">
+      <div class="chips" id="trChips"></div>
+      <div class="lab-canvas" id="trans" style="margin-top:.8rem"></div>
+      <div id="trCtl"></div>
+      <div class="legend"><span><i style="background:var(--ink-faint)"></i>f(x) ต้นฉบับ</span><span><i style="background:var(--p1)"></i>หลังแปลง</span></div>
+      <div id="trOut"></div>
+    </div>
+  </div>
+  <div class="lab">
+    <div class="lab-head"><h4>อินเวอร์สคือการพับกระดาษตามเส้น y = x</h4><span>tool 07</span></div>
+    <div class="lab-body">
+      <div class="chips" id="invChips"></div>
+      <div class="lab-canvas tall" id="inv" style="margin-top:.8rem"></div>
+      <p class="hint">ลากเมาส์บนภาพเพื่อเลื่อนจุดสีชมพูบน f แล้วดูจุดคู่ของมันบน f<sup>−1</sup> — พิกัดจะสลับที่กันเสมอ (a,b) ↔ (b,a)</p>
+      <div id="invOut"></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ตั้ง h = 2 — กราฟเลื่อนไปทาง<em>ขวา</em> แม้เครื่องหมายในวงเล็บเป็นลบ</div>
+    <div><b>ลองข้อ 2</b>ตั้ง a เป็นค่าลบ — กราฟพลิกกลับหัวรอบเส้นแนวนอน</div>
+    <div><b>ลองข้อ 3</b>ในเครื่องมือกระจก เลือก <em>x²</em> แล้วดูว่าทำไมต้องจำกัด x ≥ 0 ถึงจะมีอินเวอร์ส</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>f(x−h)+k → เลื่อนขวา h, ขึ้น k</span><span>a &lt; 0 → พลิกแกน x</span><span>(f<sup>−1</sup>∘f)(x) = x</span></div>
+</section>
+<section class="ch" id="ch6" data-n="06" data-title="พาราโบลา" data-group="ฟังก์ชัน &amp; กราฟ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">06</span><span class="ch-tag">เครื่องมือ: เครื่องปั้นพาราโบลา</span></div>
+    <h2>ฟังก์ชันกำลังสอง</h2>
+    <p class="ch-why">เลื่อน a, b, c แล้วจับตาดูค่า <b>b² − 4ac</b> ในกล่องล่าง — ตอนที่มันเปลี่ยนจากบวกเป็นลบ กราฟจะยกตัวขึ้นพ้นแกน x พอดี นี่คือเหตุผลว่าทำไมดิสคริมิแนนต์บอกจำนวนคำตอบได้</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>y = ax² + bx + c · ดูจุดยอด ราก และดิสคริมิแนนต์สด ๆ</h4><span>tool 08</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas" id="par"></div>
+      <div id="parCtl"></div>
+      <div id="parOut"></div>
+      <div class="legend"><span><i style="background:var(--p1)"></i>กราฟ</span><span><i style="background:var(--p2)"></i>จุดยอด</span><span><i style="background:var(--p4)"></i>ราก (จุดตัดแกน x)</span></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ตั้ง a = 1, c = 1 แล้วเลื่อน b ไปหา<em>จุดที่รากเหลือตัวเดียว</em> (b² − 4ac = 0)</div>
+    <div><b>ลองข้อ 2</b>ทำให้ดิสคริมิแนนต์ติดลบ — สังเกตว่าจุดยอดลอยพ้นแกน x</div>
+    <div><b>ลองข้อ 3</b>เลื่อน c ทีละหน่วย จุดยอดขยับแนวตั้งเท่ากับ c เสมอไหม</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>จุดยอด x = −b/2a</span><span>x = (−b ± √(b²−4ac)) / 2a</span><span>ผลบวกราก = −b/a · ผลคูณราก = c/a</span></div>
+</section>
+
+<section class="ch" id="ch7" data-n="07" data-title="เอกซ์โพ &amp; ลอการิทึม" data-group="ฟังก์ชัน &amp; กราฟ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">07</span><span class="ch-tag">เครื่องมือ: กระจกคู่แฝด</span></div>
+    <h2>เอกซ์โพเนนเชียล &amp; ลอการิทึม</h2>
+    <p class="ch-why">ลอการิทึมไม่ใช่เรื่องใหม่ — มันคือกราฟ <b>bˣ ที่พับตามเส้น y = x</b> เลื่อนฐาน b ดูแล้วจะเห็นว่าทั้งคู่ขยับพร้อมกันตลอด</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>y = bˣ กับ y = log<sub>b</sub> x · เลื่อนฐานเดียวกัน</h4><span>tool 09</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas tall" id="explog"></div>
+      <div id="elCtl"></div>
+      <div class="chips" id="elChips" style="margin-top:.6rem"></div>
+      <div id="elOut"></div>
+      <div class="legend"><span><i style="background:var(--p1)"></i>y = bˣ</span><span><i style="background:var(--p2)"></i>y = log<sub>b</sub> x</span><span><i style="background:var(--ink-faint)"></i>y = x</span></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ลดฐานให้น้อยกว่า 1 — กราฟ bˣ เปลี่ยนจาก<em>โต</em>เป็น<em>ลด</em>ที่ฐานเท่าไร</div>
+    <div><b>ลองข้อ 2</b>สังเกตว่าทั้งสองกราฟผ่านจุด (0,1) และ (1,0) ตามลำดับ<em>ทุกฐาน</em></div>
+    <div><b>ลองข้อ 3</b>กด b = e แล้วเทียบกับ b = 10 ว่ากราฟไหนชันกว่า</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>log<sub>b</sub>(xy) = log<sub>b</sub>x + log<sub>b</sub>y</span><span>log<sub>b</sub>(x<sup>n</sup>) = n·log<sub>b</sub>x</span><span>log<sub>b</sub>x = log x / log b</span><span>b<sup>log<sub>b</sub>x</sup> = x</span></div>
+</section>
+
+<section class="ch" id="ch8" data-n="08" data-title="ตรีโกณมิติ" data-group="ฟังก์ชัน &amp; กราฟ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">08</span><span class="ch-tag">เครื่องมือ: วงกลมหนึ่งหน่วย + เครื่องปั้นคลื่น</span></div>
+    <h2>ตรีโกณมิติ</h2>
+    <p class="ch-why">อันนี้สำคัญที่สุดในหน้านี้: <b>ลากจุดรอบวงกลม</b> แล้วดูว่าเส้นสีชมพู (sin) ยืดหดกลายเป็นคลื่นด้านขวาได้ยังไง เข้าใจตรงนี้แล้วเรื่องตรีโกณจบไปครึ่งบท</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>ลากมุมรอบวงกลม → คลื่นวาดตัวเองด้านขวา</h4><span>tool 10 · ลากได้</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas grab" id="unit"></div>
+      <div class="chips" id="unitChips" style="margin-top:.7rem"></div>
+      <div id="unitOut"></div>
+      <p class="hint">sin = ความสูง (ขึ้นลง) · cos = ความกว้าง (ซ้ายขวา) · tan = sin/cos = ความชันของเส้นรัศมี</p>
+    </div>
+  </div>
+  <div class="lab">
+    <div class="lab-head"><h4>y = a·sin(b(x − c)) + d · ปั้นคลื่นเอง</h4><span>tool 11</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas" id="wave"></div>
+      <div id="waveCtl"></div>
+      <div id="waveOut"></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ลากมุมไปที่ 150° แล้วเทียบ sin กับที่มุม 30° — เท่ากันเพราะมุมอ้างอิงเดียวกัน</div>
+    <div><b>ลองข้อ 2</b>ลากไปใกล้ 90° ดูว่า tan พุ่งไปเท่าไร (มันไม่นิยามที่ 90° พอดี)</div>
+    <div><b>ลองข้อ 3</b>ในเครื่องปั้นคลื่น ตั้ง b = 2 — คาบสั้นลงครึ่งหนึ่ง คาบ = 2π/b</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>sin²θ + cos²θ = 1</span><span>sin 2θ = 2 sinθ cosθ</span><span>cos 2θ = 1 − 2sin²θ</span><span>คาบของ sin(bx) = 2π/b</span></div>
+</section>
+
+<section class="ch" id="ch9" data-n="09" data-title="เมทริกซ์" data-group="เรขาคณิต &amp; เวกเตอร์">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">09</span><span class="ch-tag">เครื่องมือ: เครื่องบิดระนาบ</span></div>
+    <h2>เมทริกซ์ &amp; ดีเทอร์มิแนนต์</h2>
+    <p class="ch-why">เมทริกซ์ 2×2 คือ<b>เครื่องบิดระนาบ</b> และดีเทอร์มิแนนต์คือ<b>พื้นที่</b>ของสี่เหลี่ยมหน่วยหลังถูกบิด เลื่อนตัวเลขจนพื้นที่เป็น 0 แล้วดูว่าเกิดอะไรขึ้น — นั่นคือตอนที่อินเวอร์สหายไป</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>[[a, b], [c, d]] บิดตารางหน่วย · det = พื้นที่</h4><span>tool 12</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas" id="mat"></div>
+      <div id="matCtl"></div>
+      <div id="matOut"></div>
+      <div class="legend"><span><i style="background:var(--ink-faint)"></i>ตารางเดิม</span><span><i style="background:var(--p1)"></i>เวกเตอร์ i หลังบิด</span><span><i style="background:var(--p2)"></i>เวกเตอร์ j หลังบิด</span><span><i style="background:var(--p3)"></i>พื้นที่ = |det|</span></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ตั้ง a=d=1, b=c=0 → ไม่มีอะไรเปลี่ยน นี่คือเมทริกซ์เอกลักษณ์</div>
+    <div><b>ลองข้อ 2</b>ทำให้ det = 0 (เช่น a=1,b=2,c=2,d=4) — พื้นที่แบนเป็นเส้น <em>หาอินเวอร์สไม่ได้</em></div>
+    <div><b>ลองข้อ 3</b>ทำให้ det ติดลบ — ระนาบถูก<em>พลิกด้าน</em> เหมือนส่องกระจก</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>det = ad − bc</span><span>A<sup>−1</sup> = <span class="fr"><span>1</span><span>det</span></span>[[d, −b], [−c, a]]</span><span>det = 0 ⇒ ไม่มีอินเวอร์ส</span></div>
+</section>
+
+<section class="ch" id="ch10" data-n="10" data-title="เวกเตอร์" data-group="เรขาคณิต &amp; เวกเตอร์">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">10</span><span class="ch-tag">เครื่องมือ: ลากเวกเตอร์ 2 ตัว</span></div>
+    <h2>เวกเตอร์</h2>
+    <p class="ch-why">ลากหัวลูกศรทั้งสองไปมา แล้วดู <b>u · v</b> ในกล่องล่าง — ตอนที่ลูกศรตั้งฉากกัน ค่ามันจะกลายเป็น 0 พอดีทุกครั้ง</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>ลากหัวลูกศร u และ v · ดูผลบวก, ดอต, มุม, พื้นที่</h4><span>tool 13 · ลากได้</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas grab" id="vec"></div>
+      <div class="chips" id="vecChips" style="margin-top:.7rem"></div>
+      <div id="vecOut"></div>
+      <div class="legend"><span><i style="background:var(--p1)"></i>u</span><span><i style="background:var(--p2)"></i>v</span><span><i style="background:var(--p4)"></i>u + v</span><span><i style="background:var(--p3)"></i>เงาของ v บน u (โปรเจกชัน)</span></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ลากให้ลูกศรตั้งฉากกัน — ทำให้ u · v = 0 ได้ไหม</div>
+    <div><b>ลองข้อ 2</b>ลากให้ทับกันไปทางเดียวกัน — มุมเป็น 0° และ u · v มากที่สุด</div>
+    <div><b>ลองข้อ 3</b>ดูพื้นที่สี่เหลี่ยมด้านขนาน = |u × v| ทำให้เป็น 0 โดยลากให้ขนานกัน</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>u · v = |u||v| cos θ</span><span>u ⊥ v ⇔ u · v = 0</span><span>พื้นที่ = |u₁v₂ − u₂v₁|</span></div>
+</section>
+<section class="ch" id="ch11" data-n="11" data-title="จำนวนเชิงซ้อน" data-group="เรขาคณิต &amp; เวกเตอร์">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">11</span><span class="ch-tag">เครื่องมือ: เครื่องหมุนจำนวนเชิงซ้อน</span></div>
+    <h2>จำนวนเชิงซ้อน</h2>
+    <p class="ch-why">การคูณจำนวนเชิงซ้อนไม่ใช่การคูณเลขธรรมดา — มันคือ <b>“ขนาดคูณกัน มุมบวกกัน”</b> ลากจุดสองจุดดูแล้วจะเห็นทันที ว่าทำไม i² = −1 (หมุน 90° สองครั้ง = หมุน 180°)</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>ลาก z₁ และ z₂ → ดูผลคูณกระเด้งไปไหน</h4><span>tool 14 · ลากได้</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas grab" id="cplx"></div>
+      <div class="chips" id="cxChips" style="margin-top:.7rem"></div>
+      <div id="cxOut"></div>
+      <div class="legend"><span><i style="background:var(--p1)"></i>z₁</span><span><i style="background:var(--p2)"></i>z₂</span><span><i style="background:var(--p4)"></i>z₁z₂</span><span><i style="background:var(--p3)"></i>สังยุค z̄₁</span></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>กดปุ่ม <em>i × i</em> — ทั้งสองตัวชี้ขึ้น 90° ผลคูณไปอยู่ที่ −1 พอดี</div>
+    <div><b>ลองข้อ 2</b>ลาก z₂ ให้ขนาดเป็น 1 (อยู่บนวงกลม) ผลคูณจะ<em>หมุนแต่ไม่ยืด</em></div>
+    <div><b>ลองข้อ 3</b>สังเกตว่า arg(z₁z₂) = arg z₁ + arg z₂ ทุกครั้งไหม</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>|z₁z₂| = |z₁||z₂|</span><span>z·z̄ = |z|²</span><span>z = r(cos θ + i sin θ)</span><span>zⁿ = rⁿ(cos nθ + i sin nθ)</span></div>
+</section>
+
+<section class="ch" id="ch12" data-n="12" data-title="ภาคตัดกรวย" data-group="เรขาคณิต &amp; เวกเตอร์">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">12</span><span class="ch-tag">เครื่องมือ: สำรวจภาคตัดกรวย</span></div>
+    <h2>เรขาคณิตวิเคราะห์ &amp; ภาคตัดกรวย</h2>
+    <p class="ch-why">วงรี ไฮเพอร์โบลา พาราโบลา ต่างกันแค่<b>ตำแหน่งของโฟกัส</b> เลื่อน a กับ b ดูว่าโฟกัส (จุดสีชมพู) วิ่งไปไหน แล้วจะจำได้ว่าเมื่อไรใช้ <span class="m">c² = a² − b²</span> เมื่อไรใช้ <span class="m">c² = a² + b²</span></p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>เลือกชนิด แล้วเลื่อน a, b</h4><span>tool 15</span></div>
+    <div class="lab-body">
+      <div class="chips" id="conChips"></div>
+      <div class="lab-canvas" id="conic" style="margin-top:.8rem"></div>
+      <div id="conCtl"></div>
+      <div id="conOut"></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ในวงรี ตั้ง a = b — มันกลายเป็น<em>วงกลม</em> และโฟกัสมารวมที่จุดศูนย์กลาง</div>
+    <div><b>ลองข้อ 2</b>ในไฮเพอร์โบลา ดูว่าเส้นกำกับ (เส้นประ) มีความชัน ± b/a เสมอ</div>
+    <div><b>ลองข้อ 3</b>ในพาราโบลา ระยะจากจุดบนกราฟถึงโฟกัส = ระยะถึงไดเรกทริกซ์เสมอ</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>วงรี: x²/a² + y²/b² = 1, c² = a² − b²</span><span>ไฮเพอร์โบลา: x²/a² − y²/b² = 1, c² = a² + b²</span><span>พาราโบลา: y² = 4px</span></div>
+</section>
+
+<section class="ch" id="ch13" data-n="13" data-title="ลำดับ &amp; อนุกรม" data-group="ข้อมูล &amp; แคลคูลัส">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">13</span><span class="ch-tag">เครื่องมือ: แท่งลำดับ + ผลบวกสะสม</span></div>
+    <h2>ลำดับและอนุกรม</h2>
+    <p class="ch-why">แท่งคือพจน์ เส้นคือผลบวกสะสม ลองปรับอัตราส่วน r ให้อยู่ระหว่าง −1 ถึง 1 แล้วดูว่าเส้นผลบวก<b>เข้าใกล้เส้นเพดาน</b> — นั่นคืออนุกรมอนันต์ที่ลู่เข้า</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>เลขคณิต (บวกเท่ากัน) vs เรขาคณิต (คูณเท่ากัน)</h4><span>tool 16</span></div>
+    <div class="lab-body">
+      <div class="chips" id="seqChips"></div>
+      <div class="lab-canvas" id="seq" style="margin-top:.8rem"></div>
+      <div id="seqCtl"></div>
+      <div id="seqOut"></div>
+      <div class="legend"><span><i style="background:var(--p1)"></i>พจน์ aₙ</span><span><i style="background:var(--p4)"></i>ผลบวก Sₙ</span><span><i style="background:var(--p3)"></i>ผลบวกอนันต์ (ถ้าลู่เข้า)</span></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>โหมดเรขาคณิต ตั้ง r = 0.5 — ดูว่า Sₙ ไต่ไปหยุดที่ 2a₁ พอดี</div>
+    <div><b>ลองข้อ 2</b>ตั้ง r = −0.8 — พจน์สลับเครื่องหมาย แต่ผลบวกก็ยังลู่เข้า</div>
+    <div><b>ลองข้อ 3</b>ตั้ง r = 1.2 — ผลบวกพุ่งไม่หยุด (ลู่ออก) ใช้สูตรอนันต์ไม่ได้</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>aₙ = a₁ + (n−1)d</span><span>Sₙ = <span class="fr"><span>n</span><span>2</span></span>(a₁ + aₙ)</span><span>aₙ = a₁rⁿ⁻¹</span><span>Sₙ = a₁<span class="fr"><span>1 − rⁿ</span><span>1 − r</span></span></span><span>S<sub>∞</sub> = <span class="fr"><span>a₁</span><span>1 − r</span></span>, |r| &lt; 1</span></div>
+</section>
+
+<section class="ch" id="ch14" data-n="14" data-title="เรียงสับเปลี่ยน &amp; ความน่าจะเป็น" data-group="ข้อมูล &amp; แคลคูลัส">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">14</span><span class="ch-tag">เครื่องมือ: สามเหลี่ยมปาสกาล</span></div>
+    <h2>การนับ &amp; ความน่าจะเป็น</h2>
+    <p class="ch-why">กดช่องในสามเหลี่ยม แล้วดูว่ามันคือ <span class="m">C(n, r)</span> ตัวไหน — ทุกช่องเกิดจากบวกสองช่องบนหัวมัน นี่คือเหตุผลว่าทำไมสัมประสิทธิ์ทวินามกับการจัดหมู่เป็นเรื่องเดียวกัน</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>กดช่องใดก็ได้ → บอกว่าเป็น C(n, r) เท่าไร</h4><span>tool 17 · กดได้</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas tall" id="pascal" style="cursor:pointer"></div>
+      <div id="pasOut"></div>
+      <p class="hint">เรียง (P) = สนใจลำดับ · จัดหมู่ (C) = ไม่สนลำดับ · เลข 4 ตัวจาก 10 แบบไม่สนลำดับ = C(10,4) = 210 แต่ถ้าสนลำดับ = P(10,4) = 5040</p>
+    </div>
+  </div>
+  <div class="lab">
+    <div class="lab-head"><h4>เครื่องคิด nPr / nCr พร้อมความน่าจะเป็น</h4><span>tool 18</span></div>
+    <div class="lab-body">
+      <div id="cmbCtl"></div>
+      <div id="cmbOut"></div>
+      <p class="hint">เลือกจากทั้งหมด n สิ่ง เอามา r สิ่ง — ถ้าโจทย์บอกว่า “เรียงแถว/ตำแหน่งต่างกันถือว่าต่าง” ให้ใช้ P ถ้า “หยิบเป็นกลุ่ม/คณะกรรมการ” ให้ใช้ C</p>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>กดช่องซ้ายสุดและขวาสุดของทุกแถว — ทำไมเป็น 1 ตลอด</div>
+    <div><b>ลองข้อ 2</b>บวกทุกช่องในแถว n = 4 ได้ 16 = 2⁴ ลองแถวอื่นดูว่าจริงไหม</div>
+    <div><b>ลองข้อ 3</b>ตั้ง n = 10, r = 4 แล้วเทียบ P กับ C — ต่างกัน 4! = 24 เท่า</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>P(n,r) = <span class="fr"><span>n!</span><span>(n−r)!</span></span></span><span>C(n,r) = <span class="fr"><span>n!</span><span>r!(n−r)!</span></span></span><span>P(E) = <span class="fr"><span>n(E)</span><span>n(S)</span></span></span><span>P(A∪B) = P(A)+P(B)−P(A∩B)</span></div>
+</section>
+
+<section class="ch" id="ch15" data-n="15" data-title="สถิติ" data-group="ข้อมูล &amp; แคลคูลัส">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">15</span><span class="ch-tag">เครื่องมือ: ลากข้อมูล + โค้งปกติ</span></div>
+    <h2>สถิติ &amp; การแจกแจงปกติ</h2>
+    <p class="ch-why">ลากจุดข้อมูลไปมา แล้วจับตาดูว่า <b>ค่าเฉลี่ยวิ่งตามจุดที่ลาก แต่มัธยฐานแทบไม่ขยับ</b> — นี่คือคำตอบของคำถามคลาสสิกว่า “ทำไมค่าผิดปกติกระทบค่าเฉลี่ยมากกว่า”</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>ลากจุดข้อมูล 9 จุด → ดูค่ากลางและการกระจายขยับ</h4><span>tool 19 · ลากได้</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas grab" id="stat" style="aspect-ratio:16/8"></div>
+      <div class="chips" id="statChips" style="margin-top:.7rem"></div>
+      <div id="statOut"></div>
+      <div class="legend"><span><i style="background:var(--p2)"></i>ค่าเฉลี่ย x̄</span><span><i style="background:var(--p3)"></i>มัธยฐาน</span><span><i style="background:var(--p4)"></i>ช่วง x̄ ± s</span><span><i style="background:var(--p1)"></i>กล่อง Q₁–Q₃</span></div>
+    </div>
+  </div>
+  <div class="lab">
+    <div class="lab-head"><h4>โค้งปกติ: พื้นที่ใต้โค้ง = ความน่าจะเป็น</h4><span>tool 20</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas" id="norm" style="aspect-ratio:16/7"></div>
+      <div id="normCtl"></div>
+      <div class="chips" id="normChips" style="margin-top:.6rem"></div>
+      <div id="normOut"></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ลากจุดขวาสุดออกไปไกล ๆ — ค่าเฉลี่ยขยับเยอะ มัธยฐานเกือบนิ่ง</div>
+    <div><b>ลองข้อ 2</b>ลากทุกจุดให้กองรวมกัน — ส่วนเบี่ยงเบนมาตรฐานเข้าใกล้ 0</div>
+    <div><b>ลองข้อ 3</b>กด 68% / 95% ในโค้งปกติ แล้วจำไว้ว่ามันคือ ±1s และ ±2s</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>x̄ = Σx/N</span><span>s² = Σ(x − x̄)²/(N−1)</span><span>z = <span class="fr"><span>x − μ</span><span>σ</span></span></span><span>±1σ ≈ 68% · ±2σ ≈ 95%</span></div>
+</section>
+
+<section class="ch" id="ch16" data-n="16" data-title="แคลคูลัส" data-group="ข้อมูล &amp; แคลคูลัส">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">16</span><span class="ch-tag">เครื่องมือ: เส้นตัด→เส้นสัมผัส + แท่งอินทิเกรต</span></div>
+    <h2>แคลคูลัส</h2>
+    <p class="ch-why">อนุพันธ์กับปริพันธ์คือ<b>กระบวนการบีบ</b> สองอย่าง: บีบระยะ h ให้เหลือศูนย์ → ได้ความชัน · เพิ่มจำนวนแท่ง n ให้เยอะ → ได้พื้นที่ เลื่อนสองตัวนี้ดูแล้วจะเห็นลิมิตทำงานจริง ๆ</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>บีบ h → 0 แล้วเส้นตัดกลายเป็นเส้นสัมผัส</h4><span>tool 21</span></div>
+    <div class="lab-body">
+      <div class="chips" id="derChips"></div>
+      <div class="lab-canvas" id="der" style="margin-top:.8rem"></div>
+      <div id="derCtl"></div>
+      <div id="derOut"></div>
+      <div class="legend"><span><i style="background:var(--p1)"></i>f(x)</span><span><i style="background:var(--p2)"></i>เส้นตัด (ใช้ h)</span><span><i style="background:var(--p3)"></i>เส้นสัมผัสจริง</span></div>
+    </div>
+  </div>
+  <div class="lab">
+    <div class="lab-head"><h4>เพิ่มจำนวนแท่ง n → ผลรวมเข้าหาพื้นที่จริง</h4><span>tool 22</span></div>
+    <div class="lab-body">
+      <div class="chips" id="intChips"></div>
+      <div class="lab-canvas" id="integ" style="margin-top:.8rem"></div>
+      <div id="intCtl"></div>
+      <div id="intOut"></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ตั้ง f = x² แล้วเลื่อน h จาก 2 ลงมาเรื่อย ๆ — ความชันเส้นตัดเข้าหา 2x</div>
+    <div><b>ลองข้อ 2</b>ในเครื่องมืออินทิเกรต เพิ่ม n เป็น 60 — ค่าคลาดเคลื่อนเหลือเกือบ 0</div>
+    <div><b>ลองข้อ 3</b>เลื่อนจุด x₀ ไปที่จุดยอดของกราฟ — ความชันเป็น 0 (จุดวิกฤต)</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>f′(x) = lim<sub>h→0</sub> <span class="fr"><span>f(x+h) − f(x)</span><span>h</span></span></span><span><span class="fr"><span>d</span><span>dx</span></span>xⁿ = nxⁿ⁻¹</span><span>∫xⁿdx = <span class="fr"><span>xⁿ⁺¹</span><span>n+1</span></span> + C</span><span>∫<sub>a</sub><sup>b</sup>f = F(b) − F(a)</span></div>
+</section>
+
+<section class="sheet" id="sheet">
+  <div class="ch-kicker"><span class="ch-num">▤</span><span class="ch-tag">แผ่นเดียวก่อนเข้าห้องสอบ</span></div>
+  <h2>สรุปสูตรที่ต้องจำจริง ๆ</h2>
+  <div class="sheet-grid">
+    <section><h4>พาราโบลา &amp; พหุนาม</h4><ul>
+      <li>x = (−b ± √(b²−4ac)) / 2a</li><li>จุดยอด x = −b/2a</li>
+      <li>ผลบวกราก = −b/a</li><li>ผลคูณราก = c/a</li><li>เศษของ P(x) ÷ (x−c) = P(c)</li></ul></section>
+    <section><h4>ตรีโกณ</h4><ul>
+      <li>sin²θ + cos²θ = 1</li><li>1 + tan²θ = sec²θ</li>
+      <li>sin(A±B) = sinA cosB ± cosA sinB</li><li>cos 2θ = cos²θ − sin²θ</li>
+      <li>a/sinA = b/sinB = c/sinC</li><li>c² = a² + b² − 2ab cosC</li></ul></section>
+    <section><h4>เอกซ์โพ &amp; ลอการิทึม</h4><ul>
+      <li>log(xy) = log x + log y</li><li>log(xⁿ) = n log x</li>
+      <li>log<sub>b</sub>x = log x / log b</li><li>b<sup>log<sub>b</sub>x</sup> = x</li></ul></section>
+    <section><h4>ลำดับ &amp; อนุกรม</h4><ul>
+      <li>aₙ = a₁ + (n−1)d</li><li>Sₙ = n(a₁+aₙ)/2</li>
+      <li>aₙ = a₁rⁿ⁻¹</li><li>Sₙ = a₁(1−rⁿ)/(1−r)</li><li>S∞ = a₁/(1−r), |r|&lt;1</li></ul></section>
+    <section><h4>เวกเตอร์ &amp; เมทริกซ์</h4><ul>
+      <li>u·v = |u||v|cosθ</li><li>u ⊥ v ⇔ u·v = 0</li>
+      <li>det = ad − bc</li><li>A⁻¹ = (1/det)[[d,−b],[−c,a]]</li></ul></section>
+    <section><h4>สถิติ &amp; การนับ</h4><ul>
+      <li>x̄ = Σx/N</li><li>s² = Σ(x−x̄)²/(N−1)</li>
+      <li>z = (x−μ)/σ</li><li>P(n,r) = n!/(n−r)!</li><li>C(n,r) = n!/(r!(n−r)!)</li></ul></section>
+    <section><h4>แคลคูลัส</h4><ul>
+      <li>(xⁿ)′ = nxⁿ⁻¹</li><li>(uv)′ = u′v + uv′</li>
+      <li>(u/v)′ = (u′v − uv′)/v²</li><li>∫xⁿdx = xⁿ⁺¹/(n+1) + C</li>
+      <li>f′ = 0 → จุดวิกฤต (สูงสุด/ต่ำสุด)</li></ul></section>
+    <section><h4>เซต &amp; ตรรกศาสตร์</h4><ul>
+      <li>n(A∪B) = n(A)+n(B)−n(A∩B)</li><li>(A∪B)′ = A′∩B′</li>
+      <li>p → q ≡ ~p ∨ q</li><li>~(p → q) ≡ p ∧ ~q</li></ul></section>
+  </div>
+</section>
+
+<footer>
+  <p>ครอบคลุมสาระคณิตศาสตร์ประยุกต์ 1 ตามหลักสูตร สสวท. ที่ใช้ในการสอบ A-Level — ทุกภาพในหน้านี้คำนวณสดจากค่าที่คุณเลื่อน ไม่ใช่ภาพนิ่ง ถ้าเลื่อนแล้วผลไม่ตรงกับที่คิดไว้ นั่นคือจุดที่ควรกลับไปอ่านทฤษฎีต่อ</p>
+  <p style="margin-top:.6rem">เคล็ดใช้งาน: เปิดหน้านี้คู่กับการทำข้อสอบเก่า เจอข้อไหนนึกภาพไม่ออก เลื่อนหาบทนั้นแล้วลากเล่น 1 นาที ก่อนกลับไปทำต่อ</p>
+</footer>
+<!--CHAPTERS-->
+</main>
+</div>
+
+<script>
+/* ================= mini graphing lib ================= */
+const cv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const figs=[];
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const fmt=(v,d=2)=>{ if(v===null||v===undefined||!isFinite(v))return "—"; let s=(+v).toFixed(d); if(/^-0\.?0*$/.test(s))s=(0).toFixed(d); return s; };
+function hexRGB(h){
+  h=(h||"").trim();
+  if(h.startsWith("#")){
+    if(h.length===4)h="#"+h[1]+h[1]+h[2]+h[2]+h[3]+h[3];
+    return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+  }
+  const m=h.match(/[\d.]+/g)||[0,0,0]; return [+m[0],+m[1],+m[2]];
+}
+const alpha=(name,a)=>{const[r,g,b]=hexRGB(cv(name));return `rgba(${r},${g},${b},${a})`};
+
+function Fig(host,cfg){
+  const canvas=document.createElement("canvas"); host.appendChild(canvas);
+  const f=Object.assign({xmin:-6,xmax:6,ymin:-4,ymax:4,step:1,host,canvas,ctx:canvas.getContext("2d")},cfg);
+  f.resize=()=>{
+    const r=host.getBoundingClientRect(), d=Math.min(2,window.devicePixelRatio||1);
+    if(!r.width)return;
+    canvas.width=Math.round(r.width*d); canvas.height=Math.round(r.height*d);
+    f.w=r.width; f.h=r.height; f.ctx.setTransform(d,0,0,d,0,0); f.dpr=d;
+    if(f.fit)f.fit(); f.render&&f.render();
+  };
+  f.X=x=>(x-f.xmin)/(f.xmax-f.xmin)*f.w;
+  f.Y=y=>f.h-(y-f.ymin)/(f.ymax-f.ymin)*f.h;
+  f.ux=px=>f.xmin+px/f.w*(f.xmax-f.xmin);
+  f.uy=py=>f.ymin+(f.h-py)/f.h*(f.ymax-f.ymin);
+  f.clear=()=>f.ctx.clearRect(0,0,f.w,f.h);
+  f.grid=(step=f.step)=>{
+    const c=f.ctx; c.save(); c.lineWidth=1; c.strokeStyle=cv("--grid"); c.beginPath();
+    for(let x=Math.ceil(f.xmin/step)*step;x<=f.xmax;x+=step){const p=Math.round(f.X(x))+.5;c.moveTo(p,0);c.lineTo(p,f.h)}
+    for(let y=Math.ceil(f.ymin/step)*step;y<=f.ymax;y+=step){const p=Math.round(f.Y(y))+.5;c.moveTo(0,p);c.lineTo(f.w,p)}
+    c.stroke(); c.restore();
+  };
+  f.axes=(o={})=>{
+    const c=f.ctx; c.save(); c.strokeStyle=cv("--grid-bold"); c.lineWidth=1.4; c.beginPath();
+    if(f.ymin<=0&&f.ymax>=0){c.moveTo(0,Math.round(f.Y(0))+.5);c.lineTo(f.w,Math.round(f.Y(0))+.5)}
+    if(f.xmin<=0&&f.xmax>=0){c.moveTo(Math.round(f.X(0))+.5,0);c.lineTo(Math.round(f.X(0))+.5,f.h)}
+    c.stroke();
+    if(o.labels!==false){
+      const s=o.step||f.step; const dec=Number.isInteger(s)?0:1;
+      c.fillStyle=cv("--ink-faint"); c.font="11px "+cv("--mono");
+      c.textAlign="center"; c.textBaseline="top";
+      for(let x=Math.ceil(f.xmin/s)*s;x<=f.xmax;x+=s){ if(Math.abs(x)<1e-9)continue; c.fillText(fmt(x,dec),f.X(x),clamp(f.Y(0)+4,0,f.h-14)) }
+      c.textAlign="right"; c.textBaseline="middle";
+      for(let y=Math.ceil(f.ymin/s)*s;y<=f.ymax;y+=s){ if(Math.abs(y)<1e-9)continue; c.fillText(fmt(y,dec),clamp(f.X(0)-6,24,f.w),f.Y(y)) }
+    }
+    c.restore();
+  };
+  f.curve=(fn,color,o={})=>{
+    const c=f.ctx,N=o.N||700,lim=(f.ymax-f.ymin)*40;
+    c.save(); c.strokeStyle=color; c.lineWidth=o.w||2.4; c.lineJoin="round"; if(o.dash)c.setLineDash(o.dash);
+    c.beginPath(); let pen=false;
+    const a=o.from??f.xmin, b=o.to??f.xmax;
+    for(let i=0;i<=N;i++){
+      const x=a+(b-a)*i/N, y=fn(x);
+      if(!isFinite(y)||y>f.ymax+lim||y<f.ymin-lim){pen=false;continue}
+      const px=f.X(x),py=f.Y(y);
+      if(!pen){c.moveTo(px,py);pen=true}else c.lineTo(px,py);
+    }
+    c.stroke(); c.restore();
+  };
+  f.path=(pts,color,o={})=>{
+    if(!pts||!pts.length)return; const c=f.ctx;
+    c.save(); c.lineWidth=o.w||2.2; c.lineJoin="round"; if(o.dash)c.setLineDash(o.dash);
+    c.beginPath(); c.moveTo(f.X(pts[0][0]),f.Y(pts[0][1]));
+    for(let i=1;i<pts.length;i++)c.lineTo(f.X(pts[i][0]),f.Y(pts[i][1]));
+    if(o.close)c.closePath();
+    if(o.fill){c.fillStyle=o.fill;c.fill()}
+    if(color){c.strokeStyle=color;c.stroke()}
+    c.restore();
+  };
+  f.seg=(x1,y1,x2,y2,color,o={})=>f.path([[x1,y1],[x2,y2]],color,o);
+  f.rect=(x1,y1,x2,y2,o={})=>{
+    const c=f.ctx;c.save();
+    const X=Math.min(f.X(x1),f.X(x2)),Y=Math.min(f.Y(y1),f.Y(y2));
+    const W=Math.abs(f.X(x2)-f.X(x1)),H=Math.abs(f.Y(y2)-f.Y(y1));
+    if(o.fill){c.fillStyle=o.fill;c.fillRect(X,Y,W,H)}
+    if(o.stroke){c.strokeStyle=o.stroke;c.lineWidth=o.w||1.4;c.strokeRect(X,Y,W,H)}
+    c.restore();
+  };
+  f.dot=(x,y,color,r=5,o={})=>{
+    const c=f.ctx;c.save();c.beginPath();c.arc(f.X(x),f.Y(y),r,0,7);
+    c.fillStyle=o.hollow?cv("--surface"):color;c.fill();
+    c.lineWidth=o.lw||2;c.strokeStyle=color;c.stroke();c.restore();
+  };
+  f.label=(x,y,txt,color,o={})=>{
+    const c=f.ctx;c.save();
+    c.font=(o.weight?o.weight+" ":"")+(o.size||12)+"px "+(o.face||cv("--mono"));
+    c.textAlign=o.align||"left"; c.textBaseline=o.base||"bottom";
+    const px=f.X(x)+(o.dx||0), py=f.Y(y)+(o.dy||0);
+    if(o.bg!==false){
+      const wd=c.measureText(txt).width,hh=(o.size||12)+6;
+      let bx=px-4; if(c.textAlign==="center")bx=px-wd/2-4; if(c.textAlign==="right")bx=px-wd-4;
+      let by=py-hh+3; if(c.textBaseline==="middle")by=py-hh/2; if(c.textBaseline==="top")by=py-3;
+      c.fillStyle=cv("--surface"); c.globalAlpha=.8; c.fillRect(bx,by,wd+8,hh); c.globalAlpha=1;
+    }
+    c.fillStyle=color||cv("--ink-soft"); c.fillText(txt,px,py); c.restore();
+  };
+  f.arrow=(x1,y1,x2,y2,color,o={})=>{
+    const c=f.ctx,X1=f.X(x1),Y1=f.Y(y1),X2=f.X(x2),Y2=f.Y(y2);
+    const a=Math.atan2(Y2-Y1,X2-X1),L=o.head||10;
+    c.save();c.strokeStyle=color;c.fillStyle=color;c.lineWidth=o.w||2.4;c.lineCap="round";
+    if(o.dash)c.setLineDash(o.dash);
+    c.beginPath();c.moveTo(X1,Y1);c.lineTo(X2-Math.cos(a)*L*.65,Y2-Math.sin(a)*L*.65);c.stroke();
+    c.setLineDash([]);c.beginPath();c.moveTo(X2,Y2);
+    c.lineTo(X2-Math.cos(a-.4)*L,Y2-Math.sin(a-.4)*L);
+    c.lineTo(X2-Math.cos(a+.4)*L,Y2-Math.sin(a+.4)*L);
+    c.closePath();c.fill();c.restore();
+  };
+  f.area=(fn,a,b,color,N=160)=>{
+    const c=f.ctx;c.save();c.beginPath();c.moveTo(f.X(a),f.Y(0));
+    for(let i=0;i<=N;i++){const x=a+(b-a)*i/N;c.lineTo(f.X(x),f.Y(fn(x)))}
+    c.lineTo(f.X(b),f.Y(0));c.closePath();c.fillStyle=color;c.fill();c.restore();
+  };
+  figs.push(f);
+  new ResizeObserver(()=>f.resize()).observe(host);
+  requestAnimationFrame(()=>f.resize());
+  return f;
+}
+function drag(f,onMove){
+  const go=e=>{const r=f.canvas.getBoundingClientRect();onMove(f.ux(e.clientX-r.left),f.uy(e.clientY-r.top),e)};
+  f.host.style.cursor="grab";
+  f.host.addEventListener("pointerdown",e=>{f.host.setPointerCapture(e.pointerId);f._d=1;f.host.style.cursor="grabbing";go(e)});
+  f.host.addEventListener("pointermove",e=>{if(f._d)go(e)});
+  const up=()=>{f._d=0;f.host.style.cursor="grab"};
+  f.host.addEventListener("pointerup",up); f.host.addEventListener("pointercancel",up);
+}
+function sliders(host,defs,onChange){
+  const box=document.createElement("div"); box.className="ctrls"; const state={},outs={};
+  defs.forEach(d=>{
+    state[d.id]=d.val;
+    const w=document.createElement("div"); w.className="ctrl";
+    const lab=document.createElement("label"); lab.innerHTML=`<span>${d.label}</span><b></b>`;
+    const inp=document.createElement("input");
+    inp.type="range"; inp.min=d.min; inp.max=d.max; inp.step=d.step??.1; inp.value=d.val;
+    inp.setAttribute("aria-label",d.label.replace(/<[^>]+>/g,""));
+    outs[d.id]=lab.querySelector("b");
+    const show=v=>outs[d.id].textContent=(d.fmt||(x=>fmt(x,d.dec??2)))(v);
+    show(d.val);
+    inp.addEventListener("input",()=>{state[d.id]=parseFloat(inp.value);show(state[d.id]);onChange(state)});
+    state["_set_"+d.id]=v=>{inp.value=v;state[d.id]=parseFloat(inp.value);show(state[d.id])};
+    w.append(lab,inp); box.appendChild(w);
+  });
+  host.appendChild(box); return state;
+}
+function readout(host,keys){
+  const box=document.createElement("div"); box.className="readout"; const map={};
+  keys.forEach(k=>{
+    const name=k.replace(/^\*/,""), s=document.createElement("span");
+    if(k.startsWith("*"))s.className="hi";
+    s.innerHTML=name+" <b>—</b>"; map[name]=s.querySelector("b"); box.appendChild(s);
+  });
+  host.appendChild(box); return map;
+}
+function chipset(host,items,onPick,start=0){
+  const bs=items.map((it,i)=>{
+    const b=document.createElement("button"); b.className="chip"; b.type="button";
+    b.innerHTML=`<span class="m">${it.t}</span>`;
+    b.setAttribute("aria-pressed",i===start?"true":"false");
+    b.addEventListener("click",()=>{
+      bs.forEach(x=>x.setAttribute("aria-pressed","false"));
+      b.setAttribute("aria-pressed","true"); onPick(it,i);
+    });
+    host.appendChild(b); return b;
+  });
+  onPick(items[start],start); return bs;
+}
+/* theme + spy */
+const root=document.documentElement;
+const redraw=()=>figs.forEach(f=>f.render&&f.render());
+document.getElementById("theme").addEventListener("click",()=>{
+  const dark=matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme=(root.dataset.theme||(dark?"dark":"light"))==="dark"?"light":"dark";
+  requestAnimationFrame(redraw);
+});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>requestAnimationFrame(redraw));
+function buildIndex(){
+  const ul=document.getElementById("idx"); ul.innerHTML="";
+  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส"];
+  const groups={}; order.forEach(g=>groups[g]=[]);
+  document.querySelectorAll("section.ch").forEach(s=>(groups[s.dataset.group]||groups["พื้นฐาน"]).push(s));
+  let first=true;
+  order.forEach(g=>{
+    if(!groups[g].length)return;
+    if(first){document.querySelector(".idx-group").textContent=g;first=false}
+    else{const p=document.createElement("p");p.className="idx-group";p.textContent=g;ul.appendChild(p)}
+    groups[g].forEach(s=>{
+      const li=document.createElement("li");
+      li.innerHTML=`<a href="#${s.id}"><span class="n">${s.dataset.n}</span><span>${s.dataset.title}</span></a>`;
+      ul.appendChild(li);
+    });
+  });
+  const links=[...ul.querySelectorAll("a")];
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting)links.forEach(a=>a.classList.toggle("on",a.hash==="#"+e.target.id));
+  }),{rootMargin:"-20% 0px -70% 0px"});
+  document.querySelectorAll("section.ch").forEach(s=>io.observe(s));
+}
+</script>
+<script>
+/* ===== tool 01 · venn ===== */
+(()=>{
+  const host=document.getElementById("venn"); if(!host)return;
+  const EX=[
+    {t:"A ∪ B",f:(a,b)=>a||b},{t:"A ∩ B",f:(a,b)=>a&&b},{t:"A − B",f:(a,b)=>a&&!b},
+    {t:"A ∆ B",f:(a,b)=>a!==b},{t:"(A ∪ B)′",f:(a,b)=>!(a||b)},{t:"A′ ∩ B′",f:(a,b)=>!a&&!b},
+    {t:"(A ∩ B)′",f:(a,b)=>!(a&&b)},{t:"A′ ∪ B′",f:(a,b)=>!a||!b},
+    {t:"A ∩ B ∩ C",f:(a,b,c)=>a&&b&&c},{t:"(A ∪ B) ∩ C",f:(a,b,c)=>(a||b)&&c},
+    {t:"A ∩ (B ∪ C)",f:(a,b,c)=>a&&(b||c)},{t:"(A∩B) ∪ (A∩C)",f:(a,b,c)=>(a&&b)||(a&&c)}
+  ];
+  let cur=EX[0];
+  const F=Fig(host,{});
+  F.render=()=>{
+    const c=F.ctx,w=F.w,h=F.h; if(!w)return;
+    c.clearRect(0,0,w,h);
+    const R=Math.min(w/3.7,h/2.8), cx=w/2, cy=h*.43;
+    const P=[[cx-R*.56,cy-R*.30],[cx+R*.56,cy-R*.30],[cx,cy+R*.66]];
+    const x0=10,y0=10,x1=w-10,y1=h-10, d=F.dpr, CW=F.canvas.width, CH=F.canvas.height;
+    const img=c.createImageData(CW,CH), [rr,gg,bb]=hexRGB(cv("--accent")), aa=Math.round(255*.30);
+    const inS=(px,py,i)=>{const dx=px-P[i][0],dy=py-P[i][1];return dx*dx+dy*dy<=R*R};
+    for(let j=0;j<CH;j++){
+      const py=j/d; if(py<y0||py>y1)continue;
+      for(let i=0;i<CW;i++){
+        const px=i/d; if(px<x0||px>x1)continue;
+        if(cur.f(inS(px,py,0),inS(px,py,1),inS(px,py,2))){
+          const k=(j*CW+i)*4; img.data[k]=rr; img.data[k+1]=gg; img.data[k+2]=bb; img.data[k+3]=aa;
+        }
+      }
+    }
+    c.putImageData(img,0,0);
+    c.save();
+    c.strokeStyle=cv("--line"); c.lineWidth=1.4; c.strokeRect(x0,y0,x1-x0,y1-y0);
+    c.font="600 13px "+cv("--mono"); c.fillStyle=cv("--ink-faint");
+    c.textAlign="left"; c.textBaseline="top"; c.fillText("U",x0+8,y0+6);
+    const nm=["A","B","C"], cols=[cv("--p1"),cv("--p2"),cv("--p3")], ang=[Math.PI*1.14,Math.PI*1.86,Math.PI*.5];
+    P.forEach((p,i)=>{
+      c.beginPath(); c.arc(p[0],p[1],R,0,7); c.strokeStyle=cols[i]; c.lineWidth=2.2; c.stroke();
+      c.font="600 16px "+cv("--display"); c.fillStyle=cols[i]; c.textAlign="center"; c.textBaseline="middle";
+      c.fillText(nm[i],p[0]+Math.cos(ang[i])*R*.78,p[1]+Math.sin(ang[i])*R*.78);
+    });
+    c.font="600 16px "+cv("--math"); c.fillStyle=cv("--accent"); c.textAlign="right"; c.textBaseline="bottom";
+    c.fillText(cur.t,x1-10,y1-9); c.restore();
+  };
+  chipset(document.getElementById("vennChips"),EX,it=>{cur=it;F.render&&F.render()});
+})();
+
+/* ===== tool 02 · truth switches ===== */
+(()=>{
+  const wrap=document.getElementById("ttTable"); if(!wrap)return;
+  const COLS=[
+    {t:"~p",f:(p,q)=>!p},{t:"p ∧ q",f:(p,q)=>p&&q},{t:"p ∨ q",f:(p,q)=>p||q},
+    {t:"p → q",f:(p,q)=>!p||q},{t:"~p ∨ q",f:(p,q)=>!p||q},{t:"~q → ~p",f:(p,q)=>q||!p},
+    {t:"p ∧ ~q",f:(p,q)=>p&&!q},{t:"~(p → q)",f:(p,q)=>p&&!q},{t:"p ↔ q",f:(p,q)=>p===q},
+    {t:"p ∨ ~p",f:p=>p||!p}
+  ];
+  const rows=[[true,true],[true,false],[false,true],[false,false]];
+  let st=[true,false];
+  const sw=document.getElementById("ttSwitch");
+  const mk=(name,i)=>{
+    const b=document.createElement("button"); b.className="chip"; b.type="button";
+    const paint=()=>{b.setAttribute("aria-pressed",st[i]?"true":"false");
+      b.innerHTML=`<span class="m">${name}</span> = ${st[i]?"จริง (T)":"เท็จ (F)"}`};
+    b.addEventListener("click",()=>{st[i]=!st[i];paint();draw()}); paint(); sw.appendChild(b);
+  };
+  const tv=b=>`<b style="color:var(--${b?"good":"bad"})">${b?"T":"F"}</b>`;
+  function draw(){
+    const body=rows.map(([p,q])=>{
+      const on=(p===st[0]&&q===st[1]);
+      const cells=COLS.map(c=>`<td>${tv(!!c.f(p,q))}</td>`).join("");
+      return `<tr${on?' style="outline:2px solid var(--accent);outline-offset:-2px"':""}>
+        <td>${tv(p)}</td><td>${tv(q)}</td>${cells}</tr>`;
+    }).join("");
+    wrap.innerHTML=`<table><thead><tr><th class="m">p</th><th class="m">q</th>
+      ${COLS.map(c=>`<th class="m">${c.t}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table>`;
+  }
+  mk("p",0); mk("q",1); draw();
+})();
+
+/* ===== tool 03 · sign chart ===== */
+(()=>{
+  const host=document.getElementById("sign"); if(!host)return;
+  const F=Fig(host,{xmin:-6,xmax:6,ymin:-1.5,ymax:1.2,step:1});
+  const MODES=[{t:"&gt; 0",g:v=>v>0,eq:false},{t:"&lt; 0",g:v=>v<0,eq:false},
+               {t:"≥ 0",g:v=>v>0,eq:true},{t:"≤ 0",g:v=>v<0,eq:true}];
+  let mode=MODES[0];
+  const S=sliders(document.getElementById("signCtl"),[
+    {id:"r1",label:"ราก r₁",min:-5,max:5,step:.5,val:-3,dec:1},
+    {id:"r2",label:"ราก r₂",min:-5,max:5,step:.5,val:0,dec:1},
+    {id:"r3",label:"ราก r₃",min:-5,max:5,step:.5,val:2.5,dec:1},
+    {id:"m2",label:"กำลังของ (x−r₂)",min:1,max:2,step:1,val:1,dec:0}
+  ],()=>F.render());
+  const out=readout(document.getElementById("signOut"),["นิพจน์","*ช่วงคำตอบ"]);
+  F.render=()=>{
+    const f=x=>(x-S.r1)*Math.pow(x-S.r2,S.m2)*(x-S.r3);
+    F.clear();
+    let mx=0; for(let i=0;i<=400;i++)mx=Math.max(mx,Math.abs(f(-6+12*i/400)));
+    const k=mx?1/mx:1, g=x=>f(x)*k, c=F.ctx;
+    for(let i=0;i<240;i++){
+      const x=-6+12*i/240, xe=-6+12*(i+1)/240, v=f((x+xe)/2);
+      c.fillStyle=v>0?alpha("--p3",.14):alpha("--p2",.14);
+      c.fillRect(F.X(x),F.Y(1.2),F.X(xe)-F.X(x)+1,F.Y(0)-F.Y(1.2));
+    }
+    F.grid(1); F.axes({});
+    F.curve(g,cv("--p1"),{w:2.6});
+    const roots=[...new Set([S.r1,S.r2,S.r3])].sort((a,b)=>a-b);
+    roots.forEach(r=>F.dot(r,0,cv("--p1"),5,{hollow:!mode.eq}));
+    const bounds=[-6,...roots,6], segs=[];
+    for(let i=0;i<bounds.length-1;i++){
+      const a=bounds[i],b=bounds[i+1]; if(b-a<1e-9)continue;
+      if(mode.g(f((a+b)/2)))segs.push([a,b]);
+    }
+    const merged=[];
+    segs.forEach(s=>{
+      const last=merged[merged.length-1];
+      if(last&&mode.eq&&Math.abs(last[1]-s[0])<1e-9)last[1]=s[1]; else merged.push([...s]);
+    });
+    const y=-1.15;
+    F.seg(-6,y,6,y,cv("--line"),{w:3});
+    merged.forEach(s=>{
+      F.seg(s[0],y,s[1],y,cv("--accent"),{w:5});
+      [s[0],s[1]].forEach(p=>{if(Math.abs(p)<5.99)F.dot(p,y,cv("--accent"),4.5,{hollow:!mode.eq})});
+    });
+    F.label(-5.85,-.98,"ช่วงคำตอบ",cv("--accent"),{size:11});
+    const num=v=>fmt(v,Math.abs(v%1)>1e-9?1:0);
+    const t=s=>`(x−${num(s)})`.replace("−-","+");
+    out["นิพจน์"].innerHTML=t(S.r1)+t(S.r2)+(S.m2>1?"²":"")+t(S.r3)+" "+mode.t+" 0";
+    out["ช่วงคำตอบ"].textContent=merged.length?merged.map(s=>{
+      const L=s[0]<=-5.99?"(−∞":(mode.eq?"[":"(")+num(s[0]);
+      const R=s[1]>=5.99?"∞)":num(s[1])+(mode.eq?"]":")");
+      return L+", "+R;
+    }).join(" ∪ "):"ไม่มีคำตอบ";
+  };
+  chipset(document.getElementById("signChips"),MODES,it=>{mode=it;F.render&&F.render()});
+})();
+
+/* ===== tool 04 · absolute value ===== */
+(()=>{
+  const host=document.getElementById("abs"); if(!host)return;
+  const F=Fig(host,{xmin:-8,xmax:8,ymin:-1,ymax:1,step:1});
+  const MODES=[{t:"|x − a| &lt; r",in:true,eq:false},{t:"|x − a| ≤ r",in:true,eq:true},
+               {t:"|x − a| &gt; r",in:false,eq:false},{t:"|x − a| ≥ r",in:false,eq:true}];
+  let mode=MODES[0];
+  const S=sliders(document.getElementById("absCtl"),[
+    {id:"a",label:"จุดกึ่งกลาง a",min:-5,max:5,step:.5,val:1,dec:1},
+    {id:"r",label:"ระยะ r",min:.5,max:5,step:.5,val:2.5,dec:1}
+  ],()=>F.render());
+  const out=readout(document.getElementById("absOut"),["อ่านเป็นภาษาคน","*เซตคำตอบ"]);
+  F.render=()=>{
+    F.clear(); const c=F.ctx;
+    F.seg(-8,0,8,0,cv("--grid-bold"),{w:2});
+    for(let x=-7;x<=7;x++){
+      F.seg(x,-.1,x,.1,cv("--grid-bold"),{w:1.4});
+      F.label(x,-.16,String(x),cv("--ink-faint"),{size:11,align:"center",base:"top",bg:false});
+    }
+    const L=S.a-S.r, R=S.a+S.r;
+    const bar=(x1,x2)=>{c.save();c.fillStyle=alpha("--accent",.15);
+      c.fillRect(F.X(x1),F.Y(.66),F.X(x2)-F.X(x1),F.Y(-.66)-F.Y(.66));c.restore()};
+    if(mode.in){bar(L,R);F.seg(L,0,R,0,cv("--accent"),{w:6})}
+    else{bar(-8,L);bar(R,8);F.seg(-8,0,L,0,cv("--accent"),{w:6});F.seg(R,0,8,0,cv("--accent"),{w:6})}
+    F.seg(L,.36,S.a,.36,cv("--p2"),{w:1.6,dash:[4,3]});
+    F.seg(S.a,.36,R,.36,cv("--p2"),{w:1.6,dash:[4,3]});
+    F.label((S.a+L)/2,.4,"r = "+fmt(S.r,1),cv("--p2"),{size:11,align:"center"});
+    F.label((S.a+R)/2,.4,"r = "+fmt(S.r,1),cv("--p2"),{size:11,align:"center"});
+    F.dot(S.a,0,cv("--p2"),5);
+    F.label(S.a,-.44,"a = "+fmt(S.a,1),cv("--p2"),{size:11,align:"center",base:"top"});
+    [L,R].forEach(p=>{F.dot(p,0,cv("--accent"),6,{hollow:!mode.eq})});
+    F.label(L,.1,fmt(L,1),cv("--accent"),{size:11,align:"center"});
+    F.label(R,.1,fmt(R,1),cv("--accent"),{size:11,align:"center"});
+    out["อ่านเป็นภาษาคน"].textContent="ระยะจาก x ถึง "+fmt(S.a,1)+(mode.in?(mode.eq?" ไม่เกิน ":" น้อยกว่า "):(mode.eq?" ไม่น้อยกว่า ":" มากกว่า "))+fmt(S.r,1);
+    const b1=mode.eq?"[":"(", b2=mode.eq?"]":")";
+    out["เซตคำตอบ"].textContent=mode.in?`${b1}${fmt(L,1)}, ${fmt(R,1)}${b2}`
+      :`(−∞, ${fmt(L,1)}${b2} ∪ ${b1}${fmt(R,1)}, ∞)`;
+  };
+  chipset(document.getElementById("absChips"),MODES,it=>{mode=it;F.render&&F.render()});
+})();
+
+/* ===== tool 05 · y = x^n ===== */
+(()=>{
+  const host=document.getElementById("pow"); if(!host)return;
+  const F=Fig(host,{xmin:-3.4,xmax:3.4,ymin:-3,ymax:3.6,step:1});
+  const S=sliders(document.getElementById("powCtl"),[
+    {id:"n",label:"เลขชี้กำลัง n",min:-3,max:4,step:.25,val:2,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("powOut"),["*ชนิดกราฟ","f(2)","f(−2)"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    const n=S.n, isInt=Math.abs(n-Math.round(n))<1e-9;
+    const g=x=>{ if(x===0)return n>0?0:NaN; if(x<0&&!isInt)return NaN; return Math.pow(x,n) };
+    F.curve(x=>x,cv("--p3"),{w:1.6,dash:[5,4]});
+    F.curve(g,cv("--p1"),{w:2.8,N:1400});
+    F.label(-3.3,3.38,"y = x^"+fmt(n,2),cv("--p1"),{size:12});
+    out["ชนิดกราฟ"].textContent=!isInt?(n>0?"กราฟกรณฑ์ · นิยามเฉพาะ x ≥ 0":"ไม่นิยามที่ x ≤ 0"):
+      n<0?"ไฮเพอร์โบลา · มีเส้นกำกับ x=0, y=0":n===0?"เส้นตรง y = 1":
+      Math.abs(n%2)===0?"ฟังก์ชันคู่ · สมมาตรแกน y":"ฟังก์ชันคี่ · สมมาตรจุดกำเนิด";
+    out["f(2)"].textContent=fmt(g(2),3);
+    out["f(−2)"].textContent=isFinite(g(-2))?fmt(g(-2),3):"ไม่นิยาม";
+  };
+  chipset(document.getElementById("powChips"),
+    [{t:"n = 2",v:2},{t:"n = 3",v:3},{t:"n = 0.5",v:.5},{t:"n = −1",v:-1},{t:"n = −2",v:-2}],
+    it=>{S["_set_n"](it.v);F.render&&F.render()});
+})();
+
+/* ===== tool 06 · transform ===== */
+(()=>{
+  const host=document.getElementById("trans"); if(!host)return;
+  const BASE=[
+    {t:"f(x) = x²",f:x=>x*x},{t:"f(x) = |x|",f:x=>Math.abs(x)},
+    {t:"f(x) = √x",f:x=>x<0?NaN:Math.sqrt(x)},{t:"f(x) = x³",f:x=>x**3},
+    {t:"f(x) = 1/x",f:x=>x===0?NaN:1/x},{t:"f(x) = sin x",f:x=>Math.sin(x)}
+  ];
+  let base=BASE[0];
+  const F=Fig(host,{xmin:-6,xmax:6,ymin:-4,ymax:4,step:1});
+  const S=sliders(document.getElementById("trCtl"),[
+    {id:"a",label:"a (ยืด/พลิก)",min:-3,max:3,step:.25,val:1,dec:2},
+    {id:"h",label:"h (เลื่อนซ้าย-ขวา)",min:-4,max:4,step:.25,val:0,dec:2},
+    {id:"k",label:"k (เลื่อนขึ้น-ลง)",min:-3,max:3,step:.25,val:0,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("trOut"),["*สมการปัจจุบัน","เกิดอะไรขึ้น"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    F.curve(base.f,cv("--ink-faint"),{w:1.8,dash:[5,4]});
+    F.curve(x=>S.a*base.f(x-S.h)+S.k,cv("--p1"),{w:2.9,N:1200});
+    const sg=v=>v<0?"− "+fmt(-v,2):"+ "+fmt(v,2);
+    out["สมการปัจจุบัน"].textContent=`y = ${fmt(S.a,2)}·f(x ${sg(-S.h)}) ${sg(S.k)}`;
+    const w=[];
+    if(S.h)w.push("เลื่อน"+(S.h>0?"ขวา ":"ซ้าย ")+fmt(Math.abs(S.h),2));
+    if(S.k)w.push("เลื่อน"+(S.k>0?"ขึ้น ":"ลง ")+fmt(Math.abs(S.k),2));
+    if(S.a<0)w.push("พลิกรอบแกน x");
+    if(Math.abs(S.a)>1)w.push("ยืดสูงขึ้น "+fmt(Math.abs(S.a),2)+" เท่า");
+    if(Math.abs(S.a)<1&&S.a!==0)w.push("แบนลง");
+    if(S.a===0)w.push("แบนเป็นเส้นตรง y = "+fmt(S.k,2));
+    out["เกิดอะไรขึ้น"].textContent=w.length?w.join(" · "):"ยังไม่แปลงอะไร";
+  };
+  chipset(document.getElementById("trChips"),BASE,it=>{base=it;F.render&&F.render()});
+})();
+
+/* ===== tool 07 · inverse mirror ===== */
+(()=>{
+  const host=document.getElementById("inv"); if(!host)return;
+  const FN=[
+    {t:"f(x) = 2x + 1",f:x=>2*x+1,d:[-4,4],inv:"f⁻¹(x) = (x − 1)/2"},
+    {t:"f(x) = x², x ≥ 0",f:x=>x*x,d:[0,4],inv:"f⁻¹(x) = √x"},
+    {t:"f(x) = x³",f:x=>x**3,d:[-2,2],inv:"f⁻¹(x) = ∛x"},
+    {t:"f(x) = 2ˣ",f:x=>2**x,d:[-4,2.5],inv:"f⁻¹(x) = log₂ x"},
+    {t:"f(x) = 1/x, x > 0",f:x=>1/x,d:[.25,5],inv:"f⁻¹(x) = 1/x (ตัวเอง)"}
+  ];
+  let cur=FN[0], t=1;
+  const F=Fig(host,{xmin:-5,xmax:5,ymin:-5,ymax:5,step:1});
+  const out=readout(document.getElementById("invOut"),["f","*จุดบน f","*จุดบน f⁻¹"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    F.curve(x=>x,cv("--ink-faint"),{w:1.5,dash:[5,4]});
+    F.label(4.6,4.6,"y = x",cv("--ink-faint"),{size:11,align:"right"});
+    const [d0,d1]=cur.d, pts=[];
+    for(let i=0;i<=400;i++){const x=d0+(d1-d0)*i/400, y=cur.f(x); if(isFinite(y))pts.push([x,y])}
+    F.path(pts,cv("--p1"),{w:2.8});
+    F.path(pts.map(p=>[p[1],p[0]]),cv("--p2"),{w:2.8});
+    const tc=clamp(t,d0,d1), y=cur.f(tc);
+    F.seg(tc,y,y,tc,cv("--mark"),{w:1.6,dash:[3,3]});
+    F.dot(tc,y,cv("--p1"),6); F.dot(y,tc,cv("--p2"),6);
+    F.label(tc,y,`(${fmt(tc,1)}, ${fmt(y,1)})`,cv("--p1"),{size:11,dy:-8,align:"center"});
+    F.label(y,tc,`(${fmt(y,1)}, ${fmt(tc,1)})`,cv("--p2"),{size:11,dy:-8,align:"center"});
+    F.label(-4.8,-4.7,"น้ำเงิน = f · ชมพู = f⁻¹",cv("--ink-faint"),{size:11});
+    out["f"].textContent=cur.inv;
+    out["จุดบน f"].textContent=`(${fmt(tc,2)}, ${fmt(y,2)})`;
+    out["จุดบน f⁻¹"].textContent=`(${fmt(y,2)}, ${fmt(tc,2)})`;
+  };
+  drag(F,x=>{t=x;F.render()});
+  chipset(document.getElementById("invChips"),FN,it=>{cur=it;t=(it.d[0]+it.d[1])/2;F.render&&F.render()});
+})();
+/* ===== tool 08 · parabola ===== */
+(()=>{
+  const host=document.getElementById("par"); if(!host)return;
+  const F=Fig(host,{xmin:-6,xmax:6,ymin:-4,ymax:5,step:1});
+  const S=sliders(document.getElementById("parCtl"),[
+    {id:"a",label:"a (ความอ้า/หงายคว่ำ)",min:-2,max:2,step:.25,val:1,dec:2},
+    {id:"b",label:"b",min:-6,max:6,step:.25,val:-1,dec:2},
+    {id:"c",label:"c (จุดตัดแกน y)",min:-4,max:4,step:.25,val:-2,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("parOut"),["สมการ","จุดยอด","*b² − 4ac","*ราก"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    const {a,b,c}=S, D=b*b-4*a*c;
+    F.curve(x=>a*x*x+b*x+c,cv("--p1"),{w:2.9});
+    if(a!==0){
+      const vx=-b/(2*a), vy=a*vx*vx+b*vx+c;
+      F.seg(vx,-4,vx,5,cv("--p2"),{w:1.3,dash:[4,4]});
+      F.dot(vx,vy,cv("--p2"),6);
+      F.label(vx,vy,`(${fmt(vx,2)}, ${fmt(vy,2)})`,cv("--p2"),{size:11,dy:vy>=0?-9:20,align:"center"});
+      out["จุดยอด"].textContent=`(${fmt(vx,2)}, ${fmt(vy,2)})`;
+      if(D>=0){
+        const r1=(-b-Math.sqrt(D))/(2*a), r2=(-b+Math.sqrt(D))/(2*a);
+        F.dot(r1,0,cv("--p4"),6); F.dot(r2,0,cv("--p4"),6);
+        out["ราก"].textContent=D<1e-9?`x = ${fmt(r1,2)} (ซ้ำ)`:`${fmt(Math.min(r1,r2),2)}, ${fmt(Math.max(r1,r2),2)}`;
+      } else out["ราก"].textContent="ไม่มีรากจำนวนจริง";
+    } else { out["จุดยอด"].textContent="a = 0 → เป็นเส้นตรง"; out["ราก"].textContent=b?fmt(-c/b,2):"—" }
+    F.dot(0,c,cv("--ink-faint"),4);
+    const sg=v=>(v<0?" − ":" + ")+fmt(Math.abs(v),2);
+    out["สมการ"].textContent=`y = ${fmt(S.a,2)}x²${sg(b)}x${sg(c)}`;
+    out["b² − 4ac"].innerHTML=fmt(D,2)+" → "+(Math.abs(D)<1e-9?"1 ราก":D>0?"2 ราก":"0 ราก");
+  };
+})();
+
+/* ===== tool 09 · exp & log mirror ===== */
+(()=>{
+  const host=document.getElementById("explog"); if(!host)return;
+  const F=Fig(host,{xmin:-4,xmax:6,ymin:-3.5,ymax:4,step:1});
+  const S=sliders(document.getElementById("elCtl"),[
+    {id:"b",label:"ฐาน b",min:.2,max:5,step:.1,val:2,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("elOut"),["*พฤติกรรม","b¹","b²","log_b(b²)"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    let b=S.b; if(Math.abs(b-1)<.05)b=1.05;
+    F.curve(x=>x,cv("--ink-faint"),{w:1.5,dash:[5,4]});
+    F.curve(x=>Math.pow(b,x),cv("--p1"),{w:2.9});
+    F.curve(x=>x<=0?NaN:Math.log(x)/Math.log(b),cv("--p2"),{w:2.9});
+    F.dot(0,1,cv("--p1"),5); F.dot(1,0,cv("--p2"),5);
+    F.label(0,1,"(0, 1)",cv("--p1"),{size:11,dy:-8,align:"center"});
+    F.label(1,0,"(1, 0)",cv("--p2"),{size:11,dy:20,align:"center"});
+    F.label(-3.85,3.8,"b = "+fmt(b,2),cv("--accent"),{size:12});
+    out["พฤติกรรม"].textContent=b>1?"b > 1 → เพิ่มขึ้น (เติบโต)":"0 < b < 1 → ลดลง (สลายตัว)";
+    out["b¹"].textContent=fmt(b,3);
+    out["b²"].textContent=fmt(b*b,3);
+    out["log_b(b²)"].textContent=fmt(Math.log(b*b)/Math.log(b),3);
+  };
+  chipset(document.getElementById("elChips"),
+    [{t:"b = 2",v:2},{t:"b = e ≈ 2.72",v:2.7},{t:"b = 5",v:5},{t:"b = 0.5",v:.5},{t:"b = 0.2",v:.2}],
+    it=>{S["_set_b"](it.v);F.render&&F.render()},0);
+})();
+
+/* ===== tool 10 · unit circle ===== */
+(()=>{
+  const host=document.getElementById("unit"); if(!host)return;
+  const K=0.81, X0=1.3;
+  const F=Fig(host,{xmin:-1.8,xmax:6.5,ymin:-2.6,ymax:2.6,step:1});
+  const MODE=[{t:"sin",f:Math.sin,col:"--p2"},{t:"cos",f:Math.cos,col:"--p3"},{t:"tan",f:Math.tan,col:"--p4"}];
+  let mode=MODE[0], th=Math.PI/6;
+  const out=readout(document.getElementById("unitOut"),["*มุม","เรเดียน","*sin θ","*cos θ","tan θ","ควอดรันต์"]);
+  const wx=t=>X0+t*K;
+  F.render=()=>{
+    F.clear(); const c=F.ctx;
+    // circle frame
+    F.seg(-1.35,0,1.35,0,cv("--grid-bold"),{w:1.2});
+    F.seg(0,-1.35,0,1.35,cv("--grid-bold"),{w:1.2});
+    c.save(); c.beginPath(); c.arc(F.X(0),F.Y(0),F.X(1)-F.X(0),0,7);
+    c.strokeStyle=cv("--line"); c.lineWidth=1.8; c.stroke(); c.restore();
+    const cs=Math.cos(th), sn=Math.sin(th);
+    // angle arc
+    c.save(); c.beginPath(); c.arc(F.X(0),F.Y(0),(F.X(1)-F.X(0))*.28,0,-th,th>0);
+    c.strokeStyle=cv("--p4"); c.lineWidth=2; c.stroke(); c.restore();
+    F.label(.42*Math.cos(th/2),.42*Math.sin(th/2),fmt(th*180/Math.PI,0)+"°",cv("--p4"),{size:11,align:"center"});
+    // cos & sin legs
+    F.seg(0,0,cs,0,cv("--p3"),{w:4});
+    F.seg(cs,0,cs,sn,cv("--p2"),{w:4});
+    F.seg(0,0,cs,sn,cv("--accent"),{w:2});
+    F.dot(cs,sn,cv("--accent"),7);
+    F.label(cs/2,0,"cos",cv("--p3"),{size:11,align:"center",dy:16});
+    F.label(cs,sn/2,"sin",cv("--p2"),{size:11,align:cs>0?"left":"right",dx:cs>0?7:-7});
+    // wave panel
+    F.seg(X0,0,wx(2*Math.PI),0,cv("--grid-bold"),{w:1.2});
+    F.seg(X0,-1.6,X0,1.6,cv("--grid-bold"),{w:1.2});
+    [[Math.PI/2,"π/2"],[Math.PI,"π"],[3*Math.PI/2,"3π/2"],[2*Math.PI,"2π"]].forEach(([t,lb])=>{
+      F.seg(wx(t),-.09,wx(t),.09,cv("--grid-bold"),{w:1.2});
+      F.label(wx(t),-.14,lb,cv("--ink-faint"),{size:10,align:"center",base:"top",bg:false});
+    });
+    F.seg(X0,1,wx(2*Math.PI),1,cv("--grid"),{w:1,dash:[3,3]});
+    F.seg(X0,-1,wx(2*Math.PI),-1,cv("--grid"),{w:1,dash:[3,3]});
+    const pts=[];
+    for(let i=0;i<=400;i++){
+      const t=2*Math.PI*i/400, y=mode.f(t);
+      pts.push([wx(t),clamp(y,-2.5,2.5)]);
+      if(Math.abs(y)>2.5)pts.push([NaN,NaN]);
+    }
+    let run=[];
+    pts.forEach(p=>{ if(isFinite(p[0]))run.push(p); else {F.path(run,cv(mode.col),{w:2.4});run=[]} });
+    F.path(run,cv(mode.col),{w:2.4});
+    const val=mode.f(th);
+    if(Math.abs(val)<2.5){
+      F.seg(cs,sn,wx(th),val,cv("--mark"),{w:1.3,dash:[3,3]});
+      F.dot(wx(th),val,cv(mode.col),6);
+      F.seg(wx(th),0,wx(th),val,cv(mode.col),{w:2.5});
+    }
+    F.label(wx(0),2.1,"y = "+mode.t+" θ",cv(mode.col),{size:12});
+    const deg=th*180/Math.PI;
+    out["มุม"].textContent=fmt(deg,1)+"°";
+    out["เรเดียน"].textContent=fmt(th/Math.PI,3)+"π";
+    out["sin θ"].textContent=fmt(sn,4);
+    out["cos θ"].textContent=fmt(cs,4);
+    out["tan θ"].textContent=Math.abs(cs)<1e-4?"ไม่นิยาม":fmt(sn/cs,4);
+    out["ควอดรันต์"].textContent=(deg<90?"I":deg<180?"II":deg<270?"III":"IV")+(cs>0&&sn>0?" (+,+)":cs<0&&sn>0?" (−,+)":cs<0?" (−,−)":" (+,−)");
+  };
+  drag(F,(x,y)=>{
+    let t;
+    if(x<1.1) t=Math.atan2(y,x); else t=(x-X0)/K;
+    t=((t%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
+    th=t; F.render();
+  });
+  chipset(document.getElementById("unitChips"),MODE.map(m=>({t:"คลื่น "+m.t,m})),it=>{mode=it.m;F.render&&F.render()});
+})();
+
+/* ===== tool 11 · wave builder ===== */
+(()=>{
+  const host=document.getElementById("wave"); if(!host)return;
+  const F=Fig(host,{xmin:-.6,xmax:4*Math.PI,ymin:-4,ymax:4,step:1});
+  const S=sliders(document.getElementById("waveCtl"),[
+    {id:"a",label:"a (แอมพลิจูด)",min:-3,max:3,step:.25,val:1,dec:2},
+    {id:"b",label:"b (ความถี่)",min:.25,max:4,step:.25,val:1,dec:2},
+    {id:"c",label:"c (เลื่อนแนวนอน)",min:-3,max:3,step:.25,val:0,dec:2},
+    {id:"d",label:"d (เลื่อนแนวตั้ง)",min:-2,max:2,step:.25,val:0,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("waveOut"),["*สมการ","แอมพลิจูด |a|","*คาบ 2π/b","ช่วงค่า"]);
+  F.render=()=>{
+    F.clear(); F.grid(1);
+    const c=F.ctx;
+    F.seg(-.6,0,4*Math.PI,0,cv("--grid-bold"),{w:1.4});
+    F.seg(0,-4,0,4,cv("--grid-bold"),{w:1.4});
+    for(let k=1;k<=8;k++){
+      const x=k*Math.PI/2; if(x>4*Math.PI)break;
+      F.seg(x,-.13,x,.13,cv("--grid-bold"),{w:1.1});
+      if(k%2===0)F.label(x,-.2,(k/2===1?"":k/2)+"π",cv("--ink-faint"),{size:10,align:"center",base:"top",bg:false});
+    }
+    for(let y=-3;y<=3;y++) if(y) F.label(-.1,y,String(y),cv("--ink-faint"),{size:10,align:"right",base:"middle",bg:false});
+    F.curve(x=>Math.sin(x),cv("--ink-faint"),{w:1.4,dash:[5,4]});
+    F.seg(-.6,S.d,4*Math.PI,S.d,cv("--p3"),{w:1.3,dash:[6,4]});
+    F.curve(x=>S.a*Math.sin(S.b*(x-S.c))+S.d,cv("--p1"),{w:2.9,N:1200});
+    const per=2*Math.PI/S.b;
+    if(per<4*Math.PI){
+      const y=S.d+Math.abs(S.a)+.35;
+      F.seg(S.c,y,S.c+per,y,cv("--p4"),{w:1.6});
+      F.seg(S.c,y-.12,S.c,y+.12,cv("--p4"),{w:1.6});
+      F.seg(S.c+per,y-.12,S.c+per,y+.12,cv("--p4"),{w:1.6});
+      F.label(S.c+per/2,y+.05,"คาบ = "+fmt(per,2),cv("--p4"),{size:11,align:"center"});
+    }
+    const sg=v=>(v<0?"+ "+fmt(-v,2):"− "+fmt(v,2));
+    out["สมการ"].textContent=`y = ${fmt(S.a,2)}·sin(${fmt(S.b,2)}(x ${sg(S.c)})) ${S.d<0?"− "+fmt(-S.d,2):"+ "+fmt(S.d,2)}`;
+    out["แอมพลิจูด |a|"].textContent=fmt(Math.abs(S.a),2);
+    out["คาบ 2π/b"].textContent=fmt(per,3);
+    out["ช่วงค่า"].textContent=`[${fmt(S.d-Math.abs(S.a),2)}, ${fmt(S.d+Math.abs(S.a),2)}]`;
+  };
+})();
+
+/* ===== tool 12 · matrix as transform ===== */
+(()=>{
+  const host=document.getElementById("mat"); if(!host)return;
+  const F=Fig(host,{xmin:-5,xmax:5,ymin:-3.125,ymax:3.125,step:1});
+  const S=sliders(document.getElementById("matCtl"),[
+    {id:"a",label:"a",min:-3,max:3,step:.25,val:1,dec:2},
+    {id:"b",label:"b",min:-3,max:3,step:.25,val:.5,dec:2},
+    {id:"c",label:"c",min:-3,max:3,step:.25,val:0,dec:2},
+    {id:"d",label:"d",min:-3,max:3,step:.25,val:1,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("matOut"),["เมทริกซ์","*det = ad − bc","*พื้นที่รูปใหม่","อินเวอร์ส"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    const {a,b,c,d}=S, T=(x,y)=>[a*x+b*y,c*x+d*y];
+    const cx=F.ctx; cx.save(); cx.globalAlpha=.5;
+    for(let i=-6;i<=6;i++){
+      F.path([T(i,-6),T(i,6)],alpha("--p1",.28),{w:1});
+      F.path([T(-6,i),T(6,i)],alpha("--p2",.28),{w:1});
+    }
+    cx.restore();
+    F.rect(0,0,1,1,{stroke:cv("--ink-faint"),fill:alpha("--ink-faint",.08),w:1.4});
+    const sq=[T(0,0),T(1,0),T(1,1),T(0,1)];
+    F.path(sq,cv("--p3"),{w:2,close:true,fill:alpha("--p3",.2)});
+    F.arrow(0,0,a,c,cv("--p1"),{w:3});
+    F.arrow(0,0,b,d,cv("--p2"),{w:3});
+    F.label(a,c,`i → (${fmt(a,2)}, ${fmt(c,2)})`,cv("--p1"),{size:11,dy:-8});
+    F.label(b,d,`j → (${fmt(b,2)}, ${fmt(d,2)})`,cv("--p2"),{size:11,dy:-8});
+    const det=a*d-b*c;
+    out["เมทริกซ์"].textContent=`[[${fmt(a,2)}, ${fmt(b,2)}], [${fmt(c,2)}, ${fmt(d,2)}]]`;
+    out["det = ad − bc"].textContent=fmt(det,3);
+    out["พื้นที่รูปใหม่"].textContent=fmt(Math.abs(det),3)+(det<0?" (พลิกด้าน)":"");
+    out["อินเวอร์ส"].textContent=Math.abs(det)<1e-9?"ไม่มี — det = 0"
+      :`[[${fmt(d/det,2)}, ${fmt(-b/det,2)}], [${fmt(-c/det,2)}, ${fmt(a/det,2)}]]`;
+  };
+  const PRE=[{t:"เอกลักษณ์",v:[1,0,0,1]},{t:"หมุน 90°",v:[0,-1,1,0]},{t:"สะท้อนแกน x",v:[1,0,0,-1]},
+             {t:"ขยาย 2 เท่า",v:[2,0,0,2]},{t:"เฉือน (shear)",v:[1,1,0,1]},{t:"det = 0",v:[1,2,2,4]}];
+  const box=document.createElement("div"); box.className="chips"; box.style.marginTop=".6rem";
+  document.getElementById("matCtl").appendChild(box);
+  chipset(box,PRE,it=>{
+    ["a","b","c","d"].forEach((k,i)=>S["_set_"+k](it.v[i]));
+    F.render&&F.render();
+  });
+})();
+
+/* ===== tool 13 · vectors ===== */
+(()=>{
+  const host=document.getElementById("vec"); if(!host)return;
+  const F=Fig(host,{xmin:-6,xmax:6,ymin:-3.75,ymax:3.75,step:1});
+  let u=[3,1], v=[1,2.4], sel=null;
+  const out=readout(document.getElementById("vecOut"),["u","v","*u · v","*มุม θ","|u|, |v|","*พื้นที่ |u×v|"]);
+  const near=(x,y,p)=>Math.hypot(x-p[0],y-p[1]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    const s=[u[0]+v[0],u[1]+v[1]];
+    F.path([[0,0],u,s,v],null,{close:true,fill:alpha("--p4",.12)});
+    F.seg(u[0],u[1],s[0],s[1],cv("--ink-faint"),{w:1.2,dash:[4,3]});
+    F.seg(v[0],v[1],s[0],s[1],cv("--ink-faint"),{w:1.2,dash:[4,3]});
+    const uu=u[0]*u[0]+u[1]*u[1], dot=u[0]*v[0]+u[1]*v[1], k=uu?dot/uu:0;
+    const pr=[k*u[0],k*u[1]];
+    F.seg(v[0],v[1],pr[0],pr[1],cv("--p3"),{w:1.3,dash:[4,3]});
+    F.arrow(0,0,pr[0],pr[1],cv("--p3"),{w:4});
+    F.arrow(0,0,s[0],s[1],cv("--p4"),{w:2.4});
+    F.arrow(0,0,u[0],u[1],cv("--p1"),{w:3.4});
+    F.arrow(0,0,v[0],v[1],cv("--p2"),{w:3.4});
+    F.dot(u[0],u[1],cv("--p1"),5); F.dot(v[0],v[1],cv("--p2"),5);
+    F.label(u[0],u[1],"u",cv("--p1"),{size:13,dy:-9,weight:"600"});
+    F.label(v[0],v[1],"v",cv("--p2"),{size:13,dy:-9,weight:"600"});
+    F.label(s[0],s[1],"u + v",cv("--p4"),{size:11,dy:-9});
+    const cross=u[0]*v[1]-u[1]*v[0];
+    const ang=Math.acos(clamp(dot/(Math.hypot(...u)*Math.hypot(...v)||1),-1,1))*180/Math.PI;
+    out["u"].textContent=`(${fmt(u[0],2)}, ${fmt(u[1],2)})`;
+    out["v"].textContent=`(${fmt(v[0],2)}, ${fmt(v[1],2)})`;
+    out["u · v"].textContent=fmt(dot,3)+(Math.abs(dot)<.05?" → ตั้งฉาก!":"");
+    out["มุม θ"].textContent=fmt(ang,1)+"°";
+    out["|u|, |v|"].textContent=`${fmt(Math.hypot(...u),2)}, ${fmt(Math.hypot(...v),2)}`;
+    out["พื้นที่ |u×v|"].textContent=fmt(Math.abs(cross),3)+(Math.abs(cross)<.05?" → ขนานกัน":"");
+  };
+  host.style.cursor="grab";
+  const pos=e=>{const r=F.canvas.getBoundingClientRect();return [F.ux(e.clientX-r.left),F.uy(e.clientY-r.top)]};
+  host.addEventListener("pointerdown",e=>{
+    host.setPointerCapture(e.pointerId);
+    const [x,y]=pos(e); sel=near(x,y,u)<near(x,y,v)?u:v;
+    sel[0]=x; sel[1]=y; F.render();
+  });
+  host.addEventListener("pointermove",e=>{ if(!sel)return; const [x,y]=pos(e); sel[0]=x; sel[1]=y; F.render() });
+  const up=()=>sel=null;
+  host.addEventListener("pointerup",up); host.addEventListener("pointercancel",up);
+  chipset(document.getElementById("vecChips"),[
+    {t:"ตั้งฉาก (u·v = 0)",v:[[3,1],[-1,3]]},
+    {t:"ขนาน (พื้นที่ = 0)",v:[[3,1],[-3,-1]]},
+    {t:"มุม 45°",v:[[3,0],[2,2]]},
+    {t:"ทิศเดียวกัน",v:[[3,1.5],[1.6,.8]]}
+  ],it=>{u[0]=it.v[0][0];u[1]=it.v[0][1];v[0]=it.v[1][0];v[1]=it.v[1][1];F.render&&F.render()});
+})();
+/* ===== tool 14 · complex multiply ===== */
+(()=>{
+  const host=document.getElementById("cplx"); if(!host)return;
+  const F=Fig(host,{xmin:-3.5,xmax:3.5,ymin:-2.19,ymax:2.19,step:1});
+  let z1=[1.5,.8], z2=[0,1], sel=null;
+  const out=readout(document.getElementById("cxOut"),["z₁","z₂","*z₁z₂","|z₁|·|z₂|","*arg z₁ + arg z₂"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    const c=F.ctx;
+    c.save(); c.beginPath(); c.arc(F.X(0),F.Y(0),F.X(1)-F.X(0),0,7);
+    c.strokeStyle=cv("--line"); c.lineWidth=1.2; c.setLineDash([4,4]); c.stroke(); c.restore();
+    F.label(3.4,.08,"Re",cv("--ink-faint"),{size:11,align:"right"});
+    F.label(.1,2.05,"Im",cv("--ink-faint"),{size:11});
+    const p=[z1[0]*z2[0]-z1[1]*z2[1], z1[0]*z2[1]+z1[1]*z2[0]];
+    F.arrow(0,0,p[0],p[1],cv("--p4"),{w:2.6});
+    F.arrow(0,0,z1[0],-z1[1],cv("--p3"),{w:1.8,dash:[4,3]});
+    F.arrow(0,0,z1[0],z1[1],cv("--p1"),{w:3.4});
+    F.arrow(0,0,z2[0],z2[1],cv("--p2"),{w:3.4});
+    F.dot(z1[0],z1[1],cv("--p1"),5); F.dot(z2[0],z2[1],cv("--p2"),5);
+    F.label(z1[0],z1[1],"z₁",cv("--p1"),{size:13,dy:-9,weight:"600"});
+    F.label(z2[0],z2[1],"z₂",cv("--p2"),{size:13,dy:-9,weight:"600"});
+    F.label(p[0],p[1],"z₁z₂",cv("--p4"),{size:12,dy:-9});
+    const st=(z)=>`${fmt(z[0],2)} ${z[1]<0?"−":"+"} ${fmt(Math.abs(z[1]),2)}i`;
+    const ar=z=>Math.atan2(z[1],z[0])*180/Math.PI;
+    out["z₁"].textContent=st(z1)+"  |z|="+fmt(Math.hypot(...z1),2);
+    out["z₂"].textContent=st(z2)+"  |z|="+fmt(Math.hypot(...z2),2);
+    out["z₁z₂"].textContent=st(p);
+    out["|z₁|·|z₂|"].textContent=fmt(Math.hypot(...z1)*Math.hypot(...z2),3)+" = |z₁z₂| "+fmt(Math.hypot(...p),3);
+    out["arg z₁ + arg z₂"].textContent=`${fmt(ar(z1),1)}° + ${fmt(ar(z2),1)}° = ${fmt(ar(p),1)}°`;
+  };
+  const pos=e=>{const r=F.canvas.getBoundingClientRect();return [F.ux(e.clientX-r.left),F.uy(e.clientY-r.top)]};
+  host.addEventListener("pointerdown",e=>{
+    host.setPointerCapture(e.pointerId); const [x,y]=pos(e);
+    sel=Math.hypot(x-z1[0],y-z1[1])<Math.hypot(x-z2[0],y-z2[1])?z1:z2;
+    sel[0]=x; sel[1]=y; F.render();
+  });
+  host.addEventListener("pointermove",e=>{if(!sel)return;const [x,y]=pos(e);sel[0]=x;sel[1]=y;F.render()});
+  const up=()=>sel=null; host.addEventListener("pointerup",up); host.addEventListener("pointercancel",up);
+  chipset(document.getElementById("cxChips"),[
+    {t:"i × i = −1",v:[[0,1],[0,1]]},{t:"(1+i)(1+i)",v:[[1,1],[1,1]]},
+    {t:"หมุน 90°",v:[[2,.5],[0,1]]},{t:"z × z̄",v:[[1.5,1],[1.5,-1]]}
+  ],it=>{z1[0]=it.v[0][0];z1[1]=it.v[0][1];z2[0]=it.v[1][0];z2[1]=it.v[1][1];F.render&&F.render()});
+})();
+
+/* ===== tool 15 · conics ===== */
+(()=>{
+  const host=document.getElementById("conic"); if(!host)return;
+  const F=Fig(host,{xmin:-6,xmax:6,ymin:-3.75,ymax:3.75,step:1});
+  const KIND=[{t:"วงกลม",k:"cir"},{t:"วงรี",k:"ell"},{t:"ไฮเพอร์โบลา",k:"hyp"},{t:"พาราโบลา",k:"par"}];
+  let kind=KIND[1];
+  const S=sliders(document.getElementById("conCtl"),[
+    {id:"a",label:"a",min:.5,max:5,step:.25,val:3,dec:2},
+    {id:"b",label:"b",min:.5,max:3.5,step:.25,val:2,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("conOut"),["*สมการ","*โฟกัส","ความเยื้องศูนย์กลาง e","อื่น ๆ"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    const a=S.a,b=S.b, P=[];
+    if(kind.k==="cir"||kind.k==="ell"){
+      const bb=kind.k==="cir"?a:b;
+      for(let i=0;i<=240;i++){const t=2*Math.PI*i/240;P.push([a*Math.cos(t),bb*Math.sin(t)])}
+      F.path(P,cv("--p1"),{w:2.8,close:true});
+      const A=Math.max(a,bb), B=Math.min(a,bb), cc=Math.sqrt(A*A-B*B);
+      const fx=a>=bb?[[-cc,0],[cc,0]]:[[0,-cc],[0,cc]];
+      fx.forEach(f=>{F.dot(f[0],f[1],cv("--p2"),6)});
+      F.seg(-a,0,a,0,cv("--ink-faint"),{w:1,dash:[3,3]});
+      F.seg(0,-bb,0,bb,cv("--ink-faint"),{w:1,dash:[3,3]});
+      out["สมการ"].textContent=kind.k==="cir"?`x² + y² = ${fmt(a*a,2)}`:`x²/${fmt(a*a,2)} + y²/${fmt(bb*bb,2)} = 1`;
+      out["โฟกัส"].textContent=kind.k==="cir"?"จุดศูนย์กลาง (0,0)":`(±${fmt(cc,2)}, 0) เมื่อ c² = a² − b²`;
+      out["ความเยื้องศูนย์กลาง e"].textContent=fmt(cc/A,3)+(kind.k==="cir"?" (วงกลม e = 0)":"");
+      out["อื่น ๆ"].textContent=`แกนเอก 2a = ${fmt(2*A,2)} · แกนโท 2b = ${fmt(2*B,2)}`;
+    } else if(kind.k==="hyp"){
+      for(let s=-1;s<=1;s+=2){
+        const br=[];
+        for(let i=-140;i<=140;i++){const t=i/40; br.push([s*a*Math.cosh(t),b*Math.sinh(t)])}
+        F.path(br,cv("--p1"),{w:2.8});
+      }
+      const cc=Math.sqrt(a*a+b*b);
+      F.curve(x=>b/a*x,cv("--ink-faint"),{w:1.2,dash:[5,4]});
+      F.curve(x=>-b/a*x,cv("--ink-faint"),{w:1.2,dash:[5,4]});
+      F.dot(-cc,0,cv("--p2"),6); F.dot(cc,0,cv("--p2"),6);
+      F.dot(-a,0,cv("--p4"),4); F.dot(a,0,cv("--p4"),4);
+      out["สมการ"].textContent=`x²/${fmt(a*a,2)} − y²/${fmt(b*b,2)} = 1`;
+      out["โฟกัส"].textContent=`(±${fmt(cc,2)}, 0) เมื่อ c² = a² + b²`;
+      out["ความเยื้องศูนย์กลาง e"].textContent=fmt(cc/a,3)+" (e > 1 เสมอ)";
+      out["อื่น ๆ"].textContent=`เส้นกำกับ y = ±${fmt(b/a,3)}x`;
+    } else {
+      const p=a/2;
+      for(let i=-120;i<=120;i++){const t=i/22; P.push([t*t/(4*p),t])}
+      F.path(P,cv("--p1"),{w:2.8});
+      F.dot(p,0,cv("--p2"),6);
+      F.seg(-p,-3.7,-p,3.7,cv("--p3"),{w:1.6,dash:[5,4]});
+      F.label(-p,3.5,"ไดเรกทริกซ์ x = "+fmt(-p,2),cv("--p3"),{size:11});
+      out["สมการ"].textContent=`y² = ${fmt(4*p,2)}x`;
+      out["โฟกัส"].textContent=`(${fmt(p,2)}, 0)`;
+      out["ความเยื้องศูนย์กลาง e"].textContent="1 (พาราโบลา e = 1 เสมอ)";
+      out["อื่น ๆ"].textContent=`ระยะโฟกัส p = ${fmt(p,2)} · จุดยอด (0,0)`;
+    }
+  };
+  chipset(document.getElementById("conChips"),KIND,it=>{kind=it;F.render&&F.render()},1);
+})();
+
+/* ===== tool 16 · sequences ===== */
+(()=>{
+  const host=document.getElementById("seq"); if(!host)return;
+  const F=Fig(host,{xmin:0,xmax:13,ymin:-2,ymax:10,step:1});
+  const KIND=[{t:"เลขคณิต (AP)",k:"ap"},{t:"เรขาคณิต (GP)",k:"gp"}];
+  let kind=KIND[0];
+  const S=sliders(document.getElementById("seqCtl"),[
+    {id:"a1",label:"พจน์แรก a₁",min:-4,max:6,step:.5,val:2,dec:1},
+    {id:"d",label:"ผลต่าง d (AP)",min:-3,max:3,step:.25,val:1.5,dec:2},
+    {id:"r",label:"อัตราส่วน r (GP)",min:-1.6,max:2,step:.05,val:.5,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("seqOut"),["*a₁₀","*S₁₀","สูตร aₙ","*ผลบวกอนันต์"]);
+  F.render=()=>{
+    const N=12, terms=[], sums=[]; let acc=0;
+    for(let k=1;k<=N;k++){
+      const t=kind.k==="ap"?S.a1+(k-1)*S.d:S.a1*Math.pow(S.r,k-1);
+      terms.push(t); acc+=t; sums.push(acc);
+    }
+    const inf=(kind.k==="gp"&&Math.abs(S.r)<1)?S.a1/(1-S.r):null;
+    const all=[...terms,...sums,0]; if(inf!==null)all.push(inf);
+    let hi=Math.max(...all), lo=Math.min(...all);
+    const pad=(hi-lo)*.15||1; F.ymax=hi+pad; F.ymin=lo-pad;
+    F.clear();
+    const st=Math.max(1,Math.round((F.ymax-F.ymin)/8));
+    F.grid(st); F.axes({step:st});
+    terms.forEach((t,i)=>{
+      const k=i+1;
+      F.rect(k-.32,0,k+.32,t,{fill:alpha("--p1",.45),stroke:cv("--p1"),w:1.2});
+    });
+    if(inf!==null){
+      F.seg(0,inf,13,inf,cv("--p3"),{w:1.6,dash:[6,4]});
+      F.label(12.8,inf,"S∞ = "+fmt(inf,2),cv("--p3"),{size:11,align:"right",dy:-6});
+    }
+    F.path(sums.map((s,i)=>[i+1,s]),cv("--p4"),{w:2.6});
+    sums.forEach((s,i)=>F.dot(i+1,s,cv("--p4"),3.5));
+    for(let k=1;k<=N;k++)F.label(k,F.ymin,String(k),cv("--ink-faint"),{size:10,align:"center",base:"top",dy:-2,bg:false});
+    out["a₁₀"].textContent=fmt(terms[9],3);
+    out["S₁₀"].textContent=fmt(sums[9],3);
+    out["สูตร aₙ"].textContent=kind.k==="ap"?`${fmt(S.a1,2)} + (n−1)(${fmt(S.d,2)})`:`${fmt(S.a1,2)}·(${fmt(S.r,2)})^(n−1)`;
+    out["ผลบวกอนันต์"].textContent=kind.k!=="gp"?"AP ไม่มีผลบวกอนันต์ (ลู่ออก)"
+      :inf!==null?fmt(inf,3)+" (ลู่เข้า เพราะ |r| < 1)":"ลู่ออก เพราะ |r| ≥ 1";
+  };
+  chipset(document.getElementById("seqChips"),KIND,it=>{kind=it;F.render&&F.render()});
+})();
+
+/* ===== tool 17 · pascal ===== */
+(()=>{
+  const host=document.getElementById("pascal"); if(!host)return;
+  const ROWS=9;
+  const C=(n,r)=>{let v=1;for(let i=0;i<r;i++)v=v*(n-i)/(i+1);return Math.round(v)};
+  let sel=[4,2];
+  const F=Fig(host,{});
+  const out=readout(document.getElementById("pasOut"),["*ช่องที่เลือก","*ค่า","= สองช่องบน","ผลบวกทั้งแถว"]);
+  const cellPos=(n,r)=>{
+    const dy=F.h/(ROWS+.8), dx=Math.min(F.w/(ROWS+2),dy*1.5);
+    return [F.w/2+(r-n/2)*dx, dy*.7+n*dy];
+  };
+  F.render=()=>{
+    const c=F.ctx; if(!F.w)return;
+    c.clearRect(0,0,F.w,F.h);
+    const rad=Math.min(F.w/(ROWS+2),F.h/(ROWS+.8)*1.5)*.42;
+    for(let n=0;n<ROWS;n++)for(let r=0;r<=n;r++){
+      const [x,y]=cellPos(n,r), v=C(n,r);
+      const isSel=(n===sel[0]&&r===sel[1]);
+      const isPar=(n===sel[0]-1&&(r===sel[1]||r===sel[1]-1));
+      c.beginPath(); c.arc(x,y,rad,0,7);
+      c.fillStyle=isSel?cv("--accent"):isPar?alpha("--mark",.55):cv("--surface-2");
+      c.fill(); c.lineWidth=isSel?2:1;
+      c.strokeStyle=isSel?cv("--accent"):isPar?cv("--mark"):cv("--line"); c.stroke();
+      c.font=(isSel?"600 ":"")+Math.max(9,rad*.78)+"px "+cv("--mono");
+      c.fillStyle=isSel?"#fff":cv("--ink-soft");
+      c.textAlign="center"; c.textBaseline="middle"; c.fillText(String(v),x,y);
+    }
+    for(let n=0;n<ROWS;n++){
+      const [x,y]=cellPos(n,0);
+      c.font="10px "+cv("--mono"); c.fillStyle=cv("--ink-faint");
+      c.textAlign="right"; c.textBaseline="middle"; c.fillText("n="+n,x-rad-6,y);
+    }
+    const [n,r]=sel;
+    out["ช่องที่เลือก"].textContent=`C(${n}, ${r})`;
+    out["ค่า"].textContent=String(C(n,r));
+    out["= สองช่องบน"].textContent=n>0?`C(${n-1},${r-1}) + C(${n-1},${r}) = ${r>0?C(n-1,r-1):0} + ${r<n?C(n-1,r):0}`:"แถวบนสุด";
+    out["ผลบวกทั้งแถว"].textContent=`2^${n} = ${Math.pow(2,n)}`;
+  };
+  host.addEventListener("pointerdown",e=>{
+    const rect=F.canvas.getBoundingClientRect(), px=e.clientX-rect.left, py=e.clientY-rect.top;
+    let best=null,bd=1e9;
+    for(let n=0;n<ROWS;n++)for(let r=0;r<=n;r++){
+      const [x,y]=cellPos(n,r), d=Math.hypot(px-x,py-y);
+      if(d<bd){bd=d;best=[n,r]}
+    }
+    if(best&&bd<40){sel=best;F.render()}
+  });
+})();
+
+/* ===== tool 18 · nPr / nCr ===== */
+(()=>{
+  const box=document.getElementById("cmbCtl"); if(!box)return;
+  const fact=n=>{let v=1;for(let i=2;i<=n;i++)v*=i;return v};
+  const P=(n,r)=>{let v=1;for(let i=0;i<r;i++)v*=(n-i);return v};
+  const C=(n,r)=>P(n,r)/fact(r);
+  const out=readout(document.getElementById("cmbOut"),["n!","*P(n, r) เรียง","*C(n, r) จัดหมู่","ต่างกัน r! เท่า"]);
+  const S=sliders(box,[
+    {id:"n",label:"n (ของทั้งหมด)",min:1,max:12,step:1,val:10,dec:0},
+    {id:"r",label:"r (เลือกมา)",min:0,max:12,step:1,val:4,dec:0}
+  ],()=>upd());
+  function upd(){
+    const n=S.n, r=Math.min(S.r,n);
+    out["n!"].textContent=fact(n).toLocaleString();
+    out["P(n, r) เรียง"].textContent=P(n,r).toLocaleString()+(S.r>n?" (r > n → 0)":"");
+    out["C(n, r) จัดหมู่"].textContent=(S.r>n?0:C(n,r)).toLocaleString();
+    out["ต่างกัน r! เท่า"].textContent=`${r}! = ${fact(r).toLocaleString()}`;
+  }
+  upd();
+})();
+
+/* ===== tool 19 · statistics ===== */
+(()=>{
+  const host=document.getElementById("stat"); if(!host)return;
+  const F=Fig(host,{xmin:-1,xmax:21,ymin:-1.25,ymax:1.5,step:2});
+  let data=[3,5,6,7,8,9,11,13,17], sel=-1;
+  const out=readout(document.getElementById("statOut"),["*ค่าเฉลี่ย x̄","*มัธยฐาน","*ส.เบี่ยงเบน s","พิสัย","Q₁, Q₃ (IQR)"]);
+  const q=(arr,p)=>{
+    const s=[...arr].sort((a,b)=>a-b), i=(s.length-1)*p, lo=Math.floor(i), hi=Math.ceil(i);
+    return s[lo]+(s[hi]-s[lo])*(i-lo);
+  };
+  F.render=()=>{
+    F.clear(); const c=F.ctx;
+    const s=[...data].sort((a,b)=>a-b), n=data.length;
+    const mean=data.reduce((a,b)=>a+b,0)/n;
+    const sd=Math.sqrt(data.reduce((a,b)=>a+(b-mean)**2,0)/(n-1));
+    const med=q(data,.5), q1=q(data,.25), q3=q(data,.75);
+    // sd band
+    c.save(); c.fillStyle=alpha("--p4",.16);
+    c.fillRect(F.X(mean-sd),F.Y(1.15),F.X(mean+sd)-F.X(mean-sd),F.Y(.15)-F.Y(1.15)); c.restore();
+    F.seg(-1,0,21,0,cv("--grid-bold"),{w:1.6});
+    for(let x=0;x<=20;x+=2){
+      F.seg(x,-.06,x,.06,cv("--grid-bold"),{w:1.2});
+      F.label(x,-.1,String(x),cv("--ink-faint"),{size:10,align:"center",base:"top",bg:false});
+    }
+    // dots (stack duplicates)
+    const cnt={};
+    data.forEach((v,i)=>{
+      const k=Math.round(v*2)/2; cnt[k]=(cnt[k]||0)+1;
+      F.dot(v,.25+(cnt[k]-1)*.17,i===sel?cv("--accent"):cv("--p1"),6.5);
+    });
+    // mean & median
+    F.seg(mean,.05,mean,1.25,cv("--p2"),{w:2.2});
+    F.label(mean,1.28,"x̄ = "+fmt(mean,2),cv("--p2"),{size:11,align:"center"});
+    F.seg(med,.05,med,1.05,cv("--p3"),{w:2.2,dash:[5,3]});
+    F.label(med,1.08,"Med = "+fmt(med,2),cv("--p3"),{size:11,align:"center"});
+    F.label(mean+sd,1.16,"x̄ + s",cv("--p4"),{size:10,align:"left"});
+    // box plot
+    const y=-.62,hh=.22;
+    F.seg(Math.min(...s),y,q1,y,cv("--p1"),{w:1.4});
+    F.seg(Math.max(...s),y,q3,y,cv("--p1"),{w:1.4});
+    F.rect(q1,y-hh,q3,y+hh,{fill:alpha("--p1",.2),stroke:cv("--p1"),w:1.6});
+    F.seg(med,y-hh,med,y+hh,cv("--p3"),{w:2.4});
+    [Math.min(...s),Math.max(...s)].forEach(v=>F.seg(v,y-.12,v,y+.12,cv("--p1"),{w:1.6}));
+    F.label(-.8,y+.42,"Box plot",cv("--ink-faint"),{size:10});
+    out["ค่าเฉลี่ย x̄"].textContent=fmt(mean,3);
+    out["มัธยฐาน"].textContent=fmt(med,2);
+    out["ส.เบี่ยงเบน s"].textContent=fmt(sd,3);
+    out["พิสัย"].textContent=fmt(Math.max(...s)-Math.min(...s),2);
+    out["Q₁, Q₃ (IQR)"].textContent=`${fmt(q1,2)}, ${fmt(q3,2)} (${fmt(q3-q1,2)})`;
+  };
+  const pos=e=>{const r=F.canvas.getBoundingClientRect();return [F.ux(e.clientX-r.left),F.uy(e.clientY-r.top)]};
+  host.addEventListener("pointerdown",e=>{
+    host.setPointerCapture(e.pointerId); const [x]=pos(e);
+    let bd=1e9; data.forEach((v,i)=>{const d=Math.abs(v-x); if(d<bd){bd=d;sel=i}});
+    data[sel]=clamp(x,0,20); F.render();
+  });
+  host.addEventListener("pointermove",e=>{if(sel<0)return;const [x]=pos(e);data[sel]=clamp(x,0,20);F.render()});
+  const up=()=>{sel=-1;F.render()};
+  host.addEventListener("pointerup",up); host.addEventListener("pointercancel",up);
+  chipset(document.getElementById("statChips"),[
+    {t:"สมมาตร",v:[6,7,8,9,10,11,12,13,14]},
+    {t:"เบ้ขวา (มีค่าผิดปกติ)",v:[3,4,4,5,5,6,6,7,19]},
+    {t:"กระจายมาก",v:[1,3,5,8,10,12,15,18,20]},
+    {t:"กองรวมกัน",v:[9,9.5,10,10,10,10,10.5,11,11]}
+  ],it=>{data=[...it.v];F.render&&F.render()});
+})();
+
+/* ===== tool 20 · normal curve ===== */
+(()=>{
+  const host=document.getElementById("norm"); if(!host)return;
+  const F=Fig(host,{xmin:-3.6,xmax:3.6,ymin:-.06,ymax:.46,step:1});
+  const pdf=z=>Math.exp(-z*z/2)/Math.sqrt(2*Math.PI);
+  const areaTo=(a,b)=>{const N=2000;let s=0;for(let i=0;i<N;i++){const x=a+(b-a)*(i+.5)/N;s+=pdf(x)}return s*(b-a)/N};
+  const S=sliders(document.getElementById("normCtl"),[
+    {id:"z1",label:"z ซ้าย",min:-3.5,max:3.5,step:.1,val:-1,dec:2},
+    {id:"z2",label:"z ขวา",min:-3.5,max:3.5,step:.1,val:1,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("normOut"),["*ช่วง","*พื้นที่ = ความน่าจะเป็น","เป็นเปอร์เซ็นต์"]);
+  F.render=()=>{
+    F.clear(); const c=F.ctx;
+    const a=Math.min(S.z1,S.z2), b=Math.max(S.z1,S.z2);
+    F.area(pdf,a,b,alpha("--accent",.3));
+    for(let z=-3;z<=3;z++){
+      F.seg(z,0,z,pdf(z),cv("--grid"),{w:1,dash:[3,3]});
+      F.label(z,-.008,(z>0?"+":"")+z+"σ",cv("--ink-faint"),{size:10,align:"center",base:"top",bg:false});
+    }
+    F.seg(-3.6,0,3.6,0,cv("--grid-bold"),{w:1.4});
+    F.curve(pdf,cv("--p1"),{w:2.8});
+    [a,b].forEach(z=>{F.seg(z,0,z,pdf(z),cv("--accent"),{w:2});F.dot(z,pdf(z),cv("--accent"),4)});
+    const A=areaTo(a,b);
+    F.label(0,.42,fmt(A*100,1)+"%",cv("--accent"),{size:16,align:"center",weight:"600"});
+    out["ช่วง"].textContent=`${fmt(a,2)} ≤ z ≤ ${fmt(b,2)}`;
+    out["พื้นที่ = ความน่าจะเป็น"].textContent=fmt(A,4);
+    out["เป็นเปอร์เซ็นต์"].textContent=fmt(A*100,2)+"%";
+  };
+  chipset(document.getElementById("normChips"),[
+    {t:"±1σ ≈ 68%",v:[-1,1]},{t:"±2σ ≈ 95%",v:[-2,2]},{t:"±3σ ≈ 99.7%",v:[-3,3]},
+    {t:"z ≤ 0 (ครึ่งซ้าย)",v:[-3.5,0]},{t:"z ≥ 1.5",v:[1.5,3.5]}
+  ],it=>{S["_set_z1"](it.v[0]);S["_set_z2"](it.v[1]);F.render&&F.render()});
+})();
+
+/* ===== tool 21 · secant → tangent ===== */
+(()=>{
+  const host=document.getElementById("der"); if(!host)return;
+  const FN=[
+    {t:"f(x) = x²",f:x=>x*x,d:"f′(x) = 2x"},
+    {t:"f(x) = x³ − 3x",f:x=>x**3-3*x,d:"f′(x) = 3x² − 3"},
+    {t:"f(x) = sin x",f:Math.sin,d:"f′(x) = cos x"},
+    {t:"f(x) = √x",f:x=>x<0?NaN:Math.sqrt(x),d:"f′(x) = 1/(2√x)"}
+  ];
+  let cur=FN[0];
+  const F=Fig(host,{xmin:-4,xmax:4,ymin:-3,ymax:3.8,step:1});
+  const S=sliders(document.getElementById("derCtl"),[
+    {id:"x0",label:"จุด x₀",min:-3.5,max:3.5,step:.1,val:1,dec:2},
+    {id:"h",label:"ระยะ h (บีบให้เล็ก)",min:.01,max:2,step:.01,val:1.2,dec:2}
+  ],()=>F.render());
+  const out=readout(document.getElementById("derOut"),["*ความชันเส้นตัด","*f′(x₀) จริง","ต่างกัน","สูตรอนุพันธ์"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    const f=cur.f, x0=S.x0, h=S.h;
+    F.curve(f,cv("--p1"),{w:2.8});
+    const y0=f(x0), y1=f(x0+h);
+    const e=1e-5, dv=(f(x0+e)-f(x0-e))/(2*e);
+    F.curve(x=>y0+dv*(x-x0),cv("--p3"),{w:2,dash:[6,4]});
+    const m=(y1-y0)/h;
+    if(isFinite(m))F.curve(x=>y0+m*(x-x0),cv("--p2"),{w:2});
+    F.seg(x0,y0,x0+h,y0,cv("--ink-faint"),{w:1.2,dash:[3,3]});
+    F.seg(x0+h,y0,x0+h,y1,cv("--ink-faint"),{w:1.2,dash:[3,3]});
+    F.label(x0+h/2,y0,"h = "+fmt(h,2),cv("--ink-faint"),{size:10,align:"center",dy:14});
+    F.dot(x0,y0,cv("--p1"),6); F.dot(x0+h,y1,cv("--p2"),6);
+    F.label(x0,y0,`x₀ = ${fmt(x0,2)}`,cv("--p1"),{size:11,dy:-9,align:"center"});
+    out["ความชันเส้นตัด"].textContent=isFinite(m)?fmt(m,4):"—";
+    out["f′(x₀) จริง"].textContent=isFinite(dv)?fmt(dv,4):"—";
+    out["ต่างกัน"].textContent=isFinite(m-dv)?fmt(Math.abs(m-dv),4):"—";
+    out["สูตรอนุพันธ์"].textContent=cur.d;
+  };
+  chipset(document.getElementById("derChips"),FN,it=>{cur=it;F.render&&F.render()});
+})();
+
+/* ===== tool 22 · Riemann sums ===== */
+(()=>{
+  const host=document.getElementById("integ"); if(!host)return;
+  const FN=[
+    {t:"f(x) = x²",f:x=>x*x,F:x=>x**3/3},
+    {t:"f(x) = sin x",f:Math.sin,F:x=>-Math.cos(x)},
+    {t:"f(x) = √x",f:x=>x<0?0:Math.sqrt(x),F:x=>2/3*Math.pow(Math.max(x,0),1.5)},
+    {t:"f(x) = x³ − 3x + 4",f:x=>x**3-3*x+4,F:x=>x**4/4-1.5*x*x+4*x}
+  ];
+  let cur=FN[0], mode="mid";
+  const F=Fig(host,{xmin:-.6,xmax:4.2,ymin:-1,ymax:6,step:1});
+  const S=sliders(document.getElementById("intCtl"),[
+    {id:"a",label:"ขอบล่าง a",min:0,max:3,step:.25,val:0,dec:2},
+    {id:"b",label:"ขอบบน b",min:.5,max:4,step:.25,val:2,dec:2},
+    {id:"n",label:"จำนวนแท่ง n",min:1,max:60,step:1,val:6,dec:0}
+  ],()=>F.render());
+  const mbox=document.createElement("div"); mbox.className="chips"; mbox.style.marginTop=".6rem";
+  document.getElementById("intCtl").appendChild(mbox);
+  const out=readout(document.getElementById("intOut"),["*ผลรวมแท่ง","*ค่าจริง ∫","คลาดเคลื่อน","ความกว้างแท่ง Δx"]);
+  F.render=()=>{
+    F.clear(); F.grid(1); F.axes({});
+    const a=Math.min(S.a,S.b-.25), b=S.b, n=S.n, dx=(b-a)/n, f=cur.f;
+    let sum=0;
+    for(let i=0;i<n;i++){
+      const xl=a+i*dx, xs=mode==="left"?xl:mode==="right"?xl+dx:xl+dx/2;
+      const y=f(xs); sum+=y*dx;
+      F.rect(xl,0,xl+dx,y,{fill:alpha("--p4",.28),stroke:alpha("--p4",.9),w:1});
+      if(n<=20)F.dot(xs,y,cv("--p4"),2.5);
+    }
+    F.curve(f,cv("--p1"),{w:2.8});
+    F.seg(a,0,a,f(a),cv("--p2"),{w:1.6,dash:[4,3]});
+    F.seg(b,0,b,f(b),cv("--p2"),{w:1.6,dash:[4,3]});
+    F.label(a,-.12,"a",cv("--p2"),{size:11,align:"center",base:"top"});
+    F.label(b,-.12,"b",cv("--p2"),{size:11,align:"center",base:"top"});
+    const exact=cur.F(b)-cur.F(a);
+    out["ผลรวมแท่ง"].textContent=fmt(sum,4);
+    out["ค่าจริง ∫"].textContent=fmt(exact,4);
+    out["คลาดเคลื่อน"].textContent=fmt(Math.abs(sum-exact),5);
+    out["ความกว้างแท่ง Δx"].textContent=fmt(dx,4);
+  };
+  chipset(document.getElementById("intChips"),FN,it=>{cur=it;F.render&&F.render()});
+  chipset(mbox,[{t:"จุดกลาง",v:"mid"},{t:"ขอบซ้าย",v:"left"},{t:"ขอบขวา",v:"right"}],
+    it=>{mode=it.v;F.render&&F.render()});
+})();
+/*LABS*/
+</script>
+<script>buildIndex();</script>
