@@ -219,6 +219,52 @@ table.cmp td{vertical-align:top}
 .dw.locked.picked{background:var(--bad); color:#fff}
 .dw.locked.answer{background:var(--good); color:#fff}
 
+/* ============ cloze & mock exam ============ */
+.cz-text{font-size:1.04rem; line-height:2.5; margin:.4rem 0 0}
+.cz-sel{
+  font:inherit; font-size:.92rem; background:var(--surface-2); border:1.5px solid var(--accent);
+  border-radius:7px; padding:.12rem .3rem; color:var(--ink); margin:0 .15rem; max-width:14rem;
+}
+.cz-sel.right{border-color:var(--good); background:color-mix(in srgb,var(--good) 15%,var(--surface))}
+.cz-sel.wrong{border-color:var(--bad); background:color-mix(in srgb,var(--bad) 15%,var(--surface))}
+.cz-notes{margin-top:1rem; display:flex; flex-direction:column; gap:.4rem}
+.cz-notes>div{font-size:.88rem; border:1px solid var(--line); border-radius:9px; padding:.5rem .7rem; background:var(--surface-2); color:var(--ink-soft)}
+.cz-notes b{font-family:var(--mono); font-size:.78rem}
+.cz-notes .ok b{color:var(--good)} .cz-notes .no b{color:var(--bad)}
+
+.exam-top{display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; justify-content:space-between; margin-bottom:.8rem}
+.timer{font-family:var(--mono); font-size:1.35rem; font-variant-numeric:tabular-nums; font-weight:600; padding:.15rem .65rem; border-radius:9px; background:var(--surface-2); border:1px solid var(--line)}
+.timer.warn{color:var(--bad); border-color:var(--bad)}
+.qmeta{font-family:var(--mono); font-size:.8rem; color:var(--ink-faint)}
+.qtext{font-size:1.06rem; line-height:1.8; margin:.3rem 0 .9rem}
+.qtext .tag{font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:.3rem}
+.opts{display:flex; flex-direction:column; gap:.45rem}
+.opt{
+  appearance:none; font:inherit; font-size:.95rem; text-align:left; cursor:pointer; width:100%;
+  background:var(--surface-2); border:1px solid var(--line); color:var(--ink); border-radius:10px;
+  padding:.55rem .8rem; display:flex; gap:.6rem; align-items:baseline;
+}
+.opt:hover{border-color:var(--accent)}
+.opt .k{font-family:var(--mono); font-size:.78rem; color:var(--ink-faint); flex:0 0 1.1rem}
+.opt.sel{border-color:var(--accent); background:var(--accent-soft)}
+.opt.sel .k{color:var(--accent)}
+.opt.right{border-color:var(--good); background:color-mix(in srgb,var(--good) 15%,var(--surface))}
+.opt.wrong{border-color:var(--bad); background:color-mix(in srgb,var(--bad) 15%,var(--surface))}
+.qnav{display:flex; flex-wrap:wrap; gap:.28rem; margin-top:1rem}
+.qnav button{
+  width:2.05rem; height:2.05rem; border-radius:7px; border:1px solid var(--line); background:var(--surface-2);
+  font:inherit; font-family:var(--mono); font-size:.76rem; cursor:pointer; color:var(--ink-faint);
+}
+.qnav button.done{background:var(--accent-soft); border-color:var(--accent); color:var(--accent)}
+.qnav button.cur{background:var(--accent); border-color:var(--accent); color:#fff}
+.score{font-family:var(--display); font-size:2.6rem; font-weight:600; line-height:1.1}
+.score small{display:block; font-family:var(--body); font-size:.85rem; font-weight:400; color:var(--ink-faint)}
+.review{margin-top:1.1rem; display:flex; flex-direction:column; gap:.5rem; max-height:60vh; overflow-y:auto; padding-right:.3rem}
+.review>div{border:1px solid var(--line); border-left:3px solid var(--good); border-radius:0 10px 10px 0; padding:.55rem .8rem; font-size:.9rem; background:var(--surface-2)}
+.review>div.miss{border-left-color:var(--bad)}
+.review p{margin:.25rem 0 0; color:var(--ink-soft); font-size:.87rem}
+.review .head{font-family:var(--mono); font-size:.76rem; color:var(--ink-faint)}
+
 /* ============ vocabulary ============ */
 .vbar{display:flex; flex-wrap:wrap; gap:.6rem; align-items:center}
 .vsearch{
@@ -308,7 +354,7 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
     </svg>
     <b>A-Level Playground<br>คณิต · ชีวะ · อังกฤษ</b>
   </div>
-  <p class="sub">คณิต 16 · ชีวะ 18 · อังกฤษ 16 บท · 34 เครื่องมือ · ศัพท์ 1,408 คำ</p>
+  <p class="sub">50 บท 3 วิชา · 36 เครื่องมือ · ข้อสอบจำลองจับเวลา · ศัพท์ 1,408 คำ</p>
   <nav aria-label="สารบัญเครื่องมือ"><p class="idx-group">พื้นฐาน</p><ul class="idx" id="idx"></ul></nav>
   <div class="side-foot"><button class="tbtn" id="theme">◐ สลับโหมดสว่าง / กระดานดำ</button></div>
 </aside>
@@ -324,6 +370,7 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
     <span class="pill">🔢 <b>อ่าน</b> ตัวเลขสดใต้ภาพ</span>
     <span class="pill">📖 <b>อ่านเข้าใจง่าย</b> ชีววิทยาครบทุกบท</span>
     <span class="pill">🃏 <b>Flashcard</b> ศัพท์ 1,408 คำ</span>
+    <span class="pill">⏱️ <b>ข้อสอบจำลอง</b> จับเวลา 90 วิ/ข้อ</span>
     <span class="pill">◐ <b>กระดานดำ</b> สำหรับอ่านกลางคืน</span>
   </div>
 </header>
@@ -1964,6 +2011,76 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
   </div>
 </section>
 
+<section class="ch" id="cloze" data-n="ฝ1" data-title="แบบฝึกเติมคำ" data-group="ฝึกทำข้อสอบ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ฝ1</span><span class="ch-tag">เครื่องมือ: เติมคำในบทความ</span></div>
+    <h2>Cloze — เติมคำในช่องว่างแบบโต้ตอบ</h2>
+    <p class="ch-why">พาร์ตนี้เก็บคะแนนได้เยอะถ้าจับ<b>ทิศทางของประโยค</b>และ<b>ไวยากรณ์รอบช่องว่าง</b>ได้ — เลือกคำตอบแล้วระบบจะบอกทันทีว่าถูกไหม พร้อมเหตุผลว่าทำไมตัวอื่นถึงใช้ไม่ได้</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>เลือกบทความ → เติมช่องว่าง → ดูเฉลยทีละช่อง</h4><span>tool 37 · เลือกได้</span></div>
+    <div class="lab-body">
+      <div class="chips" id="czChips"></div>
+      <p class="cz-text" id="czText" style="margin-top:.9rem"></p>
+      <div class="fc-acts">
+        <button class="fcbtn yes" id="czCheck" type="button">ตรวจคำตอบทั้งหมด</button>
+        <button class="fcbtn ghost" id="czClear" type="button">↻ ล้างคำตอบ</button>
+      </div>
+      <div id="czOut"></div>
+      <div class="cz-notes" id="czNotes"></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="exam" data-n="ฝ2" data-title="ข้อสอบจำลองจับเวลา" data-group="ฝึกทำข้อสอบ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ฝ2</span><span class="ch-tag">เครื่องมือ: ข้อสอบจำลอง</span></div>
+    <h2>ชุดข้อสอบจำลอง พร้อมจับเวลา</h2>
+    <p class="ch-why">ปัญหาของคนส่วนใหญ่ไม่ใช่ทำไม่ได้ แต่คือ<b>ทำไม่ทัน</b> — ชุดนี้ให้เวลา <b>90 วินาทีต่อข้อ</b> เท่าสนามจริง สุ่มข้อใหม่ทุกครั้ง ทำเสร็จแล้วดูเฉลยพร้อมเหตุผลได้ทุกข้อ</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>เลือกวิชาและจำนวนข้อ แล้วเริ่มจับเวลา</h4><span>tool 38 · จับเวลา</span></div>
+    <div class="lab-body">
+      <div id="exSetup">
+        <span class="vcount" style="display:block;margin-bottom:.35rem">เลือกวิชา</span>
+        <div class="chips" id="exSubj"></div>
+        <span class="vcount" style="display:block;margin:.8rem 0 .35rem">จำนวนข้อ</span>
+        <div class="chips" id="exCount"></div>
+        <div class="fc-acts"><button class="fcbtn yes" id="exStart" type="button">▶︎ เริ่มทำข้อสอบ</button></div>
+        <div id="exInfo"></div>
+      </div>
+      <div id="exRun" style="display:none">
+        <div class="exam-top">
+          <span class="qmeta" id="exProg">ข้อ 1 / 10</span>
+          <span class="timer" id="exTimer">15:00</span>
+        </div>
+        <div class="qtext" id="exQ"></div>
+        <div class="opts" id="exOpts"></div>
+        <div class="qnav" id="exNav"></div>
+        <div class="fc-acts">
+          <button class="fcbtn" id="exPrev" type="button">← ข้อก่อน</button>
+          <button class="fcbtn" id="exNext" type="button">ข้อถัดไป →</button>
+          <button class="fcbtn yes" id="exSubmit" type="button">ส่งคำตอบ</button>
+          <button class="fcbtn ghost" id="exQuit" type="button">ยกเลิก</button>
+        </div>
+      </div>
+      <div id="exResult" style="display:none">
+        <div class="exam-top">
+          <div class="score" id="exScore"></div>
+          <button class="fcbtn yes" id="exAgain" type="button">↻ ทำชุดใหม่</button>
+        </div>
+        <div id="exBreak"></div>
+        <div class="review" id="exReview"></div>
+      </div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>วิธีใช้ 1</b>เริ่มจาก 10 ข้อวิชาเดียวก่อน เพื่อวัดว่าใช้เวลาต่อข้อเท่าไร</div>
+    <div><b>วิธีใช้ 2</b>ข้อไหนไม่แน่ใจให้ข้ามก่อน เลขข้อจะยังเป็นสีเทา กลับมาทำทีหลังได้</div>
+    <div><b>วิธีใช้ 3</b>ส่งแล้วอย่าเพิ่งปิด — อ่านเหตุผลข้อที่ผิดให้ครบ แล้วกดกลับไปอ่านบทนั้นซ้ำ</div>
+  </div>
+</section>
+
 <section class="ch" id="vocab" data-n="ก" data-title="คลังคำศัพท์ อังกฤษ" data-group="ท่องจำ &amp; คำศัพท์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ก</span><span class="ch-tag">เครื่องมือ: ค้นศัพท์ + กรองตามบท</span></div>
@@ -2259,7 +2376,7 @@ document.getElementById("theme").addEventListener("click",()=>{
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>requestAnimationFrame(redraw));
 function buildIndex(){
   const ul=document.getElementById("idx"); ul.innerHTML="";
-  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส","ชีววิทยา","ภาษาอังกฤษ","ท่องจำ & คำศัพท์"];
+  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส","ชีววิทยา","ภาษาอังกฤษ","ฝึกทำข้อสอบ","ท่องจำ & คำศัพท์"];
   const groups={}; order.forEach(g=>groups[g]=[]);
   document.querySelectorAll("section.ch").forEach(s=>(groups[s.dataset.group]||groups["พื้นฐาน"]).push(s));
   let first=true;
@@ -4139,6 +4256,259 @@ V("แคลคูลัส",[
   });
   document.getElementById("errReset").addEventListener("click",reset);
   reset();
+})();
+
+/* ===== tool 37 · cloze ===== */
+(()=>{
+  const holder=document.getElementById("czText"); if(!holder)return;
+  const B=(o,c,e)=>({o,c,e});
+  const PASS=[
+    {t:"Smartphones ในห้องเรียน",lv:"ระดับกลาง · เน้นคำเชื่อมและ tense",p:[
+      "Smartphones have become an essential part of student life. ",
+      B(["However","Moreover","For example","Therefore"],0,"ประโยคก่อนหน้าพูดถึงข้อดี แต่ประโยคนี้กำลังจะพูดถึงปัญหา จึงต้องใช้คำเชื่อมกลุ่ม<b>แย้ง</b> · Moreover ใช้เสริม · Therefore ใช้บอกผล"),
+      ", many teachers argue that these devices ",
+      B(["distract","distracts","distracting","are distract"],0,"ประธานคือ these devices (พหูพจน์) จึงใช้ V1 ไม่เติม s"),
+      " students during lessons. A recent study found that learners who checked their phones frequently ",
+      B(["score","scored","have scored","scoring"],1,"ประโยคเล่าผลการศึกษาที่เกิดขึ้นแล้ว (found = อดีต) จึงใช้ past simple ให้สอดคล้องกัน"),
+      " lower on tests than those who did not. ",
+      B(["Despite","Although","Because of","In addition to"],1,"ตามด้วย<b>ประโยคเต็ม</b> (this evidence is clear) จึงต้องใช้ although · despite และ because of ต้องตามด้วยคำนาม"),
+      " this evidence is clear, banning phones completely may not be ",
+      B(["a","an","the","—"],0,"solution เป็นนามนับได้เอกพจน์ที่พูดถึงครั้งแรก และ s- ออกเสียงพยัญชนะ จึงใช้ a"),
+      " realistic solution. Instead, schools should teach students ",
+      B(["use","using","to use","used"],2,"teach somebody <b>to do</b> something เป็นโครงสร้างตายตัว (teach ตามด้วย to + V1)"),
+      " technology responsibly."
+    ]},
+    {t:"ปะการังฟอกขาว",lv:"ระดับยาก · เน้นศัพท์ในบริบท",p:[
+      "Coral reefs are among the most ",
+      B(["diverse","diversity","diversely","diverse of"],0,"ต้องเป็นคำคุณศัพท์ขยายคำนาม ecosystems หลัง the most · diversity เป็นคำนาม"),
+      " ecosystems on Earth. When ocean temperatures rise, corals expel the algae living inside them, a process ",
+      B(["knowing as","known as","know as","is known as"],1,"เป็นวลีลดรูปจาก which is known as จึงเหลือ known as (V3 แสดงถูกกระทำ)"),
+      " bleaching. Without algae, corals lose their colour and their main source of food, and they eventually ",
+      B(["survive","starve","strengthen","spread"],1,"บริบทบอกว่าเสียแหล่งอาหารหลัก ผลที่ตามมาคืออดตาย (starve) ไม่ใช่รอดหรือแข็งแรงขึ้น"),
+      ". Scientists warn that if global warming continues at this rate, most reefs ",
+      B(["disappear","will disappear","would disappear","disappeared"],1,"เป็นเงื่อนไข Type 1 (if + present simple, will + V1) เพราะพูดถึงอนาคตที่มีโอกาสเกิดจริง"),
+      " within a few decades. ",
+      B(["Nevertheless","As a result","In contrast","Similarly"],1,"ประโยคถัดไปเป็น<b>ผลที่ตามมา</b>จากคำเตือนข้างต้น จึงใช้คำเชื่อมกลุ่มบอกผล"),
+      ", several countries have started programmes ",
+      B(["restore","restoring","to restore","restored"],2,"programmes to restore = โครงการที่มีจุดประสงค์เพื่อฟื้นฟู (to + V1 บอกวัตถุประสงค์)"),
+      " damaged reefs."
+    ]},
+    {t:"ชีวิตนักเรียนช่วงสอบ",lv:"ระดับง่าย · เน้น tense และบุพบท",p:[
+      "Nan usually ",
+      B(["study","studies","is studying","studied"],1,"usually เป็นคำบอกความถี่ ใช้กับ present simple และประธาน Nan เป็นเอกพจน์ จึงเติม s"),
+      " at the library after school. Last week, however, she ",
+      B(["stays","stayed","has stayed","was stay"],1,"มี last week เป็นคำบอกเวลาอดีตชัดเจน ต้องใช้ past simple"),
+      " at home because the library was closed. She has been preparing for the entrance exam ",
+      B(["since","for","from","during"],1,"ตามด้วยช่วงเวลา (three months) จึงใช้ for · since ตามด้วยจุดเริ่มต้น เช่น since March"),
+      " three months and feels much more confident now. Her teacher told her that she ",
+      B(["should to review","should review","should reviewing","should reviewed"],1,"หลัง modal ใช้ V1 ทันที ห้ามมี to และห้ามผันรูป"),
+      " her mistakes every evening. If she ",
+      B(["keeps","will keep","kept","keep"],0,"ประโยค if ของ Type 1 ใช้ present simple และประธาน she เติม s"),
+      " doing that, she will definitely improve."
+    ]}
+  ];
+  const notes=document.getElementById("czNotes");
+  const out=readout(document.getElementById("czOut"),["*ตอบถูก","ทั้งหมด"]);
+  let cur=PASS[0], sels=[];
+  function score(){
+    let ok=0,ans=0;
+    sels.forEach((s,i)=>{ if(s.value!==""){ans++; if(+s.value===s._b.c)ok++} });
+    out["ตอบถูก"].textContent=ok+" ข้อ";
+    out["ทั้งหมด"].textContent=ans+" / "+sels.length+" ช่องที่เลือกแล้ว";
+  }
+  function mark(s,reveal){
+    if(s.value===""){s.className="cz-sel";return}
+    const right=+s.value===s._b.c;
+    s.className="cz-sel "+(right?"right":"wrong");
+    if(reveal||true){
+      const d=document.createElement("div");
+      d.className=right?"ok":"no";
+      d.innerHTML=`<b>${right?"✓":"✕"} ช่องที่ ${s._i+1}</b> — เฉลย: <b>${s._b.o[s._b.c]}</b> · ${s._b.e}`;
+      notes.appendChild(d);
+    }
+  }
+  function draw(){
+    holder.innerHTML=""; notes.innerHTML=""; sels=[];
+    let bi=0;
+    cur.p.forEach(part=>{
+      if(typeof part==="string"){ holder.appendChild(document.createTextNode(part)); return }
+      const s=document.createElement("select");
+      s.className="cz-sel"; s._b=part; s._i=bi++;
+      s.setAttribute("aria-label","ช่องว่างที่ "+(s._i+1));
+      s.innerHTML='<option value="">— เลือก —</option>'+
+        part.o.map((o,k)=>`<option value="${k}">${o}</option>`).join("");
+      s.addEventListener("change",()=>{ notes.innerHTML=""; mark(s); score() });
+      holder.appendChild(s); sels.push(s);
+    });
+    score();
+  }
+  document.getElementById("czCheck").addEventListener("click",()=>{
+    notes.innerHTML="";
+    sels.forEach(s=>{ if(s.value===""){s.value=String(s._b.c)} mark(s,true) });
+    score();
+  });
+  document.getElementById("czClear").addEventListener("click",()=>draw());
+  chipset(document.getElementById("czChips"),PASS.map(p=>({t:p.t+" · "+p.lv,p})),it=>{cur=it.p;draw()});
+})();
+
+/* ===== tool 38 · mock exam ===== */
+(()=>{
+  const setup=document.getElementById("exSetup"); if(!setup)return;
+  const Q=(s,q,a,c,e)=>({s,q,a,c,e});
+  const BANK=[
+    /* ---------- คณิตศาสตร์ ---------- */
+    Q("math","เซต A = {1, 2, 3, 4} มีสับเซตทั้งหมดกี่เซต",["8","15","16","32"],2,"ใช้สูตร 2ⁿ เมื่อ n = 4 ได้ 2⁴ = 16 (นับเซตว่างและตัวมันเองด้วย)"),
+    Q("math","ถ้า n(A) = 20, n(B) = 15 และ n(A∩B) = 8 แล้ว n(A∪B) เท่ากับเท่าใด",["27","35","23","43"],0,"n(A∪B) = 20 + 15 − 8 = 27 (ต้องลบส่วนที่นับซ้ำออก)"),
+    Q("math","~(p → q) สมมูลกับข้อใด",["~p ∨ q","p ∧ ~q","~p ∧ q","p → ~q"],1,"p → q เป็นเท็จกรณีเดียวคือเหตุจริงผลเท็จ นิเสธจึงเป็น p ∧ ~q"),
+    Q("math","เซตคำตอบของ (x − 1)(x + 3) < 0 คือข้อใด",["x < −3 หรือ x > 1","−3 < x < 1","−1 < x < 3","x < −1 หรือ x > 3"],1,"รากคือ −3 และ 1 · พาราโบลาหงายจึงติดลบตรงช่วงระหว่างราก"),
+    Q("math","เซตคำตอบของ |x − 2| ≤ 3 คือข้อใด",["−1 ≤ x ≤ 5","x ≤ −1 หรือ x ≥ 5","−5 ≤ x ≤ 1","2 ≤ x ≤ 5"],0,"อ่านว่าระยะจาก x ถึง 2 ไม่เกิน 3 จึงได้ 2−3 ≤ x ≤ 2+3"),
+    Q("math","27^(2/3) มีค่าเท่าใด",["6","9","18","81"],1,"ถอดรากที่สามก่อนได้ 3 แล้วยกกำลังสองได้ 9"),
+    Q("math","log₂ 32 มีค่าเท่าใด",["4","5","6","16"],1,"ถามว่า 2 ยกกำลังเท่าไรได้ 32 → 2⁵ = 32"),
+    Q("math","ถ้า f(x) = 2x + 1 แล้ว f⁻¹(5) เท่ากับเท่าใด",["2","3","11","1/2"],0,"หา x ที่ทำให้ f(x) = 5 → 2x + 1 = 5 → x = 2"),
+    Q("math","จุดยอดของพาราโบลา y = x² − 4x + 3 คือข้อใด",["(2, −1)","(−2, 15)","(4, 3)","(2, 3)"],0,"x = −b/2a = 4/2 = 2 แล้วแทนกลับได้ y = 4 − 8 + 3 = −1"),
+    Q("math","สมการ x² + kx + 9 = 0 มีรากซ้ำ เมื่อ k เท่ากับเท่าใด",["±3","±6","±9","±12"],1,"รากซ้ำเมื่อ b² − 4ac = 0 → k² = 36 → k = ±6"),
+    Q("math","sin 30° + cos 60° มีค่าเท่าใด",["0.5","1","1.5","√3"],1,"ทั้งสองค่าเท่ากับ 1/2 รวมกันได้ 1"),
+    Q("math","คาบของ y = 3 sin(2x) เท่ากับเท่าใด",["π/2","π","2π","4π"],1,"คาบ = 2π/b เมื่อ b = 2 จึงได้ π (แอมพลิจูด 3 ไม่มีผลกับคาบ)"),
+    Q("math","ดีเทอร์มิแนนต์ของเมทริกซ์ [[3, 1], [2, 4]] เท่ากับเท่าใด",["10","14","12","−10"],0,"det = ad − bc = (3)(4) − (1)(2) = 10"),
+    Q("math","ถ้า u = (2, 3) และ v = (4, −1) แล้ว u · v เท่ากับเท่าใด",["5","11","8","−5"],0,"(2)(4) + (3)(−1) = 8 − 3 = 5"),
+    Q("math","(1 + i)² มีค่าเท่าใด",["2","2i","1 + 2i","0"],1,"กระจายได้ 1 + 2i + i² = 1 + 2i − 1 = 2i"),
+    Q("math","ลำดับเลขคณิตมี a₁ = 3 และ d = 4 แล้ว a₁₀ เท่ากับเท่าใด",["39","40","43","36"],0,"aₙ = a₁ + (n−1)d = 3 + 9(4) = 39"),
+    Q("math","ผลบวกอนุกรม 8 + 4 + 2 + 1 + … เท่ากับเท่าใด",["15","16","18","อนันต์"],1,"เป็น GP ที่ r = 1/2 ซึ่ง |r| < 1 · S∞ = a₁/(1−r) = 8/0.5 = 16"),
+    Q("math","ทอยลูกเต๋า 2 ลูกพร้อมกัน ความน่าจะเป็นที่ผลรวมเป็น 7 เท่ากับเท่าใด",["1/12","1/6","1/9","5/36"],1,"มี 6 แบบที่รวมได้ 7 จากทั้งหมด 36 แบบ → 6/36 = 1/6"),
+    Q("math","C(6, 2) มีค่าเท่าใด",["12","15","30","36"],1,"C(6,2) = (6×5)/(2×1) = 15"),
+    Q("math","ถ้า f(x) = x³ แล้ว f′(2) เท่ากับเท่าใด",["6","8","12","3"],2,"f′(x) = 3x² แทน x = 2 ได้ 12"),
+    Q("math","∫₀² 3x² dx มีค่าเท่าใด",["4","6","8","12"],2,"ปฏิยานุพันธ์คือ x³ แทนขอบเขตได้ 2³ − 0 = 8"),
+    Q("math","ข้อมูล 2, 4, 4, 6, 9 มีค่าเฉลี่ยและมัธยฐานเท่าใดตามลำดับ",["5 และ 4","4 และ 5","5 และ 5","4.5 และ 4"],0,"ค่าเฉลี่ย = 25/5 = 5 · เรียงแล้วตัวกลางคือ 4"),
+    /* ---------- ชีววิทยา ---------- */
+    Q("bio","ออร์แกเนลล์ใดทำหน้าที่สร้าง ATP จากการหายใจระดับเซลล์",["ไรโบโซม","ไมโทคอนเดรีย","กอลจิคอมเพลกซ์","ไลโซโซม"],1,"ไมโทคอนเดรียเป็นแหล่งสร้าง ATP หลัก จึงเรียกว่าโรงไฟฟ้าของเซลล์"),
+    Q("bio","ข้อใดพบในเซลล์พืชแต่ไม่พบในเซลล์สัตว์",["ไมโทคอนเดรีย","ผนังเซลล์","เยื่อหุ้มเซลล์","ไรโบโซม"],1,"ผนังเซลล์ คลอโรพลาสต์ และแวคิวโอลกลาง เป็นลักษณะเฉพาะของเซลล์พืช"),
+    Q("bio","เมื่อนำเซลล์เม็ดเลือดแดงใส่ในน้ำกลั่น (ไฮโพโทนิก) จะเกิดอะไรขึ้น",["เหี่ยวลง","บวมและอาจแตก","ไม่เปลี่ยนแปลง","เกิดพลาสโมไลซิส"],1,"น้ำออสโมซิสเข้าเซลล์ และเซลล์สัตว์ไม่มีผนังเซลล์กันไว้ จึงบวมจนแตก (lysis)"),
+    Q("bio","ผสม Aa × Aa จะได้อัตราส่วนฟีโนไทป์เท่าใด",["1 : 1","3 : 1","1 : 2 : 1","9 : 3 : 3 : 1"],1,"จีโนไทป์เป็น 1 AA : 2 Aa : 1 aa แต่ฟีโนไทป์รวมตัวเด่นเป็น 3 : 1"),
+    Q("bio","พ่อหมู่เลือด A (I^A i) แต่งงานกับแม่หมู่เลือด O (ii) ลูกมีโอกาสเป็นหมู่เลือดใดบ้าง",["A เท่านั้น","A และ O","A, B และ O","ทุกหมู่"],1,"ลูกได้ I^A หรือ i จากพ่อ และได้ i จากแม่เสมอ จึงเป็น I^A i (หมู่ A) หรือ ii (หมู่ O)"),
+    Q("bio","โคดอนเริ่มต้นของการแปลรหัสคือข้อใด",["UAA","AUG","UGA","GUA"],1,"AUG เป็นโคดอนเริ่มต้นและกำหนดกรดอะมิโนเมไทโอนีน"),
+    Q("bio","จำนวนโครโมโซมลดลงครึ่งหนึ่งในระยะใดของไมโอซิส",["โพรเฟส I","แอนาเฟส I","แอนาเฟส II","เทโลเฟส II"],1,"แอนาเฟส I เป็นระยะที่โครโมโซมคู่เหมือนถูกแยกออกจากกัน (แอนาเฟส II แยกแค่โครมาทิดพี่น้อง)"),
+    Q("bio","ครอสซิงโอเวอร์เกิดขึ้นในระยะใด",["โพรเฟส I ของไมโอซิส","เมทาเฟสของไมโทซิส","แอนาเฟส II","อินเตอร์เฟส"],0,"เกิดที่โพรเฟส I ตอนโครโมโซมคู่เหมือนมาเข้าคู่กัน ทำให้เกิดความหลากหลาย"),
+    Q("bio","เหตุใดอัตราการทำงานของเอนไซม์จึงลดลงอย่างมากเมื่ออุณหภูมิสูงเกิน 50 °C",["โมเลกุลชนกันน้อยลง","เอนไซม์เสียสภาพ โครงรูปเปลี่ยนถาวร","ซับสเตรตหมด","pH เปลี่ยน"],1,"ความร้อนสูงทำลายโครงรูปสามมิติของโปรตีน ทำให้บริเวณเร่งใช้งานไม่ได้อีก และย้อนกลับไม่ได้"),
+    Q("bio","ออกซิเจนที่ปล่อยออกมาจากการสังเคราะห์ด้วยแสงมาจากโมเลกุลใด",["CO₂","H₂O","กลูโคส","ATP"],1,"มาจากการแยกน้ำในปฏิกิริยาใช้แสง พิสูจน์ได้ด้วยการติดฉลากไอโซโทป O-18"),
+    Q("bio","วัฏจักรคัลวินเกิดขึ้นที่ส่วนใดของคลอโรพลาสต์",["เยื่อไทลาคอยด์","สโตรมา","เยื่อชั้นนอก","กรานุม"],1,"วัฏจักรคัลวินเกิดที่สโตรมาซึ่งเป็นของเหลวรอบไทลาคอยด์"),
+    Q("bio","ขั้นตอนใดของการหายใจระดับเซลล์ให้ ATP มากที่สุด",["ไกลโคไลซิส","วัฏจักรเครบส์","ระบบถ่ายทอดอิเล็กตรอน","การหมัก"],2,"ATP ส่วนใหญ่เกิดที่ระบบถ่ายทอดอิเล็กตรอนบนเยื่อชั้นในของไมโทคอนเดรีย"),
+    Q("bio","การหมักในเซลล์กล้ามเนื้อคนได้ผลผลิตใด",["เอทานอลและ CO₂","กรดแลกติก","CO₂ และน้ำ","กลูโคส"],1,"กล้ามเนื้อคนหมักได้แลกเตต (กรดแลกติก) ส่วนยีสต์ได้เอทานอลกับ CO₂"),
+    Q("bio","ไซเลมทำหน้าที่ลำเลียงสิ่งใด",["อาหารจากใบ","น้ำและแร่ธาตุจากราก","ฮอร์โมน","ออกซิเจน"],1,"ไซเลมลำเลียงน้ำและแร่ธาตุขึ้นทางเดียว ส่วนโฟลเอ็มลำเลียงอาหารได้ทั้งขึ้นและลง"),
+    Q("bio","ฮอร์โมนพืชชนิดใดเร่งการสุกของผล",["ออกซิน","จิบเบอเรลลิน","เอทิลีน","กรดแอบไซซิก"],2,"เอทิลีนเป็นแก๊สที่เร่งการสุก จึงบ่มผลไม้รวมกันแล้วสุกเร็วขึ้น"),
+    Q("bio","น้ำดีทำหน้าที่ใดในการย่อยอาหาร",["ย่อยไขมันเป็นกรดไขมัน","ตีไขมันให้แตกเป็นหยดเล็ก","ย่อยโปรตีน","ย่อยแป้ง"],1,"น้ำดีไม่ใช่เอนไซม์ แต่ทำให้ไขมันแตกตัวเพื่อเพิ่มพื้นที่ให้เอนไซม์ไลเปสทำงาน"),
+    Q("bio","ห้องหัวใจใดมีผนังกล้ามเนื้อหนาที่สุด",["เอเทรียมซ้าย","เอเทรียมขวา","เวนทริเคิลซ้าย","เวนทริเคิลขวา"],2,"เวนทริเคิลซ้ายต้องดันเลือดไปเลี้ยงทั่วร่างกาย จึงมีผนังหนาที่สุด"),
+    Q("bio","อินซูลินมีผลต่อระดับน้ำตาลในเลือดอย่างไร",["เพิ่มขึ้น","ลดลง","ไม่เปลี่ยนแปลง","เพิ่มแล้วลด"],1,"อินซูลินจากตับอ่อนสั่งให้เซลล์นำกลูโคสเข้าไปใช้และเก็บ ระดับน้ำตาลในเลือดจึงลดลง"),
+    Q("bio","พลังงานถ่ายทอดจากลำดับขั้นหนึ่งไปยังลำดับขั้นถัดไปได้ประมาณเท่าใด",["1%","10%","50%","90%"],1,"ราว 10% ที่เหลือสูญเสียเป็นความร้อนและการดำรงชีวิต จึงมีผู้บริโภคลำดับสูงได้จำกัด"),
+    Q("bio","ประชากรหนึ่งมีผู้ป่วยโรคทางพันธุกรรมแบบด้อย 9% ตามสมการฮาร์ดี–ไวน์เบิร์ก จะมีพาหะกี่เปอร์เซ็นต์",["21%","30%","42%","49%"],2,"q² = 0.09 → q = 0.3 → p = 0.7 → พาหะ = 2pq = 2(0.7)(0.3) = 0.42 หรือ 42%"),
+    Q("bio","เหตุใดยาปฏิชีวนะจึงใช้รักษาโรคหวัดไม่ได้ผล",["เชื้อดื้อยาแล้ว","หวัดเกิดจากไวรัสซึ่งไม่ใช่เซลล์","ยาออกฤทธิ์ช้าเกินไป","ต้องใช้ร่วมกับวัคซีน"],1,"ยาปฏิชีวนะออกฤทธิ์กับโครงสร้างของเซลล์แบคทีเรีย แต่ไวรัสไม่ใช่เซลล์จึงไม่มีเป้าหมายให้ยาออกฤทธิ์"),
+    /* ---------- ภาษาอังกฤษ ---------- */
+    Q("eng","She ______ in this city since 2020.",["lives","lived","has lived","is living"],2,"มี since ที่ลากมาถึงปัจจุบัน ต้องใช้ present perfect (has/have + V3)"),
+    Q("eng","If it ______ tomorrow, we will cancel the trip.",["rains","will rain","rained","would rain"],0,"เงื่อนไข Type 1 ใช้ if + present simple และห้ามใช้ will ในประโยค if"),
+    Q("eng","The list of participants ______ on the notice board.",["are","were","is","have been"],2,"ประธานคือ list (เอกพจน์) ส่วน of participants เป็นแค่ส่วนขยาย"),
+    Q("eng","He must ______ the report before Friday.",["to finish","finishes","finish","finishing"],2,"หลัง modal ตามด้วย V1 ทันที ห้ามมี to และไม่เติม s"),
+    Q("eng","She is very good at ______ problems quickly.",["solve","solving","to solve","solved"],1,"at เป็นบุพบท หลังบุพบทต้องใช้ V-ing เสมอ"),
+    Q("eng","The novel was ______ by a Thai author in 1998.",["write","wrote","written","writing"],2,"Passive ใช้ be + V3 · wrote เป็นช่อง 2 จึงผิด"),
+    Q("eng","______ the heavy rain, the match continued.",["Although","Despite","Because","However"],1,"ตามด้วยคำนาม (the heavy rain) จึงใช้ despite · although ต้องตามด้วยประโยค"),
+    Q("eng","Neither of the two answers ______ acceptable.",["are","is","were","have been"],1,"neither of + พหูพจน์ ใช้กริยาเอกพจน์"),
+    Q("eng","I am looking forward to ______ from you soon.",["hear","hearing","heard","be heard"],1,"to ใน look forward to เป็นบุพบท ไม่ใช่ to ของ infinitive จึงตามด้วย V-ing"),
+    Q("eng","He asked me where I ______ the previous night.",["stay","stayed","had stayed","have stayed"],2,"reported speech ถอยกาลหนึ่งขั้น และเป็นเหตุการณ์ก่อนหน้านั้นจึงใช้ past perfect"),
+    Q("eng","This road is ______ than the old one.",["more wide","wider","widest","more wider"],1,"wide เป็นคำพยางค์เดียว เติม -er และห้ามซ้อนกับ more"),
+    Q("eng","I wish I ______ how to swim.",["know","knew","have known","will know"],1,"I wish + past simple ใช้บอกความปรารถนาที่ไม่จริงในปัจจุบัน"),
+    Q("eng","My sister, ______ lives in Japan, is coming home.",["that","who","which","whom"],1,"ขยายคน และอยู่หลังคอมมาซึ่งห้ามใช้ that จึงต้องใช้ who"),
+    Q("eng","Would you mind ______ the window, please?",["open","to open","opening","opened"],2,"mind ตามด้วย V-ing เสมอ · และการตอบรับที่ถูกคือ Not at all"),
+    Q("eng","They ______ the issue at yesterday's meeting.",["discussed about","discussed","were discussed","discuss"],1,"discuss ตามด้วยกรรมตรง ๆ ไม่ต้องมี about และเหตุการณ์จบแล้วในอดีต"),
+    Q("eng","Everyone in the class ______ finished the assignment.",["have","has","are","were"],1,"everyone ถือเป็นเอกพจน์เสมอ แม้จะหมายถึงหลายคนก็ตาม"),
+    Q("eng","She suggested ______ the meeting until next week.",["to postpone","postponing","postpone","postponed"],1,"suggest ตามด้วย V-ing (หรือ suggest that + ประโยค)"),
+    Q("eng","He is ______ honest man who never lies.",["a","an","the","—"],1,"honest ออกเสียงขึ้นต้นด้วยสระเพราะ h ไม่ออกเสียง จึงใช้ an"),
+    Q("eng","By the time we arrived, the film ______.",["already started","has already started","had already started","was already starting"],2,"เหตุการณ์เกิดก่อนอีกเหตุการณ์ในอดีต ใช้ past perfect (had + V3)"),
+    Q("eng","Although he was exhausted, ______.",["but he kept working","he kept working","however he kept working","and he kept working"],1,"ภาษาอังกฤษใช้คำเชื่อมตัวเดียว มี although แล้วห้ามมี but ซ้ำ")
+  ];
+  const SUBJ=[{t:"รวมทุกวิชา",k:"all"},{t:"คณิตศาสตร์",k:"math"},{t:"ชีววิทยา",k:"bio"},{t:"ภาษาอังกฤษ",k:"eng"}];
+  const NAME={math:"คณิตศาสตร์",bio:"ชีววิทยา",eng:"ภาษาอังกฤษ"};
+  const el=id=>document.getElementById(id);
+  let subj=SUBJ[0], count=10, pool=[], ans=[], idx=0, left=0, tick=null, done=false;
+  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  const mmss=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+  function info(){
+    const n=BANK.filter(q=>subj.k==="all"||q.s===subj.k).length;
+    el("exInfo").innerHTML=`<div class="readout"><span>คลังข้อสอบวิชานี้ <b>${n}</b> ข้อ</span>`+
+      `<span class="hi">เวลา <b>${mmss(Math.min(count,n)*90)}</b> นาที</span>`+
+      `<span>เฉลี่ย <b>90 วินาที</b> ต่อข้อ</span></div>`;
+  }
+  function start(){
+    const src=BANK.filter(q=>subj.k==="all"||q.s===subj.k);
+    pool=shuffle(src.slice()).slice(0,Math.min(count,src.length));
+    ans=pool.map(()=>-1); idx=0; done=false; left=pool.length*90;
+    setup.style.display="none"; el("exResult").style.display="none"; el("exRun").style.display="";
+    if(tick)clearInterval(tick);
+    if(typeof setInterval==="function")tick=setInterval(()=>{
+      left--; paintTimer();
+      if(left<=0)submit();
+    },1000);
+    paintTimer(); draw();
+  }
+  function paintTimer(){
+    const t=el("exTimer"); t.textContent=mmss(Math.max(0,left));
+    t.classList.toggle("warn",left<=60);
+  }
+  function draw(){
+    const q=pool[idx];
+    el("exProg").textContent=`ข้อ ${idx+1} / ${pool.length} · ${NAME[q.s]}`;
+    el("exQ").innerHTML=`<span class="tag">${NAME[q.s]}</span>${q.q}`;
+    const box=el("exOpts"); box.innerHTML="";
+    q.a.forEach((a,k)=>{
+      const b=document.createElement("button");
+      b.type="button"; b.className="opt"+(ans[idx]===k?" sel":"");
+      b.innerHTML=`<span class="k">${"ก ข ค ง".split(" ")[k]}</span><span>${a}</span>`;
+      b.addEventListener("click",()=>{ ans[idx]=k; draw();
+        if(idx<pool.length-1)setTimeout(()=>{idx++;draw()},180); });
+      box.appendChild(b);
+    });
+    const nav=el("exNav"); nav.innerHTML="";
+    pool.forEach((_,k)=>{
+      const b=document.createElement("button");
+      b.type="button"; b.textContent=k+1;
+      b.className=(k===idx?"cur":(ans[k]>=0?"done":""));
+      b.addEventListener("click",()=>{idx=k;draw()});
+      nav.appendChild(b);
+    });
+  }
+  function submit(){
+    if(done)return; done=true;
+    if(tick){clearInterval(tick);tick=null}
+    const used=pool.length*90-Math.max(0,left);
+    let ok=0; const per={};
+    pool.forEach((q,k)=>{
+      per[q.s]=per[q.s]||[0,0]; per[q.s][1]++;
+      if(ans[k]===q.c){ok++;per[q.s][0]++}
+    });
+    el("exRun").style.display="none"; el("exResult").style.display="";
+    const pct=Math.round(ok/pool.length*100);
+    el("exScore").innerHTML=`${ok} / ${pool.length} <small>คิดเป็น ${pct}% · ใช้เวลา ${mmss(used)} จาก ${mmss(pool.length*90)}</small>`;
+    el("exBreak").innerHTML='<div class="readout">'+
+      Object.entries(per).map(([s,v])=>`<span>${NAME[s]} <b>${v[0]}/${v[1]}</b></span>`).join("")+
+      `<span class="hi">เฉลี่ย <b>${Math.round(used/pool.length)}</b> วินาที/ข้อ</span></div>`;
+    el("exReview").innerHTML=pool.map((q,k)=>{
+      const right=ans[k]===q.c, pick=ans[k]>=0?q.a[ans[k]]:"ไม่ได้ตอบ";
+      return `<div class="${right?"":"miss"}">
+        <span class="head">ข้อ ${k+1} · ${NAME[q.s]} · ${right?"✓ ถูก":"✕ ผิด"}</span>
+        <div style="margin-top:.2rem">${q.q}</div>
+        <p>ตอบ: <b>${pick}</b>${right?"":` · เฉลย: <b>${q.a[q.c]}</b>`}</p>
+        <p>${q.e}</p></div>`;
+    }).join("");
+  }
+  function quit(){
+    if(tick){clearInterval(tick);tick=null}
+    done=true; el("exRun").style.display="none"; el("exResult").style.display="none"; setup.style.display="";
+  }
+  el("exStart").addEventListener("click",start);
+  el("exSubmit").addEventListener("click",submit);
+  el("exQuit").addEventListener("click",quit);
+  el("exAgain").addEventListener("click",()=>{el("exResult").style.display="none";setup.style.display="";info()});
+  el("exPrev").addEventListener("click",()=>{if(idx>0){idx--;draw()}});
+  el("exNext").addEventListener("click",()=>{if(idx<pool.length-1){idx++;draw()}});
+  chipset(el("exSubj"),SUBJ,it=>{subj=it;info()});
+  chipset(el("exCount"),[{t:"10 ข้อ",n:10},{t:"20 ข้อ",n:20},{t:"30 ข้อ",n:30}],it=>{count=it.n;info()});
 })();
 
 /* ===== ศัพท์ชีววิทยา A-Level (data) ===== */
