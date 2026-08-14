@@ -1,4 +1,4 @@
-<title>A-Level Playground — คณิต ชีวะ ศัพท์ ที่กดเล่นได้</title>
+<title>A-Level Playground — คณิต ชีวะ อังกฤษ ครบในหน้าเดียว</title>
 
 <style>
 /* ============ tokens ============ */
@@ -199,6 +199,26 @@ table.cmp td{vertical-align:top}
 .tags span{font-size:.79rem; background:var(--surface-2); border:1px solid var(--line); border-radius:20px; padding:.24rem .62rem; color:var(--ink-soft)}
 .tags span b{color:var(--ink)}
 
+/* ============ grammar examples ============ */
+.gx{display:grid; grid-template-columns:1.3rem 1fr; gap:.3rem .5rem; margin:.9rem 0; align-items:baseline; font-size:.93rem}
+.gx b{font-family:var(--mono); font-size:.9rem; text-align:center}
+.gx b.no{color:var(--bad)} .gx b.yes{color:var(--good)}
+.gx>span{color:var(--ink-soft)}
+.gx .en{font-family:var(--body); color:var(--ink); font-weight:500}
+.gx b.no+span .en{color:var(--bad); text-decoration:line-through; text-decoration-thickness:1px; text-decoration-color:color-mix(in srgb,var(--bad) 45%,transparent)}
+.gx .why{display:block; font-size:.85rem; color:var(--ink-faint); margin-top:.05rem}
+.form{font-family:var(--mono); font-size:.88rem; background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:.5rem .75rem; margin:.7rem 0; overflow-x:auto; white-space:nowrap}
+.drill{margin-top:.9rem}
+.drill-sent{font-size:1.12rem; line-height:2.1; margin:0 0 .8rem; display:flex; flex-wrap:wrap; gap:.1rem}
+.dw{cursor:pointer; padding:.1rem .18rem; border-radius:5px; border:1px solid transparent; transition:background .12s}
+.dw:hover{background:var(--accent-soft); border-color:var(--accent)}
+.dw.picked{background:var(--bad); color:#fff; border-color:var(--bad)}
+.dw.answer{background:var(--good); color:#fff; border-color:var(--good)}
+.dw.locked{cursor:default}
+.dw.locked:hover{background:none; border-color:transparent}
+.dw.locked.picked{background:var(--bad); color:#fff}
+.dw.locked.answer{background:var(--good); color:#fff}
+
 /* ============ vocabulary ============ */
 .vbar{display:flex; flex-wrap:wrap; gap:.6rem; align-items:center}
 .vsearch{
@@ -286,9 +306,9 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
       <path d="M4 24C10 24 12 8 16 8s6 16 12 16" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
       <circle cx="16" cy="8" r="2.6" fill="var(--mark)"/>
     </svg>
-    <b>A-Level Playground<br>คณิต · ชีวะ · ศัพท์</b>
+    <b>A-Level Playground<br>คณิต · ชีวะ · อังกฤษ</b>
   </div>
-  <p class="sub">คณิต 16 บท · ชีววิทยา 18 บท · 31 เครื่องมือ · ศัพท์ 1,408 คำ</p>
+  <p class="sub">คณิต 16 · ชีวะ 18 · อังกฤษ 16 บท · 34 เครื่องมือ · ศัพท์ 1,408 คำ</p>
   <nav aria-label="สารบัญเครื่องมือ"><p class="idx-group">พื้นฐาน</p><ul class="idx" id="idx"></ul></nav>
   <div class="side-foot"><button class="tbtn" id="theme">◐ สลับโหมดสว่าง / กระดานดำ</button></div>
 </aside>
@@ -297,7 +317,7 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
 <header class="hero">
   <p class="eyebrow">คณิตศาสตร์ประยุกต์ 1 · TCAS A-Level</p>
   <h1>อย่าอ่านคณิต —<br><em>ลากมันเล่น</em>ดูก่อน</h1>
-  <p class="lead">ทุกเรื่องที่ใช้สอบเข้ามหาวิทยาลัย เปลี่ยนเป็นเครื่องมือที่กดเล่นได้ เลื่อนค่าแล้วดูกราฟ วงกลม เมทริกซ์ เซลล์ หรือประชากรขยับจริง ๆ — ครบทั้งคณิต ชีววิทยา และคลังศัพท์พร้อม flashcard</p>
+  <p class="lead">ทุกเรื่องที่ใช้สอบเข้ามหาวิทยาลัย เปลี่ยนเป็นเครื่องมือที่กดเล่นได้ เลื่อนค่าแล้วดูกราฟ วงกลม เมทริกซ์ เซลล์ หรือประชากรขยับจริง ๆ — ครบทั้งคณิต ชีววิทยา ภาษาอังกฤษ และคลังศัพท์พร้อม flashcard</p>
   <div class="hero-how">
     <span class="pill">🖱️ <b>ลาก</b> จุดในกราฟได้เลย</span>
     <span class="pill">🎚️ <b>เลื่อน</b> สไลเดอร์ดูค่าเปลี่ยน</span>
@@ -1391,6 +1411,559 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
   </div>
 </section>
 
+<section class="ch" id="en1" data-n="อ1" data-title="Tense ทั้ง 12" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ1</span><span class="ch-tag">มีเครื่องมือ: เส้นเวลา</span></div>
+    <h2>Tense — เข้าใจจากเส้นเวลา ไม่ต้องท่อง 12 ช่อง</h2>
+    <p class="ch-why">Tense ไม่ได้มี 12 แบบให้ท่อง มันคือ <b>เวลา 3 ช่วง × มุมมอง 4 แบบ</b> เท่านั้น — เลือกเวลา (อดีต/ปัจจุบัน/อนาคต) แล้วเลือกว่าจะมองว่า “แค่เกิดขึ้น” “กำลังดำเนินอยู่” “เสร็จแล้วส่งผลถึงตอนนี้” หรือ “ทำมาต่อเนื่องจนถึงจุดนั้น”</p>
+  </header>
+
+  <div class="lab">
+    <div class="lab-head"><h4>กดเลือก tense → ดูตำแหน่งบนเส้นเวลา + โครงสร้าง + ตัวอย่าง</h4><span>tool 34 · กดได้</span></div>
+    <div class="lab-body">
+      <div class="chips" id="tnTime"></div>
+      <div class="chips" id="tnAspect" style="margin-top:.5rem"></div>
+      <div class="lab-canvas flat" id="tense" style="margin-top:.8rem"></div>
+      <div id="tenseOut"></div>
+      <p class="hint">แกนกลางคือ <b>ตอนนี้</b> · จุดคือเหตุการณ์ที่เกิดแล้วจบ · แถบคือเหตุการณ์ที่กินเวลา · ลูกศรคือผลที่ต่อเนื่องมาถึงจุดอ้างอิง</p>
+    </div>
+  </div>
+
+  <div class="exp">
+    <h3>4 มุมมองที่ต้องแยกให้ออก</h3>
+    <ul>
+      <li><b>Simple</b> — บอกว่าเกิดขึ้น จบ ไม่สนใจรายละเอียด · ใช้กับความจริง นิสัย และเหตุการณ์ที่จบไปแล้วในอดีต</li>
+      <li><b>Continuous</b> — เน้นว่า <b>กำลังดำเนินอยู่</b> ณ จุดเวลานั้น (ยังไม่จบ)</li>
+      <li><b>Perfect</b> — เน้นว่า <b>เสร็จก่อน</b>จุดเวลาที่พูดถึง และผลของมันเกี่ยวข้องกับจุดนั้น</li>
+      <li><b>Perfect Continuous</b> — เน้น <b>ความยาวนาน</b>ของสิ่งที่ทำต่อเนื่องมาจนถึงจุดนั้น (มักมี for / since)</li>
+    </ul>
+    <h3>จุดที่คนไทยพลาดบ่อยที่สุด</h3>
+  </div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">I live here since 2020.</span></span>
+    <b class="yes">✓</b><span><span class="en">I have lived here since 2020.</span><span class="why">มี since / for ที่ลากมาถึงปัจจุบัน ต้องใช้ present perfect ไม่ใช่ present simple</span></span>
+    <b class="no">✗</b><span><span class="en">Yesterday I have gone to the mall.</span></span>
+    <b class="yes">✓</b><span><span class="en">Yesterday I went to the mall.</span><span class="why">มีคำบอกเวลาอดีตที่ชัดเจน (yesterday, last week, in 2019, ago) ห้ามใช้ present perfect เด็ดขาด</span></span>
+    <b class="no">✗</b><span><span class="en">When I arrived, she already left.</span></span>
+    <b class="yes">✓</b><span><span class="en">When I arrived, she had already left.</span><span class="why">เหตุการณ์ที่เกิด<b>ก่อน</b>อีกเหตุการณ์ในอดีต ใช้ past perfect (had + V3)</span></span>
+    <b class="no">✗</b><span><span class="en">I am knowing the answer.</span></span>
+    <b class="yes">✓</b><span><span class="en">I know the answer.</span><span class="why">กริยาบอกสภาวะ (know, understand, believe, want, like, need, own, seem) ปกติไม่ใช้รูป continuous</span></span>
+  </div>
+
+  <div class="callout ask">
+    <b>ข้อสอบชอบถาม</b>
+    ให้ดู<b>คำบอกเวลา</b>ในประโยคก่อนเสมอ — <span class="en">every day / usually</span> → present simple · <span class="en">now / at the moment</span> → present continuous · <span class="en">since / for / already / yet / just</span> → present perfect · <span class="en">yesterday / ago / last…</span> → past simple · <span class="en">by the time / before + past</span> → past perfect
+  </div>
+</section>
+
+<section class="ch" id="en2" data-n="อ2" data-title="Subject–Verb Agreement" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ2</span><span class="ch-tag">จุดตายอันดับ 1 ของ error identification</span></div>
+    <h2>ประธานกับกริยาต้องสอดคล้องกัน</h2>
+    <p class="ch-why">ข้อสอบหาที่ผิดมักซ่อนคำตอบไว้ตรงนี้ วิธีจับให้อยู่หมัดคือ <b>ตัดส่วนขยายทิ้งให้เหลือประธานตัวจริง</b> แล้วค่อยดูว่ากริยาต้องเติม s หรือไม่</p>
+  </header>
+
+  <div class="steps">
+    <div><em>ตัดวลีที่คั่นกลางทิ้ง</em> — โดยเฉพาะวลีที่ขึ้นต้นด้วย of, with, along with, as well as, including, together with<small><span class="en">The box <b>of chocolates</b> is on the table.</span> → ประธานจริงคือ <span class="en">box</span> ไม่ใช่ <span class="en">chocolates</span></small></div>
+    <div><em>ดูว่าเป็นเอกพจน์หรือพหูพจน์</em> — ถ้าเอกพจน์ (he/she/it) ใน present simple ต้องเติม <b>s</b> ที่กริยา</div>
+    <div><em>ระวังคำที่หน้าตาหลอก</em> — ลงท้ายด้วย s แต่เป็นเอกพจน์ เช่น <span class="en">news, mathematics, physics, economics</span> · และคำที่ดูเดียวแต่เป็นพหูพจน์ เช่น <span class="en">people, police, children</span></div>
+  </div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">The list of students are long.</span></span>
+    <b class="yes">✓</b><span><span class="en">The list of students is long.</span><span class="why">ประธานคือ list (เอกพจน์) ส่วน of students เป็นแค่ส่วนขยาย</span></span>
+    <b class="no">✗</b><span><span class="en">Everyone have their own opinion.</span></span>
+    <b class="yes">✓</b><span><span class="en">Everyone has their own opinion.</span><span class="why">คำลงท้าย -one, -body, -thing (everyone, somebody, nothing) ถือเป็น<b>เอกพจน์</b>เสมอ</span></span>
+    <b class="no">✗</b><span><span class="en">The police is coming.</span></span>
+    <b class="yes">✓</b><span><span class="en">The police are coming.</span><span class="why">police, people, cattle เป็นพหูพจน์แม้ไม่มี s</span></span>
+    <b class="no">✗</b><span><span class="en">Neither of the answers are correct.</span></span>
+    <b class="yes">✓</b><span><span class="en">Neither of the answers is correct.</span><span class="why">each, either, neither, one of + พหูพจน์ → กริยาเป็น<b>เอกพจน์</b></span></span>
+    <b class="no">✗</b><span><span class="en">There is many students in the room.</span></span>
+    <b class="yes">✓</b><span><span class="en">There are many students in the room.</span><span class="why">ประโยค There is/are ให้ดูคำที่ตามหลัง ไม่ใช่คำว่า there</span></span>
+  </div>
+
+  <div class="callout">
+    <b>กฎ either…or / neither…nor</b>
+    ให้กริยาตามคำนามที่<b>อยู่ใกล้กริยาที่สุด</b> — <span class="en">Neither the teacher nor the <b>students</b> <b>were</b> late.</span> แต่ <span class="en">Neither the students nor the <b>teacher</b> <b>was</b> late.</span>
+  </div>
+</section>
+
+<section class="ch" id="en3" data-n="อ3" data-title="Articles a / an / the" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ3</span><span class="ch-tag">คนไทยพลาดเพราะภาษาไทยไม่มี</span></div>
+    <h2>a / an / the และการไม่ใส่อะไรเลย</h2>
+    <p class="ch-why">ตัดสินด้วยคำถามเดียว: <b>“ผู้ฟังรู้หรือยังว่าหมายถึงอันไหน”</b> — ถ้ารู้แล้วใช้ <span class="en">the</span> · ถ้าเพิ่งพูดถึงครั้งแรกและนับได้เอกพจน์ใช้ <span class="en">a / an</span> · ถ้าพูดถึงสิ่งนั้นแบบทั่ว ๆ ไปให้ไม่ต้องใส่</p>
+  </header>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>ใช้</th><th>เมื่อไร</th><th>ตัวอย่าง</th></tr></thead>
+      <tbody>
+        <tr><td><b>a / an</b></td><td>นับได้ เอกพจน์ พูดถึงครั้งแรก หรือหมายถึง “อันหนึ่งอันใด”</td><td><span class="en">I saw <b>a</b> dog. · She is <b>an</b> engineer.</span></td></tr>
+        <tr><td><b>the</b></td><td>ผู้ฟังรู้แล้วว่าอันไหน · พูดถึงซ้ำ · มีสิ่งเดียวในโลก · มีคำขยายเจาะจงตามหลัง · ขั้นสูงสุด</td><td><span class="en">The dog I saw was huge. · the sun · the best student · the book <b>on the table</b></span></td></tr>
+        <tr><td><b>ไม่ใส่</b></td><td>พหูพจน์หรือนามนับไม่ได้ที่พูดแบบทั่วไป · ชื่อคน ประเทศ (ส่วนใหญ่) มื้ออาหาร กีฬา วิชา</td><td><span class="en">Dogs are loyal. · Water is essential. · I play football after school.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">She is a honest person.</span></span>
+    <b class="yes">✓</b><span><span class="en">She is an honest person.</span><span class="why">ดูที่<b>เสียง</b>ไม่ใช่ตัวอักษร — honest ออกเสียงขึ้นต้นสระ /ɒ/ จึงใช้ an · ในทางกลับกัน <span class="en">a university</span> เพราะออกเสียง /juː/</span></span>
+    <b class="no">✗</b><span><span class="en">I like the music.</span> <span class="why">(ถ้าหมายถึงดนตรีโดยทั่วไป)</span></span>
+    <b class="yes">✓</b><span><span class="en">I like music.</span><span class="why">พูดถึงสิ่งนั้นแบบรวม ๆ ไม่ต้องใส่ the</span></span>
+    <b class="no">✗</b><span><span class="en">He goes to the school by bus.</span> <span class="why">(ถ้าหมายถึงไปเรียน)</span></span>
+    <b class="yes">✓</b><span><span class="en">He goes to school by bus.</span><span class="why">สถานที่ที่พูดถึง<b>หน้าที่</b>ของมัน (school, church, prison, bed, work) ไม่ใส่ the — แต่ถ้าไปที่ตัวอาคารจริง ๆ ใช้ the ได้</span></span>
+  </div>
+</section>
+
+<section class="ch" id="en4" data-n="อ4" data-title="Prepositions" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ4</span><span class="ch-tag">จำเป็นกลุ่ม อย่าจำทีละคำ</span></div>
+    <h2>บุพบท in / on / at และคู่คำที่ต้องจำ</h2>
+    <p class="ch-why">หลักจำง่ายที่สุดคือ <b>ขอบเขตกว้าง → in · พื้นผิวหรือวัน → on · จุดเจาะจง → at</b> ใช้ได้ทั้งเรื่องเวลาและสถานที่</p>
+  </header>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th></th><th>in (กว้าง / ข้างใน)</th><th>on (พื้นผิว / วันที่)</th><th>at (จุดเดียว)</th></tr></thead>
+      <tbody>
+        <tr><td><b>เวลา</b></td><td><span class="en">in 2024, in May, in the morning</span></td><td><span class="en">on Monday, on July 5, on my birthday</span></td><td><span class="en">at 7 p.m., at noon, at night</span></td></tr>
+        <tr><td><b>สถานที่</b></td><td><span class="en">in Thailand, in the room, in a car</span></td><td><span class="en">on the table, on the wall, on a bus</span></td><td><span class="en">at the door, at school, at the bus stop</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <b>เทียบง่าย ๆ</b>
+    นึกภาพซูมกล้อง: <b>in</b> = ภาพกว้างทั้งเมือง · <b>on</b> = ซูมมาที่พื้นผิวหนึ่งชั้น · <b>at</b> = ปักหมุดจุดเดียว — เวลาก็เช่นกัน ปี → เดือน → วัน → เวลานาฬิกา ยิ่งเจาะจงยิ่งขยับไปทาง at
+  </div>
+
+  <div class="exp">
+    <h3>กริยาที่ตามด้วยบุพบทผิดบ่อยที่สุด</h3>
+  </div>
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">We discussed about the problem.</span></span>
+    <b class="yes">✓</b><span><span class="en">We discussed the problem.</span><span class="why">discuss, marry, enter, answer, mention, reach ตามด้วยกรรมตรง ๆ <b>ไม่ต้องมีบุพบท</b></span></span>
+    <b class="no">✗</b><span><span class="en">She is married with a doctor.</span></span>
+    <b class="yes">✓</b><span><span class="en">She is married to a doctor.</span></span>
+    <b class="no">✗</b><span><span class="en">I am interested about art.</span></span>
+    <b class="yes">✓</b><span><span class="en">I am interested in art.</span></span>
+    <b class="no">✗</b><span><span class="en">It depends of the weather.</span></span>
+    <b class="yes">✓</b><span><span class="en">It depends on the weather.</span></span>
+    <b class="no">✗</b><span><span class="en">He listened the music.</span></span>
+    <b class="yes">✓</b><span><span class="en">He listened to the music.</span><span class="why">listen to, look at, wait for, belong to, apologize for ต้องมีบุพบทเสมอ</span></span>
+  </div>
+
+  <div class="tags">
+    <span><b>good at</b> เก่งเรื่อง</span><span><b>afraid of</b> กลัว</span><span><b>famous for</b> มีชื่อเรื่อง</span>
+    <span><b>responsible for</b> รับผิดชอบ</span><span><b>different from</b> ต่างจาก</span><span><b>similar to</b> คล้ายกับ</span>
+    <span><b>capable of</b> สามารถ</span><span><b>consist of</b> ประกอบด้วย</span><span><b>rely on</b> พึ่งพา</span>
+  </div>
+</section>
+
+<section class="ch" id="en5" data-n="อ5" data-title="Passive Voice" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ5</span><span class="ch-tag">สูตรเดียวใช้ได้ทุก tense</span></div>
+    <h2>ประโยค Passive — เมื่อผู้ถูกกระทำสำคัญกว่า</h2>
+    <p class="ch-why">ใช้เมื่อ<b>ไม่รู้หรือไม่สำคัญว่าใครทำ</b> เช่นข่าวและรายงานวิชาการ · โครงสร้างมีแค่ <b>verb to be + V3</b> โดย “be” เปลี่ยนรูปตาม tense เดิม ส่วน V3 ไม่เปลี่ยนเลย</p>
+  </header>
+
+  <div class="form">Active:  Somebody + V + object   →   Passive:  object + be + V3 (+ by somebody)</div>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>Tense</th><th>Active</th><th>Passive</th></tr></thead>
+      <tbody>
+        <tr><td>Present simple</td><td><span class="en">They clean the room.</span></td><td><span class="en">The room <b>is cleaned</b>.</span></td></tr>
+        <tr><td>Past simple</td><td><span class="en">They cleaned the room.</span></td><td><span class="en">The room <b>was cleaned</b>.</span></td></tr>
+        <tr><td>Present perfect</td><td><span class="en">They have cleaned it.</span></td><td><span class="en">It <b>has been cleaned</b>.</span></td></tr>
+        <tr><td>Future</td><td><span class="en">They will clean it.</span></td><td><span class="en">It <b>will be cleaned</b>.</span></td></tr>
+        <tr><td>Modal</td><td><span class="en">They must clean it.</span></td><td><span class="en">It <b>must be cleaned</b>.</span></td></tr>
+        <tr><td>Continuous</td><td><span class="en">They are cleaning it.</span></td><td><span class="en">It <b>is being cleaned</b>.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">The letter was wrote by John.</span></span>
+    <b class="yes">✓</b><span><span class="en">The letter was written by John.</span><span class="why">ต้องเป็นช่อง 3 (written) ไม่ใช่ช่อง 2 (wrote) — เป็นกับดักยอดฮิต</span></span>
+    <b class="no">✗</b><span><span class="en">The accident was happened last night.</span></span>
+    <b class="yes">✓</b><span><span class="en">The accident happened last night.</span><span class="why">กริยาที่<b>ไม่มีกรรม</b> (happen, occur, arrive, appear, die, rise) ทำเป็น passive ไม่ได้เลย</span></span>
+  </div>
+
+  <div class="callout ask">
+    <b>ข้อสอบชอบถาม</b>
+    ให้เปลี่ยนประโยคเป็น passive แล้วมีกรรม 2 ตัว เช่น <span class="en">They gave <b>me</b> <b>a book</b>.</span> → ทำได้ทั้ง <span class="en">I was given a book.</span> และ <span class="en">A book was given to me.</span> แต่รูปแรกเป็นธรรมชาติกว่าและมักเป็นคำตอบ
+  </div>
+</section>
+
+<section class="ch" id="en6" data-n="อ6" data-title="Relative Clause" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ6</span><span class="ch-tag">ออกทั้ง cloze และ error</span></div>
+    <h2>ประโยคขยายนาม (who / which / that / whose)</h2>
+    <p class="ch-why">หน้าที่ของมันคือ<b>เอาสองประโยคมารวมกันโดยไม่พูดคำนามซ้ำ</b> — เลือกคำเชื่อมจากว่าคำนามที่ขยายเป็นคนหรือสิ่งของ แล้วดูว่าคำนั้นทำหน้าที่อะไรในประโยคย่อย</p>
+  </header>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>คำ</th><th>ใช้กับ</th><th>ตัวอย่าง</th></tr></thead>
+      <tbody>
+        <tr><td><b>who / whom</b></td><td>คน (who = ประธาน · whom = กรรม)</td><td><span class="en">The man <b>who</b> called me is my uncle.</span></td></tr>
+        <tr><td><b>which</b></td><td>สัตว์ สิ่งของ</td><td><span class="en">The book <b>which</b> I bought was cheap.</span></td></tr>
+        <tr><td><b>that</b></td><td>ใช้แทน who/which ได้ในประโยคแบบจำกัดความ</td><td><span class="en">The car <b>that</b> he drives is old.</span></td></tr>
+        <tr><td><b>whose</b></td><td>แสดงความเป็นเจ้าของ (ทั้งคนและของ)</td><td><span class="en">The girl <b>whose</b> bag was stolen is crying.</span></td></tr>
+        <tr><td><b>where / when</b></td><td>สถานที่ / เวลา</td><td><span class="en">This is the house <b>where</b> I grew up.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exp">
+    <h3>มีคอมมากับไม่มีคอมมา ต่างกันมาก</h3>
+    <p><b>ไม่มีคอมมา (จำกัดความ)</b> = ข้อมูลนี้จำเป็น ถ้าตัดออกจะไม่รู้ว่าหมายถึงใคร<br>
+    <span class="en">My friend <b>who lives in Chiang Mai</b> is a doctor.</span> → มีเพื่อนหลายคน กำลังเจาะจงคนที่อยู่เชียงใหม่</p>
+    <p><b>มีคอมมา (ขยายความ)</b> = ข้อมูลเสริม ตัดออกก็ยังรู้ว่าใคร<br>
+    <span class="en">My father, <b>who lives in Chiang Mai</b>, is a doctor.</span> → พ่อมีคนเดียวอยู่แล้ว ส่วนที่คั่นคอมมาแค่เล่าเพิ่ม</p>
+  </div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">My mother, that works here, is kind.</span></span>
+    <b class="yes">✓</b><span><span class="en">My mother, who works here, is kind.</span><span class="why">หลังคอมมา<b>ห้ามใช้ that</b> เด็ดขาด</span></span>
+    <b class="no">✗</b><span><span class="en">The book which I read it was good.</span></span>
+    <b class="yes">✓</b><span><span class="en">The book which I read was good.</span><span class="why">มี which แล้วห้ามมี it ซ้ำ เพราะทำหน้าที่กรรมเดียวกัน</span></span>
+  </div>
+</section>
+
+<section class="ch" id="en7" data-n="อ7" data-title="Conditionals (If-clause)" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ7</span><span class="ch-tag">มีเครื่องมือ: เทียบ 4 แบบ</span></div>
+    <h2>ประโยคเงื่อนไข — จำจาก “ความเป็นไปได้”</h2>
+    <p class="ch-why">อย่าท่องว่า Type 1 คืออะไร ให้ถามว่า <b>เรื่องนี้มีโอกาสเกิดจริงแค่ไหน</b> — เป็นจริงเสมอ / น่าจะเกิด / แค่สมมติ / เกิดไม่ได้แล้วเพราะผ่านไปแล้ว</p>
+  </header>
+
+  <div class="lab">
+    <div class="lab-head"><h4>กดเลือกแบบ → เห็นสูตร ความหมาย และตัวอย่างเทียบกัน</h4><span>tool 35 · กดได้</span></div>
+    <div class="lab-body">
+      <div class="chips" id="ifChips"></div>
+      <div id="ifBox" style="margin-top:.9rem"></div>
+    </div>
+  </div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">If it will rain, I will stay home.</span></span>
+    <b class="yes">✓</b><span><span class="en">If it rains, I will stay home.</span><span class="why">ห้ามใช้ will ในประโยค if — จำว่า <b>“if ไม่คบ will”</b></span></span>
+    <b class="no">✗</b><span><span class="en">If I was you, I would apologize.</span></span>
+    <b class="yes">✓</b><span><span class="en">If I <b>were</b> you, I would apologize.</span><span class="why">Type 2 ใช้ were กับทุกประธาน เพราะเป็นเรื่องสมมติที่ไม่จริง</span></span>
+    <b class="no">✗</b><span><span class="en">If she had studied, she would pass.</span></span>
+    <b class="yes">✓</b><span><span class="en">If she had studied, she <b>would have passed</b>.</span><span class="why">Type 3 ต้องมี have + V3 ทั้งสองฝั่งให้ครบ</span></span>
+  </div>
+
+  <div class="callout">
+    <b>ตัวช่วยที่ออกสอบด้วย</b>
+    <span class="en">Unless</span> = if…not (แปลว่า “ถ้าไม่”) จึงห้ามใส่ not ซ้ำ · <span class="en">I wish / If only</span> ใช้โครงเดียวกับ Type 2 และ 3 เพื่อบอกความเสียดาย — <span class="en">I wish I <b>knew</b> the answer.</span> (ตอนนี้ไม่รู้) · <span class="en">I wish I <b>had known</b>.</span> (ตอนนั้นไม่รู้)
+  </div>
+</section>
+
+<section class="ch" id="en8" data-n="อ8" data-title="Reported Speech" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ8</span><span class="ch-tag">เปลี่ยน 3 อย่างพร้อมกัน</span></div>
+    <h2>การเล่าคำพูดของคนอื่น</h2>
+    <p class="ch-why">เวลาเล่าคำพูดคนอื่น ต้อง<b>ถอยหลังไปหนึ่งขั้น</b>ทั้งกาล คำสรรพนาม และคำบอกเวลา เพราะจุดยืนของผู้พูดเปลี่ยนไปแล้ว</p>
+  </header>
+
+  <div class="steps">
+    <div><em>เลื่อน tense ถอยหลัง 1 ขั้น</em> — present simple → past simple · present perfect และ past simple → past perfect · will → would · can → could · may → might<small>ถ้าเนื้อความยังเป็นความจริงเสมอ เช่น <span class="en">The earth is round</span> จะไม่เลื่อนก็ได้</small></div>
+    <div><em>เปลี่ยนสรรพนามให้เข้ากับผู้เล่า</em> — <span class="en">I → he/she · my → his/her · we → they</span></div>
+    <div><em>เปลี่ยนคำบอกเวลาและสถานที่</em> — <span class="en">now → then · today → that day · tomorrow → the next day · yesterday → the day before · here → there · this → that</span></div>
+  </div>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>ชนิดประโยค</th><th>คำที่ใช้</th><th>ตัวอย่าง</th></tr></thead>
+      <tbody>
+        <tr><td>บอกเล่า</td><td>said (that) / told + คน</td><td><span class="en">“I am tired.” → He said (that) he <b>was</b> tired.</span></td></tr>
+        <tr><td>คำถาม Yes/No</td><td>asked <b>if / whether</b></td><td><span class="en">“Are you ready?” → She asked <b>if I was ready</b>.</span></td></tr>
+        <tr><td>คำถาม Wh-</td><td>asked + wh-word</td><td><span class="en">“Where do you live?” → He asked <b>where I lived</b>.</span></td></tr>
+        <tr><td>คำสั่ง / ขอร้อง</td><td>told / asked + to + V1</td><td><span class="en">“Close the door.” → She told me <b>to close</b> the door.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">He asked me where did I go.</span></span>
+    <b class="yes">✓</b><span><span class="en">He asked me where I went.</span><span class="why">พอเล่าต่อแล้วต้องเรียงแบบ<b>ประโยคบอกเล่า</b> (ประธาน + กริยา) ห้ามคงรูปคำถามและห้ามมี did</span></span>
+    <b class="no">✗</b><span><span class="en">She said me that she was busy.</span></span>
+    <b class="yes">✓</b><span><span class="en">She told me that she was busy.</span><span class="why">say ไม่ตามด้วยคนตรง ๆ (ต้อง say <b>to</b> me) ส่วน tell ตามด้วยคนได้เลย</span></span>
+  </div>
+</section>
+
+<section class="ch" id="en9" data-n="อ9" data-title="Gerund &amp; Infinitive" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ9</span><span class="ch-tag">ออกสอบทุกปี</span></div>
+    <h2>กริยาตามด้วย V-ing หรือ to + V1</h2>
+    <p class="ch-why">มีหลักช่วยจำ: กริยาที่มองไป<b>ข้างหน้า</b> (วางแผน หวัง ตัดสินใจ) มักตามด้วย <b>to + V1</b> ส่วนกริยาที่พูดถึงสิ่งที่<b>ทำอยู่หรือทำไปแล้ว</b> (สนุก เลิก หลีกเลี่ยง) มักตามด้วย <b>V-ing</b></p>
+  </header>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>ตามด้วย to + V1</th><th>ตามด้วย V-ing</th><th>ได้ทั้งสองแบบ ความหมายเปลี่ยน</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="en">want, need, decide, plan, hope, expect, promise, agree, refuse, learn, offer, afford, manage, seem, tend</span></td>
+          <td><span class="en">enjoy, avoid, finish, mind, suggest, practice, keep, consider, admit, deny, miss, imagine, risk, quit</span></td>
+          <td><span class="en">stop, remember, forget, try</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exp">
+    <h3>4 คำที่ความหมายเปลี่ยนตามรูป</h3>
+    <ul>
+      <li><span class="en">stop <b>smoking</b></span> = เลิกสูบ · <span class="en">stop <b>to smoke</b></span> = หยุด(สิ่งที่ทำอยู่)เพื่อไปสูบ</li>
+      <li><span class="en">remember <b>locking</b> the door</span> = จำได้ว่าล็อกไปแล้ว · <span class="en">remember <b>to lock</b></span> = อย่าลืมไปล็อกนะ</li>
+      <li><span class="en">forget <b>meeting</b> him</span> = ลืมว่าเคยเจอ · <span class="en">forget <b>to meet</b></span> = ลืมไปเจอ (ไม่ได้ไป)</li>
+      <li><span class="en">try <b>calling</b></span> = ลองโทรดู (เป็นวิธีหนึ่ง) · <span class="en">try <b>to call</b></span> = พยายามโทร (อาจไม่สำเร็จ)</li>
+    </ul>
+    <h3>หลังบุพบทต้องเป็น V-ing เสมอ</h3>
+  </div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">She is good at to sing.</span></span>
+    <b class="yes">✓</b><span><span class="en">She is good at singing.</span><span class="why">at เป็นบุพบท → ต้องตามด้วย V-ing · ระวังคำว่า <span class="en">to</span> ที่เป็นบุพบทด้วย เช่น <span class="en">look forward to <b>seeing</b> you</span></span></span>
+    <b class="no">✗</b><span><span class="en">I suggested to go early.</span></span>
+    <b class="yes">✓</b><span><span class="en">I suggested going early.</span></span>
+  </div>
+</section>
+
+<section class="ch" id="en10" data-n="อ10" data-title="Modal Verbs" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ10</span><span class="ch-tag">ใช้เยอะในพาร์ตบทสนทนา</span></div>
+    <h2>กริยาช่วย — บอกระดับความมั่นใจและความสุภาพ</h2>
+    <p class="ch-why">Modal ทุกตัวตามด้วย <b>V1 เสมอ</b> ไม่ผัน ไม่เติม s ไม่เติม to — สิ่งที่ต่างกันคือ<b>ระดับความแรง</b>ของความหมาย</p>
+  </header>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>ความหมาย</th><th>แรง → อ่อน</th><th>ตัวอย่าง</th></tr></thead>
+      <tbody>
+        <tr><td>ความจำเป็น</td><td><span class="en">must > have to > should > ought to</span></td><td><span class="en">You <b>must</b> stop. / You <b>should</b> rest.</span></td></tr>
+        <tr><td>ความเป็นไปได้</td><td><span class="en">must (แน่ใจมาก) > may > might > could</span></td><td><span class="en">He <b>must</b> be tired. / It <b>might</b> rain.</span></td></tr>
+        <tr><td>ขออนุญาต (สุภาพขึ้นตามลำดับ)</td><td><span class="en">Can I → Could I → May I</span></td><td><span class="en"><b>May I</b> come in?</span></td></tr>
+        <tr><td>ขอร้อง</td><td><span class="en">Can you → Could you → Would you</span></td><td><span class="en"><b>Could you</b> help me, please?</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exp">
+    <h3>รูปอดีตที่ใช้ตำหนิหรือเสียดาย</h3>
+    <ul>
+      <li><span class="en">should have + V3</span> = น่าจะทำแต่ไม่ได้ทำ → <span class="en">You <b>should have told</b> me.</span> (แต่คุณไม่ได้บอก)</li>
+      <li><span class="en">must have + V3</span> = คงจะ…แน่ ๆ → <span class="en">She <b>must have forgotten</b>.</span></li>
+      <li><span class="en">can't have + V3</span> = เป็นไปไม่ได้ที่จะ… → <span class="en">He <b>can't have finished</b> already.</span></li>
+    </ul>
+  </div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">He must to go now.</span></span>
+    <b class="yes">✓</b><span><span class="en">He must go now.</span><span class="why">หลัง modal ห้ามมี to (ยกเว้น ought to, have to, be able to)</span></span>
+    <b class="no">✗</b><span><span class="en">She cans swim.</span></span>
+    <b class="yes">✓</b><span><span class="en">She can swim.</span><span class="why">modal ไม่เติม s ตามประธานเอกพจน์</span></span>
+  </div>
+</section>
+
+<section class="ch" id="en11" data-n="อ11" data-title="Comparison" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ11</span><span class="ch-tag">นับพยางค์ก่อนเสมอ</span></div>
+    <h2>การเปรียบเทียบขั้นกว่าและขั้นสุด</h2>
+    <p class="ch-why">ตัดสินจาก<b>จำนวนพยางค์</b>: สั้น (1 พยางค์ หรือ 2 พยางค์ลงท้าย -y) เติม <b>-er / -est</b> · ยาวกว่านั้นใช้ <b>more / most</b> — และห้ามใช้ทั้งสองอย่างพร้อมกัน</p>
+  </header>
+
+  <div class="form">A + is + adj-er + than + B    ·    A + is + the + adj-est + (in/of…)    ·    A + is + as + adj + as + B</div>
+
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">She is more taller than me.</span></span>
+    <b class="yes">✓</b><span><span class="en">She is taller than me.</span><span class="why">ห้ามซ้อน more กับ -er</span></span>
+    <b class="no">✗</b><span><span class="en">This is the most easiest way.</span></span>
+    <b class="yes">✓</b><span><span class="en">This is the easiest way.</span></span>
+    <b class="no">✗</b><span><span class="en">He runs as fast than his brother.</span></span>
+    <b class="yes">✓</b><span><span class="en">He runs as fast as his brother.</span><span class="why">โครงสร้าง as…as ใช้ as ทั้งสองข้าง และคำตรงกลางเป็น<b>รูปปกติ</b>ไม่ผัน</span></span>
+  </div>
+
+  <div class="exp">
+    <h3>รูปพิเศษที่ต้องจำ</h3>
+    <div class="tags">
+      <span><b>good</b> → better → best</span><span><b>bad</b> → worse → worst</span>
+      <span><b>far</b> → farther/further → farthest</span><span><b>many/much</b> → more → most</span>
+      <span><b>little</b> → less → least</span>
+    </div>
+    <h3>โครงสร้างที่ออกสอบบ่อย</h3>
+    <ul>
+      <li><span class="en">The + comparative, the + comparative</span> = ยิ่ง…ยิ่ง… → <span class="en"><b>The harder</b> you practice, <b>the better</b> you get.</span></li>
+      <li><span class="en">comparative + and + comparative</span> = ยิ่งขึ้นเรื่อย ๆ → <span class="en">It is getting <b>hotter and hotter</b>.</span></li>
+      <li><span class="en">twice / three times as … as</span> = เป็นเท่าตัว → <span class="en">This costs <b>twice as much as</b> that.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="ch" id="en12" data-n="อ12" data-title="Connectors" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ12</span><span class="ch-tag">กุญแจของพาร์ต cloze</span></div>
+    <h2>คำเชื่อม — ตัวชี้ทิศทางของประโยค</h2>
+    <p class="ch-why">ข้อสอบเติมคำในบทความมักไม่ได้วัดศัพท์ แต่วัดว่า<b>คุณจับทิศทางความคิดถูกไหม</b> — ประโยคหลังกำลังจะ “เสริม” “แย้ง” “ยกตัวอย่าง” หรือ “สรุปผล” ถ้าจับทิศได้ ตัวเลือกจะเหลือแค่ 1–2 ตัว</p>
+  </header>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>ทิศทาง</th><th>คำที่ใช้</th><th>ข้อควรระวัง</th></tr></thead>
+      <tbody>
+        <tr><td><b>เสริม</b></td><td><span class="en">moreover, furthermore, in addition, besides</span></td><td>ตามด้วยประโยคเต็ม</td></tr>
+        <tr><td><b>แย้ง</b></td><td><span class="en">however, nevertheless, on the other hand, in contrast</span></td><td>ปกติตามด้วยคอมมาแล้วขึ้นประโยคใหม่</td></tr>
+        <tr><td><b>เป็นผล</b></td><td><span class="en">therefore, thus, consequently, as a result, hence</span></td><td>ผลต้องมาจากเหตุที่พูดก่อนหน้า</td></tr>
+        <tr><td><b>ยกตัวอย่าง</b></td><td><span class="en">for example, for instance, such as</span></td><td><span class="en">such as</span> ตามด้วยคำนาม ไม่ใช่ประโยค</td></tr>
+        <tr><td><b>สรุป</b></td><td><span class="en">in conclusion, in short, to sum up, overall</span></td><td>ใช้ย่อหน้าสุดท้าย</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exp">
+    <h3>กลุ่ม “แม้ว่า” ที่สลับกันไม่ได้</h3>
+  </div>
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">Despite it was raining, we went out.</span></span>
+    <b class="yes">✓</b><span><span class="en">Despite <b>the rain</b>, we went out.</span> / <span class="en"><b>Although</b> it was raining, we went out.</span><span class="why"><b>despite / in spite of + คำนาม</b> · <b>although / though / even though + ประโยค</b> — ข้อสอบชอบสลับตรงนี้</span></span>
+    <b class="no">✗</b><span><span class="en">Because of he was late, we left.</span></span>
+    <b class="yes">✓</b><span><span class="en">Because <b>he was late</b>, we left.</span> / <span class="en"><b>Because of his lateness</b>, we left.</span><span class="why">หลักเดียวกัน: <b>because + ประโยค</b> · <b>because of + คำนาม</b></span></span>
+    <b class="no">✗</b><span><span class="en">Although he was tired, but he kept working.</span></span>
+    <b class="yes">✓</b><span><span class="en">Although he was tired, he kept working.</span><span class="why">ภาษาอังกฤษใช้คำเชื่อมแค่<b>ตัวเดียว</b>ต่อความสัมพันธ์หนึ่ง จะมี although แล้วมี but ซ้ำไม่ได้ (ต่างจากภาษาไทยที่พูดว่า “แม้ว่า…แต่…” ได้)</span></span>
+  </div>
+</section>
+
+<section class="ch" id="en13" data-n="อ13" data-title="Error Identification" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ13</span><span class="ch-tag">มีเครื่องมือ: ฝึกจับผิด</span></div>
+    <h2>หาที่ผิดในประโยค — ไล่เช็ก 6 จุดตามลำดับ</h2>
+    <p class="ch-why">อย่าอ่านแล้วรู้สึกเอา ให้<b>ไล่เช็กเป็นระบบ</b>ตามลำดับนี้ทุกข้อ เพราะกว่า 80% ของข้อผิดอยู่ใน 6 จุดนี้</p>
+  </header>
+
+  <div class="steps">
+    <div><em>ประธานกับกริยาตรงกันไหม</em> — ตัดวลีคั่นกลางทิ้งก่อน แล้วดูว่ากริยาต้องเติม s หรือไม่</div>
+    <div><em>Tense ถูกไหม</em> — มองหาคำบอกเวลาในประโยคแล้วเทียบกับรูปกริยา</div>
+    <div><em>รูปกริยาหลังคำเฉพาะ</em> — หลัง modal ใช้ V1 · หลังบุพบทใช้ V-ing · passive ใช้ V3 · หลัง to ปกติใช้ V1</div>
+    <div><em>คำนามเอกพจน์/พหูพจน์และ article</em> — <span class="en">a/an</span> ต้องคู่กับนามนับได้เอกพจน์ · <span class="en">many/few</span> คู่นับได้ · <span class="en">much/little</span> คู่นับไม่ได้</div>
+    <div><em>บุพบทถูกตัวไหม</em> — เช็กกลุ่มคำที่ต้องจำ เช่น <span class="en">interested in, depend on, married to</span></div>
+    <div><em>ความขนาน (parallel structure)</em> — คำที่เชื่อมด้วย and / or / but ต้องเป็นรูปเดียวกัน<small><span class="en">She likes <b>swimming</b>, <b>reading</b>, and <b>cooking</b>.</span> ไม่ใช่ <span class="en">…and to cook</span></small></div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head"><h4>ฝึกจับผิด — แตะคำที่คิดว่าผิด</h4><span>tool 36 · กดได้</span></div>
+    <div class="lab-body">
+      <p class="drill-sent" id="errSent"></p>
+      <div id="errFb" class="hint" style="min-height:2.4em"></div>
+      <div class="fc-acts">
+        <button class="fcbtn" id="errNext" type="button">ข้อถัดไป →</button>
+        <button class="fcbtn ghost" id="errReset" type="button">↻ เริ่มใหม่</button>
+      </div>
+      <div id="errOut"></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="en14" data-n="อ14" data-title="Reading" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ14</span><span class="ch-tag">พาร์ตคะแนนเยอะที่สุด</span></div>
+    <h2>เทคนิคอ่านจับใจความ</h2>
+    <p class="ch-why">อย่าอ่านทุกคำแล้วค่อยตอบ — ให้<b>อ่านคำถามก่อน</b> แล้วกลับไปล่าคำตอบเฉพาะจุด เพราะคำถามส่วนใหญ่ระบุไว้แล้วว่าคำตอบอยู่ย่อหน้าไหน</p>
+  </header>
+
+  <div class="steps">
+    <div><em>อ่านคำถามและตัวเลือกคร่าว ๆ ก่อน</em> — จะได้รู้ว่าต้องล่าอะไร (ชื่อ ตัวเลข เหตุผล หรือใจความรวม)</div>
+    <div><em>สแกนหาคำสำคัญ</em> — ชื่อเฉพาะ ตัวเลข ปี ตัวพิมพ์ใหญ่ หาเจอง่ายที่สุดในบทความ</div>
+    <div><em>อ่านเฉพาะประโยคนั้นกับประโยคหน้า-หลัง</em> — คำตอบมักอยู่ในรัศมี 1–2 ประโยค</div>
+    <div><em>เช็กว่าตัวเลือกไม่ได้พูดเกินจากบทความ</em> — ตัวเลือกที่มีคำแรงอย่าง <span class="en">always, never, all, only</span> มักผิด เพราะบทความวิชาการมักพูดอย่างระมัดระวัง</div>
+  </div>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>คำถามแบบ</th><th>สังเกตจากคำในโจทย์</th><th>วิธีตอบ</th></tr></thead>
+      <tbody>
+        <tr><td><b>ใจความหลัก</b></td><td><span class="en">main idea, best title, mainly about</span></td><td>ดู<b>ประโยคแรกและประโยคสุดท้าย</b>ของแต่ละย่อหน้า · คำตอบต้องครอบคลุมทั้งเรื่อง ไม่ใช่แค่ย่อหน้าเดียว</td></tr>
+        <tr><td><b>รายละเอียด</b></td><td><span class="en">according to the passage</span></td><td>ต้องหาเจอในบทความจริง ๆ ห้ามเดาจากความรู้เดิม</td></tr>
+        <tr><td><b>อนุมาน</b></td><td><span class="en">infer, imply, suggest, conclude</span></td><td>คำตอบ<b>ไม่ได้เขียนตรง ๆ</b> แต่ต้องต่อยอดจากที่เขียนได้อย่างมีเหตุผล — ห้ามจินตนาการเกิน</td></tr>
+        <tr><td><b>คำอ้างอิง</b></td><td><span class="en">the word "it/they/this" refers to</span></td><td>มองย้อนไป<b>ข้างหน้าใกล้ ๆ</b> แล้วลองแทนที่คำนั้นกลับเข้าประโยค ถ้าอ่านแล้วสมเหตุสมผลคือคำตอบ</td></tr>
+        <tr><td><b>ศัพท์ในบริบท</b></td><td><span class="en">the word "X" means</span></td><td>อย่าแปลจากที่เคยรู้ ให้ดู<b>คำรอบข้าง</b> โดยเฉพาะคำเชื่อมที่บอกว่าเป็นความหมายเดียวกันหรือตรงข้าม</td></tr>
+        <tr><td><b>น้ำเสียงผู้เขียน</b></td><td><span class="en">tone, attitude</span></td><td>ดูคำคุณศัพท์ที่ผู้เขียนเลือกใช้ · ถ้าเป็นบทความให้ข้อมูลเฉย ๆ ให้ตอบกลาง ๆ เช่น <span class="en">objective, informative</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout ask">
+    <b>เทคนิคตัดตัวเลือก</b>
+    ตัด 3 แบบนี้ทิ้งก่อนเสมอ — <b>1)</b> ตัวเลือกที่<b>จริงแต่ไม่เกี่ยวกับคำถาม</b> · <b>2)</b> ตัวเลือกที่<b>พูดเกิน</b>ขอบเขตบทความ · <b>3)</b> ตัวเลือกที่ลอกคำในบทความมาทั้งดุ้นแต่<b>สลับความหมาย</b> (เจอคำคุ้นแล้วอย่ารีบเลือก)
+  </div>
+</section>
+
+<section class="ch" id="en15" data-n="อ15" data-title="Conversation" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ15</span><span class="ch-tag">พาร์ตแรกของข้อสอบ</span></div>
+    <h2>บทสนทนา — เลือกจากความสุภาพและสถานการณ์</h2>
+    <p class="ch-why">พาร์ตนี้ไม่ได้วัดไวยากรณ์ แต่วัดว่า<b>พูดแบบนี้กับคนแบบนี้เหมาะไหม</b> — ตัวเลือกที่ถูกไวยากรณ์แต่ห้วนเกินไปมักเป็นตัวลวง</p>
+  </header>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>สถานการณ์</th><th>ประโยคที่ใช้</th><th>ตอบรับ / ปฏิเสธ</th></tr></thead>
+      <tbody>
+        <tr><td>เสนอความช่วยเหลือ</td><td><span class="en">Would you like me to…? · Shall I…? · Do you need a hand?</span></td><td><span class="en">Yes, please. That's very kind of you.</span> / <span class="en">No, thanks. I can manage.</span></td></tr>
+        <tr><td>ขอร้อง</td><td><span class="en">Could you please…? · Would you mind + V-ing?</span></td><td>ระวัง! <span class="en">Would you mind…?</span> ตอบรับคือ <span class="en"><b>Not at all</b></span> หรือ <span class="en">Of course not</span> (แปลว่า “ไม่รังเกียจเลย” = ยินดีช่วย)</td></tr>
+        <tr><td>ชวน</td><td><span class="en">How about…? · Why don't we…? · Let's…</span></td><td><span class="en">Sounds great! · I'd love to.</span> / <span class="en">I'd love to, but I'm afraid I'm busy.</span></td></tr>
+        <tr><td>ขอโทษ</td><td><span class="en">I'm terribly sorry. · I do apologize.</span></td><td><span class="en">That's all right. · Never mind. · No worries.</span></td></tr>
+        <tr><td>ขอบคุณ</td><td><span class="en">Thanks a lot. · I really appreciate it.</span></td><td><span class="en">You're welcome. · My pleasure. · Don't mention it.</span></td></tr>
+        <tr><td>ไม่เห็นด้วยแบบสุภาพ</td><td><span class="en">I see your point, but… · I'm not so sure about that.</span></td><td>เลี่ยงพูดตรง ๆ ว่า <span class="en">You are wrong.</span> ซึ่งถือว่าหยาบ</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <b>กฎการปฏิเสธแบบฝรั่ง</b>
+    แทบไม่มีใครปฏิเสธห้วน ๆ — สูตรคือ <b>ขอบคุณ + เสียใจ + เหตุผล</b> เช่น <span class="en">Thanks for asking, but I'm afraid I can't. I have to work tonight.</span> ตัวเลือกที่มีแค่ <span class="en">No, I can't.</span> จึงมักไม่ใช่คำตอบ
+  </div>
+
+  <div class="callout ask">
+    <b>ข้อสอบชอบถาม</b>
+    ให้ดู<b>คำตอบที่ให้มา</b>แล้วเดาคำถามย้อนกลับ เช่น ถ้าตัวตอบเป็น <span class="en">"It's just around the corner."</span> คำถามต้องเป็นการถามทาง <span class="en">(Excuse me, where is…?)</span> ไม่ใช่ถามเวลา
+  </div>
+</section>
+
+<section class="ch" id="en16" data-n="อ16" data-title="Writing &amp; Cloze" data-group="ภาษาอังกฤษ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ16</span><span class="ch-tag">เก็บคะแนนง่ายถ้ารู้โครง</span></div>
+    <h2>เรียงย่อหน้า &amp; เติมคำในบทความ</h2>
+    <p class="ch-why">ย่อหน้าภาษาอังกฤษมีสูตรตายตัว: <b>ประโยคใจความหลัก → ประโยคสนับสนุน → ประโยคสรุป</b> รู้สูตรนี้แล้วข้อเรียงลำดับประโยคจะกลายเป็นข้อฟรี</p>
+  </header>
+
+  <div class="steps">
+    <div><em>หาประโยคใจความหลักก่อน</em> — มักเป็นประโยคที่<b>กว้างที่สุด</b> ไม่มีคำเชื่อมนำหน้า และไม่มีคำอ้างอิงอย่าง <span class="en">this, these, such, it</span></div>
+    <div><em>เรียงประโยคที่มีคำเชื่อมตามหลัง</em> — ประโยคที่ขึ้นต้นด้วย <span class="en">However, Moreover, For example, Therefore</span> ต้องมีประโยคก่อนหน้าให้มันอ้างถึงเสมอ</div>
+    <div><em>ใช้คำอ้างอิงเป็นเข็มทิศ</em> — ถ้าประโยคขึ้นต้นว่า <span class="en">These problems…</span> แสดงว่าประโยคก่อนหน้าต้องพูดถึงปัญหาหลายอย่างไว้แล้ว</div>
+    <div><em>ประโยคสรุปอยู่ท้าย</em> — สังเกตคำอย่าง <span class="en">In conclusion, Overall, Therefore</span> หรือประโยคที่วนกลับไปพูดเรื่องเดียวกับใจความหลัก</div>
+  </div>
+
+  <div class="exp">
+    <h3>เติมคำในช่องว่าง (cloze) — ดู 3 อย่างนี้</h3>
+    <ul>
+      <li><b>ไวยากรณ์รอบช่องว่าง</b> — ก่อนช่องเป็นบุพบทไหม (ต้องเป็น V-ing) · เป็น modal ไหม (ต้องเป็น V1) · มี article ไหม (ต้องเป็นคำนาม)</li>
+      <li><b>ทิศทางของประโยค</b> — ถ้าประโยคหน้าและหลังขัดแย้งกัน ช่องนั้นต้องเป็นคำเชื่อมกลุ่มแย้ง</li>
+      <li><b>คำที่เข้าคู่กันเป็นสำนวน</b> — เช่น <span class="en">play a role, make a decision, take responsibility, pay attention</span> ถ้าจำคู่คำได้จะตอบได้ทันทีโดยไม่ต้องคิด</li>
+    </ul>
+  </div>
+
+  <div class="callout ask">
+    <b>ข้อสอบชอบถาม</b>
+    ประโยคใดไม่เข้าพวกในย่อหน้า (<span class="en">irrelevant sentence</span>) → หาประโยคที่พูดเรื่อง<b>คนละหัวข้อ</b>กับประโยคใจความหลัก แม้จะฟังดูจริงและเขียนถูกไวยากรณ์ก็ตาม
+  </div>
+</section>
+
 <section class="ch" id="vocab" data-n="ก" data-title="คลังคำศัพท์ อังกฤษ" data-group="ท่องจำ &amp; คำศัพท์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ก</span><span class="ch-tag">เครื่องมือ: ค้นศัพท์ + กรองตามบท</span></div>
@@ -1686,7 +2259,7 @@ document.getElementById("theme").addEventListener("click",()=>{
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>requestAnimationFrame(redraw));
 function buildIndex(){
   const ul=document.getElementById("idx"); ul.innerHTML="";
-  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส","ชีววิทยา","ท่องจำ & คำศัพท์"];
+  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส","ชีววิทยา","ภาษาอังกฤษ","ท่องจำ & คำศัพท์"];
   const groups={}; order.forEach(g=>groups[g]=[]);
   document.querySelectorAll("section.ch").forEach(s=>(groups[s.dataset.group]||groups["พื้นฐาน"]).push(s));
   let first=true;
@@ -3410,6 +3983,162 @@ V("แคลคูลัส",[
     out["aa = q²"].textContent=fmt(v[2]*100,2)+"%";
     out["ตรวจผลรวม"].textContent="p² + 2pq + q² = "+fmt(v[0]+v[1]+v[2],3);
   };
+})();
+
+/* ===== tool 34 · tense timeline ===== */
+(()=>{
+  const host=document.getElementById("tense"); if(!host)return;
+  const F=Fig(host,{xmin:-1.15,xmax:1.15,ymin:-1,ymax:1,step:1});
+  const TIME=[{t:"Past",k:"past",x:-.62},{t:"Present",k:"pres",x:0},{t:"Future",k:"fut",x:.62}];
+  const ASP=[{t:"Simple",k:"s"},{t:"Continuous",k:"c"},{t:"Perfect",k:"p"},{t:"Perfect Cont.",k:"pc"}];
+  const D={
+    "pres-s":["S + V1 (เติม s/es กับเอกพจน์)","ความจริง นิสัย ตารางเวลา","She <b>works</b> at a bank.","always, usually, every day"],
+    "pres-c":["S + is/am/are + V-ing","กำลังทำอยู่ตอนนี้ หรือช่วงนี้","She <b>is working</b> right now.","now, at the moment, currently"],
+    "pres-p":["S + has/have + V3","เสร็จแล้วแต่ผลถึงปัจจุบัน หรือทำมาแล้วจนถึงตอนนี้","She <b>has worked</b> here since 2020.","since, for, already, yet, just, ever"],
+    "pres-pc":["S + has/have been + V-ing","เน้นว่าทำต่อเนื่องมานานแค่ไหนจนถึงตอนนี้","She <b>has been working</b> for 3 hours.","for, since, all day, how long"],
+    "past-s":["S + V2","เกิดและจบไปแล้วในอดีต ระบุเวลาชัดเจน","She <b>worked</b> here last year.","yesterday, last…, ago, in 1999"],
+    "past-c":["S + was/were + V-ing","กำลังทำอยู่ ณ จุดหนึ่งในอดีต มักถูกเหตุการณ์อื่นแทรก","She <b>was working</b> when I called.","while, when, at 8 p.m. yesterday"],
+    "past-p":["S + had + V3","เกิดก่อนอีกเหตุการณ์หนึ่งในอดีต (อดีตซ้อนอดีต)","She <b>had left</b> before I arrived.","before, after, by the time, already"],
+    "past-pc":["S + had been + V-ing","ทำต่อเนื่องมาก่อนจุดหนึ่งในอดีต","She <b>had been working</b> for 2 hours before he came.","for, since + past"],
+    "fut-s":["S + will + V1 (หรือ be going to)","จะเกิดในอนาคต ตัดสินใจเดี๋ยวนั้น หรือคาดการณ์","She <b>will work</b> tomorrow.","tomorrow, next…, soon, in 2030"],
+    "fut-c":["S + will be + V-ing","จะกำลังทำอยู่ ณ จุดหนึ่งในอนาคต","She <b>will be working</b> at 9 tomorrow.","at this time tomorrow"],
+    "fut-p":["S + will have + V3","จะเสร็จก่อนจุดหนึ่งในอนาคต","She <b>will have finished</b> by 5 p.m.","by, by the time, before + future"],
+    "fut-pc":["S + will have been + V-ing","จะทำต่อเนื่องครบระยะเวลาหนึ่งในอนาคต","By June she <b>will have been working</b> here for 5 years.","by … for …"]
+  };
+  let time=TIME[1], asp=ASP[0];
+  const out=readout(document.getElementById("tenseOut"),["*Tense","*โครงสร้าง","ใช้เมื่อ","คำบอกเวลา"]);
+  F.render=()=>{
+    const c=F.ctx; if(!F.w)return;
+    F.clear();
+    F.seg(-1.1,0,1.1,0,cv("--grid-bold"),{w:2});
+    TIME.forEach(t=>{
+      F.seg(t.x,-.12,t.x,.12,cv("--grid-bold"),{w:1.4});
+      F.label(t.x,-.18,t.k==="pres"?"NOW":t.t.toUpperCase(),cv("--ink-faint"),{size:11,align:"center",base:"top",bg:false});
+    });
+    F.seg(0,-.55,0,.75,cv("--p2"),{w:1.4,dash:[4,4]});
+    const x=time.x, col=cv("--p1");
+    if(asp.k==="s"){ F.dot(x,.3,col,8); F.label(x,.36,"เกิดแล้วจบ",col,{size:11,align:"center"}); }
+    else if(asp.k==="c"){
+      F.rect(x-.22,.22,x+.22,.38,{fill:alpha("--p1",.4),stroke:col,w:2});
+      F.label(x,.44,"กำลังดำเนินอยู่",col,{size:11,align:"center"});
+      F.dot(x,0,cv("--p4"),4);
+    }
+    else if(asp.k==="p"){
+      F.arrow(x-.42,.3,x-.04,.3,col,{w:2.6});
+      F.dot(x,.3,col,7);
+      F.label(x-.2,.36,"เสร็จก่อนจุดนี้",col,{size:11,align:"center"});
+    }
+    else{
+      F.rect(x-.45,.22,x-.02,.38,{fill:alpha("--p1",.35),stroke:col,w:2});
+      F.arrow(x-.45,.3,x+.02,.3,col,{w:2.2});
+      F.dot(x,.3,col,6);
+      F.label(x-.22,.44,"ทำต่อเนื่องมาถึงจุดนี้",col,{size:11,align:"center"});
+    }
+    F.label(-1.08,.82,time.t+" "+asp.t,cv("--accent"),{size:13,weight:"600"});
+    const d=D[time.k+"-"+asp.k]||["—","—","—","—"];
+    out["Tense"].textContent=time.t+" "+(asp.k==="pc"?"Perfect Continuous":asp.t);
+    out["โครงสร้าง"].textContent=d[0];
+    out["ใช้เมื่อ"].textContent=d[1];
+    out["คำบอกเวลา"].textContent=d[3];
+    const ex=document.getElementById("tenseOut").querySelector(".ex-line");
+    const box=ex||document.createElement("p");
+    if(!ex){box.className="hint ex-line";document.getElementById("tenseOut").appendChild(box)}
+    box.innerHTML="ตัวอย่าง: <span style='font-weight:500'>"+d[2]+"</span>";
+  };
+  chipset(document.getElementById("tnTime"),TIME,it=>{time=it;F.render&&F.render()},1);
+  chipset(document.getElementById("tnAspect"),ASP,it=>{asp=it;F.render&&F.render()});
+})();
+
+/* ===== tool 35 · conditionals ===== */
+(()=>{
+  const box=document.getElementById("ifBox"); if(!box)return;
+  const T=[
+    {t:"Type 0 · ความจริงเสมอ",f:"If + present simple, present simple",
+     m:"เงื่อนไขที่ให้ผลแบบเดิมทุกครั้ง เป็นกฎธรรมชาติหรือความจริงทั่วไป (แทน if ด้วย when ได้)",
+     e:"If you <b>heat</b> ice, it <b>melts</b>.",n:"เกิดจริง 100%"},
+    {t:"Type 1 · น่าจะเกิด",f:"If + present simple, will + V1",
+     m:"เงื่อนไขในอนาคตที่มีโอกาสเกิดจริงสูง — ใช้พูดถึงแผนและคำเตือน",
+     e:"If it <b>rains</b>, I <b>will stay</b> home.",n:"อาจเกิดขึ้นจริง"},
+    {t:"Type 2 · สมมติปัจจุบัน",f:"If + past simple, would + V1",
+     m:"สมมติเรื่องที่<b>ไม่จริงในตอนนี้</b> หรือแทบเป็นไปไม่ได้ (ใช้ were กับทุกประธาน)",
+     e:"If I <b>were</b> you, I <b>would apologize</b>.",n:"ไม่จริงในปัจจุบัน"},
+    {t:"Type 3 · เสียดายอดีต",f:"If + had + V3, would have + V3",
+     m:"สมมติย้อนอดีตที่<b>แก้ไขไม่ได้แล้ว</b> มักสื่อความเสียดายหรือตำหนิ",
+     e:"If she <b>had studied</b>, she <b>would have passed</b>.",n:"เกิดไม่ได้แล้ว"},
+    {t:"Mixed · อดีตส่งผลถึงตอนนี้",f:"If + had + V3, would + V1",
+     m:"เงื่อนไขในอดีตที่ถ้าเปลี่ยนได้จะทำให้<b>ปัจจุบัน</b>ต่างไป",
+     e:"If I <b>had taken</b> the job, I <b>would be</b> rich now.",n:"อดีต → ผลปัจจุบัน"}
+  ];
+  chipset(document.getElementById("ifChips"),T,it=>{
+    box.innerHTML=`<div class="form">${it.f}</div>
+      <p style="margin:.6rem 0 .4rem;color:var(--ink-soft);font-size:.94rem">${it.m}</p>
+      <p style="margin:0 0 .5rem;font-size:1.02rem">${it.e}</p>
+      <div class="readout"><span class="hi">ความเป็นไปได้ <b>${it.n}</b></span></div>`;
+  });
+})();
+
+/* ===== tool 36 · error drill ===== */
+(()=>{
+  const sent=document.getElementById("errSent"); if(!sent)return;
+  const Q=[
+    {w:["The","list","of","students","are","long."],i:4,fix:"is",r:"ประธานจริงคือ list (เอกพจน์) ส่วน of students เป็นแค่ส่วนขยาย"},
+    {w:["She","have","lived","here","since","2020."],i:1,fix:"has",r:"ประธาน She เป็นเอกพจน์ ต้องใช้ has"},
+    {w:["I","have","seen","him","yesterday."],i:1,fix:"ตัด have ออก แล้วใช้ saw",r:"มีคำบอกเวลาอดีตชัดเจน (yesterday) ห้ามใช้ present perfect"},
+    {w:["He","must","to","go","now."],i:2,fix:"ตัด to ออก",r:"หลัง modal (must, can, will, should) ตามด้วย V1 ทันที"},
+    {w:["She","is","good","at","to","sing."],i:4,fix:"singing",r:"at เป็นบุพบท หลังบุพบทต้องใช้ V-ing"},
+    {w:["The","letter","was","wrote","by","John."],i:3,fix:"written",r:"Passive ใช้ be + V3 · wrote เป็นช่อง 2"},
+    {w:["Although","he","was","tired,","but","he","kept","working."],i:4,fix:"ตัด but ออก",r:"ใช้คำเชื่อมตัวเดียวต่อความสัมพันธ์หนึ่ง จะมี although แล้วมี but ซ้ำไม่ได้"},
+    {w:["Despite","it","was","raining,","we","went","out."],i:0,fix:"Although",r:"despite ตามด้วยคำนาม ส่วน although ตามด้วยประโยค"},
+    {w:["Everyone","have","their","own","opinion."],i:1,fix:"has",r:"คำลงท้าย -one/-body/-thing ถือเป็นเอกพจน์เสมอ"},
+    {w:["If","it","will","rain,","I","will","stay","home."],i:2,fix:"ตัด will (ใช้ rains)",r:"ในประโยค if ของ Type 1 ใช้ present simple ห้ามใช้ will"},
+    {w:["We","discussed","about","the","problem."],i:2,fix:"ตัด about ออก",r:"discuss, marry, enter, answer, mention ตามด้วยกรรมตรง ๆ"},
+    {w:["She","is","more","taller","than","me."],i:2,fix:"ตัด more ออก",r:"ห้ามใช้ more ซ้อนกับ -er"},
+    {w:["He","asked","me","where","did","I","go."],i:4,fix:"ตัด did (ใช้ where I went)",r:"Reported speech เรียงแบบประโยคบอกเล่า ไม่คงรูปคำถาม"},
+    {w:["I","am","interested","about","art."],i:3,fix:"in",r:"interested in เป็นคู่คำตายตัว"},
+    {w:["My","mother,","that","works","here,","is","kind."],i:2,fix:"who",r:"หลังคอมมาห้ามใช้ that และคนใช้ who"},
+    {w:["The","police","is","coming."],i:2,fix:"are",r:"police เป็นพหูพจน์แม้ไม่มี s"},
+    {w:["I","suggested","to","go","early."],i:2,fix:"going (ตัด to)",r:"suggest ตามด้วย V-ing"},
+    {w:["She","enjoys","to","read","books."],i:2,fix:"reading",r:"enjoy, avoid, finish, mind, practice ตามด้วย V-ing"}
+  ];
+  const fb=document.getElementById("errFb");
+  const out=readout(document.getElementById("errOut"),["*ข้อที่","*ตอบถูก","ความแม่นยำ"]);
+  let order=[],idx=0,score=0,done=0,locked=false;
+  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  function stats(){
+    out["ข้อที่"].textContent=(idx+1)+" / "+order.length;
+    out["ตอบถูก"].textContent=score+" ข้อ";
+    out["ความแม่นยำ"].textContent=done?Math.round(score/done*100)+"%":"—";
+  }
+  function draw(){
+    const q=Q[order[idx]]; locked=false;
+    sent.innerHTML="";
+    q.w.forEach((w,k)=>{
+      const s=document.createElement("span");
+      s.className="dw"; s.textContent=w; s.setAttribute("role","button"); s.tabIndex=0;
+      const pick=()=>{
+        if(locked)return; locked=true; done++;
+        sent.querySelectorAll(".dw").forEach((el,j)=>{
+          el.classList.add("locked");
+          if(j===q.i)el.classList.add("answer");
+        });
+        if(k!==q.i)s.classList.add("picked"); else score++;
+        fb.innerHTML=(k===q.i?"✓ ถูกต้อง — ":"✕ ที่ผิดคือคำที่ไฮไลต์เขียว — ")+
+          "แก้เป็น <b>"+q.fix+"</b> · "+q.r;
+        stats();
+      };
+      s.addEventListener("click",pick);
+      s.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick()}});
+      sent.appendChild(s);
+    });
+    fb.innerHTML="แตะคำที่คิดว่าผิดในประโยคด้านบน";
+    stats();
+  }
+  function reset(){order=shuffle(Q.map((_,i)=>i));idx=0;score=0;done=0;draw()}
+  document.getElementById("errNext").addEventListener("click",()=>{
+    idx=(idx+1)%order.length; draw();
+  });
+  document.getElementById("errReset").addEventListener("click",reset);
+  reset();
 })();
 
 /* ===== ศัพท์ชีววิทยา A-Level (data) ===== */
