@@ -1,4 +1,4 @@
-<title>Math Playground — คณิต A-Level ที่กดเล่นได้</title>
+<title>A-Level Playground — คณิต ชีวะ ศัพท์ ที่กดเล่นได้</title>
 
 <style>
 /* ============ tokens ============ */
@@ -259,9 +259,9 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
       <path d="M4 24C10 24 12 8 16 8s6 16 12 16" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
       <circle cx="16" cy="8" r="2.6" fill="var(--mark)"/>
     </svg>
-    <b>Math Playground<br>คณิต A-Level</b>
+    <b>A-Level Playground<br>คณิต · ชีวะ · ศัพท์</b>
   </div>
-  <p class="sub">22 เครื่องมือคณิต · คลังศัพท์ 1,314 คำ · Flashcard</p>
+  <p class="sub">29 เครื่องมือ · คณิต + ชีววิทยา · คลังศัพท์ 1,408 คำ</p>
   <nav aria-label="สารบัญเครื่องมือ"><p class="idx-group">พื้นฐาน</p><ul class="idx" id="idx"></ul></nav>
   <div class="side-foot"><button class="tbtn" id="theme">◐ สลับโหมดสว่าง / กระดานดำ</button></div>
 </aside>
@@ -270,7 +270,7 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
 <header class="hero">
   <p class="eyebrow">คณิตศาสตร์ประยุกต์ 1 · TCAS A-Level</p>
   <h1>อย่าอ่านคณิต —<br><em>ลากมันเล่น</em>ดูก่อน</h1>
-  <p class="lead">ทุกเรื่องที่ใช้สอบเข้ามหาวิทยาลัย เปลี่ยนเป็นเครื่องมือที่กดเล่นได้ เลื่อนค่าแล้วดูว่ากราฟ วงกลม เมทริกซ์ หรือพื้นที่ใต้กราฟขยับยังไง — เข้าใจก่อน แล้วสูตรจะตามมาเอง</p>
+  <p class="lead">ทุกเรื่องที่ใช้สอบเข้ามหาวิทยาลัย เปลี่ยนเป็นเครื่องมือที่กดเล่นได้ เลื่อนค่าแล้วดูกราฟ วงกลม เมทริกซ์ เซลล์ หรือประชากรขยับจริง ๆ — ครบทั้งคณิต ชีววิทยา และคลังศัพท์พร้อม flashcard</p>
   <div class="hero-how">
     <span class="pill">🖱️ <b>ลาก</b> จุดในกราฟได้เลย</span>
     <span class="pill">🎚️ <b>เลื่อน</b> สไลเดอร์ดูค่าเปลี่ยน</span>
@@ -699,6 +699,149 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
   <div class="keys"><b>ติดตัวไป</b><span>f′(x) = lim<sub>h→0</sub> <span class="fr"><span>f(x+h) − f(x)</span><span>h</span></span></span><span><span class="fr"><span>d</span><span>dx</span></span>xⁿ = nxⁿ⁻¹</span><span>∫xⁿdx = <span class="fr"><span>xⁿ⁺¹</span><span>n+1</span></span> + C</span><span>∫<sub>a</sub><sup>b</sup>f = F(b) − F(a)</span></div>
 </section>
 
+<section class="ch" id="bio1" data-n="ช1" data-title="เซลล์ &amp; การลำเลียง" data-group="ชีววิทยา">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ช1</span><span class="ch-tag">เครื่องมือ: ผ่าเซลล์ + ออสโมซิส</span></div>
+    <h2>เซลล์และการลำเลียงสาร</h2>
+    <p class="ch-why">คลิกออร์แกเนลล์ดูว่าแต่ละอันทำอะไร แล้วเลื่อนความเข้มข้นของสารละลายนอกเซลล์ดูว่าน้ำไหลเข้าหรือออก — <b>เซลล์สัตว์แตก แต่เซลล์พืชแค่เหี่ยว</b> เพราะอะไร ลองเองได้เลย</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>คลิกออร์แกเนลล์ → บอกชื่อและหน้าที่</h4><span>tool 25 · กดได้</span></div>
+    <div class="lab-body">
+      <div class="chips" id="cellChips"></div>
+      <div class="lab-canvas tall" id="cell" style="margin-top:.8rem; cursor:pointer"></div>
+      <div id="cellOut"></div>
+      <p class="hint">ออร์แกเนลล์ที่มีเฉพาะเซลล์พืช: ผนังเซลล์ คลอโรพลาสต์ แวคิวโอลกลาง · ที่เด่นในเซลล์สัตว์: เซนทริโอล ไลโซโซม</p>
+    </div>
+  </div>
+  <div class="lab">
+    <div class="lab-head"><h4>ออสโมซิส — เลื่อนความเข้มข้นนอกเซลล์</h4><span>tool 26</span></div>
+    <div class="lab-body">
+      <div class="chips" id="osmoChips"></div>
+      <div class="lab-canvas" id="osmo" style="margin-top:.8rem"></div>
+      <div id="osmoCtl"></div>
+      <div id="osmoOut"></div>
+      <div class="legend"><span><i style="background:var(--p1)"></i>ทิศทางน้ำสุทธิ</span><span><i style="background:var(--p3)"></i>ตัวถูกละลาย</span><span><i style="background:var(--p2)"></i>เยื่อหุ้มเซลล์</span></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ตั้งสารละลายเป็น <em>ไฮโพโทนิก</em> กับเซลล์สัตว์ — เซลล์บวมจนแตก (lysis)</div>
+    <div><b>ลองข้อ 2</b>สลับเป็นเซลล์พืชในสภาพเดิม — ผนังเซลล์กันไว้ เซลล์แค่เต่ง (turgid)</div>
+    <div><b>ลองข้อ 3</b>ตั้ง <em>ไฮเพอร์โทนิก</em> กับเซลล์พืช — เยื่อหุ้มหดออกจากผนัง เรียกว่าพลาสโมไลซิส</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>ออสโมซิส = น้ำเคลื่อนจากเจือจาง → เข้มข้น</span><span>ไฮโพโทนิก = นอกเจือจางกว่า → น้ำเข้า</span><span>ไฮเพอร์โทนิก = นอกเข้มข้นกว่า → น้ำออก</span></div>
+</section>
+
+<section class="ch" id="bio2" data-n="ช2" data-title="พันธุศาสตร์" data-group="ชีววิทยา">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ช2</span><span class="ch-tag">เครื่องมือ: ตารางพันเนตต์อัตโนมัติ</span></div>
+    <h2>พันธุศาสตร์ &amp; การถ่ายทอดลักษณะ</h2>
+    <p class="ch-why">เลือกจีโนไทป์พ่อแม่ แล้วตารางจะแตกช่องให้เอง พร้อมนับ<b>อัตราส่วนจีโนไทป์และฟีโนไทป์</b> — ไล่ดูว่าทำไม Aa × Aa ได้ 3 : 1 และ AaBb × AaBb ได้ 9 : 3 : 3 : 1</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>ตารางพันเนตต์ · โมโนไฮบริด / ไดไฮบริด / หมู่เลือด</h4><span>tool 27</span></div>
+    <div class="lab-body">
+      <div class="chips" id="punMode"></div>
+      <div class="grid2" style="margin-top:.9rem">
+        <div><span class="vcount" style="display:block;margin-bottom:.3rem">พ่อแม่ฝั่งที่ 1</span><div class="chips" id="punP1"></div></div>
+        <div><span class="vcount" style="display:block;margin-bottom:.3rem">พ่อแม่ฝั่งที่ 2</span><div class="chips" id="punP2"></div></div>
+      </div>
+      <div class="tblwrap" id="punGrid"></div>
+      <div id="punOut"></div>
+      <p class="hint">ตัวอักษรใหญ่ = แอลลีลเด่น · ตัวเล็ก = ด้อย · ลักษณะด้อยแสดงออกก็ต่อเมื่อได้ด้อยมาครบทั้งคู่</p>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>Aa × aa ได้อัตราส่วนเท่าไร (นี่คือ test cross ใช้ตรวจว่าตัวเด่นเป็นพันธุ์แท้หรือพันทาง)</div>
+    <div><b>ลองข้อ 2</b>โหมดหมู่เลือด: I<sup>A</sup>i × I<sup>B</sup>i ได้ลูกครบทั้ง 4 หมู่เลือดเลยไหม</div>
+    <div><b>ลองข้อ 3</b>ไดไฮบริด AaBb × AaBb — นับช่องที่ด้อยทั้งคู่ (aabb) ได้ 1 ใน 16</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>Aa × Aa → 1 AA : 2 Aa : 1 aa (ฟีโนไทป์ 3 : 1)</span><span>AaBb × AaBb → 9 : 3 : 3 : 1</span><span>หมู่เลือด: I<sup>A</sup>, I<sup>B</sup> เด่นร่วม · i ด้อย</span></div>
+</section>
+
+<section class="ch" id="bio3" data-n="ช3" data-title="DNA &amp; โปรตีน" data-group="ชีววิทยา">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ช3</span><span class="ch-tag">เครื่องมือ: เครื่องถอดรหัสพันธุกรรม</span></div>
+    <h2>DNA → RNA → โปรตีน</h2>
+    <p class="ch-why">พิมพ์หรือสุ่มสาย DNA แล้วดูมันถูกถอดรหัสเป็น mRNA และแปลเป็นกรดอะมิโนทีละโคดอน — <b>เปลี่ยนเบสตัวเดียว</b> แล้วดูว่ามิวเทชันแบบไหนเปลี่ยนโปรตีน แบบไหนไม่เปลี่ยน</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>ถอดรหัส (transcription) + แปลรหัส (translation)</h4><span>tool 28 · พิมพ์ได้</span></div>
+    <div class="lab-body">
+      <div class="vbar">
+        <input class="vsearch" id="dnaIn" type="text" spellcheck="false" value="TACGGCTTAACGCGTATT" aria-label="สาย DNA ต้นแบบ" style="font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase">
+        <button class="chip" id="dnaRand" type="button">🎲 สุ่มสายใหม่</button>
+        <button class="chip" id="dnaMut" type="button">⚡ กลายพันธุ์ 1 เบส</button>
+      </div>
+      <div id="dnaOut" style="margin-top:.9rem"></div>
+      <div class="tblwrap" id="dnaTable"></div>
+      <p class="hint">พิมพ์ได้เฉพาะ A T G C · สายต้นแบบที่เริ่มด้วย TAC จะให้โคดอนเริ่มต้น AUG (เมไทโอนีน) พอดี</p>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>กด ⚡ ซ้ำ ๆ — บางครั้งกรดอะมิโนไม่เปลี่ยน (silent mutation) เพราะรหัสซ้ำซ้อน</div>
+    <div><b>ลองข้อ 2</b>ลบเบสออก 1 ตัวเอง — โคดอนเลื่อนหมดสาย (frameshift) โปรตีนเปลี่ยนทั้งเส้น</div>
+    <div><b>ลองข้อ 3</b>พิมพ์ ATT ต่อท้ายโคดอนแรก ๆ แล้วดูว่าการแปลรหัสหยุดก่อนกำหนด</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>DNA จับคู่ A–T, G–C · RNA ใช้ U แทน T</span><span>โคดอนเริ่มต้น AUG</span><span>โคดอนหยุด UAA UAG UGA</span><span>1 โคดอน = 3 เบส = 1 กรดอะมิโน</span></div>
+</section>
+
+<section class="ch" id="bio4" data-n="ช4" data-title="เอนไซม์ &amp; สังเคราะห์แสง" data-group="ชีววิทยา">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ช4</span><span class="ch-tag">เครื่องมือ: กราฟอัตราการทำงาน</span></div>
+    <h2>เอนไซม์ &amp; การสังเคราะห์ด้วยแสง</h2>
+    <p class="ch-why">สองเรื่องนี้ออกสอบเป็น “กราฟ” เสมอ เลื่อนอุณหภูมิกับ pH ดูว่าเอนไซม์เสียสภาพตอนไหน และเลื่อนแสง/CO₂ ดูว่า<b>ปัจจัยไหนกำลังเป็นตัวจำกัด</b>ที่ทำให้กราฟแบน</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>เอนไซม์: อุณหภูมิ · pH · ความเข้มข้นซับสเตรต</h4><span>tool 29</span></div>
+    <div class="lab-body">
+      <div class="chips" id="enzChips"></div>
+      <div class="lab-canvas" id="enz" style="margin-top:.8rem"></div>
+      <div id="enzCtl"></div>
+      <div id="enzOut"></div>
+    </div>
+  </div>
+  <div class="lab">
+    <div class="lab-head"><h4>สังเคราะห์แสง: หาปัจจัยจำกัด</h4><span>tool 30</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas" id="photo"></div>
+      <div id="photoCtl"></div>
+      <div id="photoOut"></div>
+      <div class="legend"><span><i style="background:var(--p3)"></i>อัตราการสังเคราะห์แสง</span><span><i style="background:var(--p4)"></i>เพดานจากปัจจัยจำกัด</span></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>ดันอุณหภูมิเกิน 40 °C — อัตราดิ่งลงเพราะเอนไซม์<em>เสียสภาพถาวร</em> ไม่ใช่แค่ช้าลง</div>
+    <div><b>ลองข้อ 2</b>โหมดซับสเตรต: เพิ่มความเข้มข้นเรื่อย ๆ กราฟแบนเพราะเอนไซม์ทำงานเต็มที่แล้ว (อิ่มตัว)</div>
+    <div><b>ลองข้อ 3</b>ตั้งแสงสูงสุดแล้วเพิ่ม CO₂ — ถ้ากราฟขยับขึ้น แปลว่า CO₂ คือปัจจัยจำกัดอยู่</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>6CO₂ + 6H₂O + แสง → C₆H₁₂O₆ + 6O₂</span><span>เอนไซม์เสียสภาพเมื่อร้อนเกิน (ย้อนกลับไม่ได้)</span><span>ปัจจัยจำกัด = ตัวที่ทำให้กราฟแบน</span></div>
+</section>
+
+<section class="ch" id="bio5" data-n="ช5" data-title="ระบบนิเวศ" data-group="ชีววิทยา">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ช5</span><span class="ch-tag">เครื่องมือ: จำลองผู้ล่า–เหยื่อ</span></div>
+    <h2>ระบบนิเวศ &amp; ประชากร</h2>
+    <p class="ch-why">กดเล่นแล้วดูจริง ๆ ว่าประชากรกระต่ายกับสุนัขจิ้งจอกแกว่งขึ้นลง<b>ตามกันแบบเหลื่อมเวลา</b> — ยอดผู้ล่ามาทีหลังยอดเหยื่อเสมอ นี่คือกราฟที่ข้อสอบชอบเอามาถาม</p>
+  </header>
+  <div class="lab">
+    <div class="lab-head"><h4>ผู้ล่า–เหยื่อ · กดเล่นแล้วดูกราฟวิ่งเอง</h4><span>tool 31 · เล่นได้</span></div>
+    <div class="lab-body">
+      <div class="lab-canvas" id="eco"></div>
+      <div class="chips" id="ecoChips" style="margin-top:.7rem"></div>
+      <div id="ecoCtl"></div>
+      <div id="ecoOut"></div>
+      <div class="legend"><span><i style="background:var(--p3)"></i>เหยื่อ (กระต่าย)</span><span><i style="background:var(--p2)"></i>ผู้ล่า (สุนัขจิ้งจอก)</span></div>
+    </div>
+  </div>
+  <div class="try">
+    <div><b>ลองข้อ 1</b>เพิ่มอัตราการล่า — ยอดกระต่ายต่ำลงและวงจรแกว่งถี่ขึ้น</div>
+    <div><b>ลองข้อ 2</b>สังเกตว่ายอดผู้ล่าขึ้น<em>หลัง</em>ยอดเหยื่อเสมอ (ต้องกินก่อนถึงจะเพิ่มจำนวน)</div>
+    <div><b>ลองข้อ 3</b>ลดอัตราเกิดของเหยื่อจนต่ำมาก — ระบบพังทั้งคู่ เพราะผู้ล่าไม่มีอาหาร</div>
+  </div>
+  <div class="keys"><b>ติดตัวไป</b><span>พลังงานถ่ายทอดขึ้นลำดับขั้นได้ราว 10%</span><span>ผู้ผลิต → ผู้บริโภคลำดับ 1 → 2 → 3</span><span>ประชากรจริงมีขีดจำกัด (carrying capacity)</span></div>
+</section>
+
 <section class="ch" id="vocab" data-n="ก" data-title="คลังคำศัพท์ อังกฤษ" data-group="ท่องจำ &amp; คำศัพท์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ก</span><span class="ch-tag">เครื่องมือ: ค้นศัพท์ + กรองตามบท</span></div>
@@ -980,7 +1123,8 @@ function chipset(host,items,onPick,start=0){
     });
     host.appendChild(b); return b;
   });
-  onPick(items[start],start); return bs;
+  if(start>=0)onPick(items[start],start);
+  return bs;
 }
 /* theme + spy */
 const root=document.documentElement;
@@ -993,7 +1137,7 @@ document.getElementById("theme").addEventListener("click",()=>{
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>requestAnimationFrame(redraw));
 function buildIndex(){
   const ul=document.getElementById("idx"); ul.innerHTML="";
-  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส","ท่องจำ & คำศัพท์"];
+  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส","ชีววิทยา","ท่องจำ & คำศัพท์"];
   const groups={}; order.forEach(g=>groups[g]=[]);
   document.querySelectorAll("section.ch").forEach(s=>(groups[s.dataset.group]||groups["พื้นฐาน"]).push(s));
   let first=true;
@@ -2115,6 +2259,562 @@ V("แคลคูลัส",[
  ["ปริพันธ์จำกัดเขต","definite integral","พื้นที่ใต้กราฟจาก a ถึง b เท่ากับ F(b) − F(a)"],
  ["ทฤษฎีบทหลักมูลของแคลคูลัส","fundamental theorem of calculus","เชื่อมอนุพันธ์กับปริพันธ์: การหาพื้นที่คือการย้อนกระบวนการหาความชัน"]
 ]);
+/* ===== tool 25 · cell explorer ===== */
+(()=>{
+  const host=document.getElementById("cell"); if(!host)return;
+  const O=(n,en,f,x,y,r,c,s)=>({n,en,f,x,y,r,c,s});
+  const COMMON=[
+    O("นิวเคลียส","nucleus","ศูนย์ควบคุมเซลล์ เก็บ DNA และสั่งการสร้างโปรตีน",.5,.44,.14,"--p5","nucleus"),
+    O("นิวคลีโอลัส","nucleolus","ก้อนเล็กในนิวเคลียส เป็นที่สร้างไรโบโซม",.55,.40,.04,"--p2","ball"),
+    O("เยื่อหุ้มเซลล์","cell membrane","ควบคุมสารเข้าออก เลือกผ่านได้ (semi-permeable)",.5,.06,.05,"--p2","tag"),
+    O("ไซโทพลาซึม","cytoplasm","ของเหลวภายในเซลล์ เป็นที่เกิดปฏิกิริยาต่าง ๆ",.22,.72,.06,"--ink-faint","tag"),
+    O("ไมโทคอนเดรีย","mitochondrion","สร้าง ATP จากการหายใจระดับเซลล์ — โรงไฟฟ้าของเซลล์",.27,.32,.075,"--p2","mito"),
+    O("ไมโทคอนเดรีย","mitochondrion","สร้าง ATP จากการหายใจระดับเซลล์ — โรงไฟฟ้าของเซลล์",.72,.62,.075,"--p2","mito"),
+    O("ร่างแหเอนโดพลาซึมแบบขยาย","rough ER","มีไรโบโซมเกาะ ทำหน้าที่สร้างและส่งโปรตีน",.33,.55,.09,"--p1","rer"),
+    O("ร่างแหเอนโดพลาซึมแบบเรียบ","smooth ER","สร้างลิพิด สเตอรอยด์ และกำจัดสารพิษ",.68,.36,.085,"--p4","ser"),
+    O("กอลจิคอมเพลกซ์","Golgi complex","บรรจุและส่งโปรตีนออกจากเซลล์ เหมือนฝ่ายแพ็กของ",.5,.74,.08,"--p3","golgi"),
+    O("ไรโบโซม","ribosome","แปลรหัส mRNA เป็นสายโปรตีน",.42,.22,.04,"--p1","dots")
+  ];
+  const ANIMAL=COMMON.concat([
+    O("ไลโซโซม","lysosome","ถุงเอนไซม์ย่อยของเสียและเชื้อโรคภายในเซลล์",.62,.22,.05,"--p2","lyso"),
+    O("เซนทริโอล","centriole","สร้างเส้นใยสปินเดิลตอนแบ่งเซลล์ (พบในเซลล์สัตว์)",.22,.52,.05,"--p5","centri")
+  ]);
+  const PLANT=COMMON.concat([
+    O("ผนังเซลล์","cell wall","ชั้นเซลลูโลสแข็งนอกเยื่อหุ้ม ให้ความแข็งแรงและกันเซลล์แตก",.06,.06,.05,"--p3","tag"),
+    O("คลอโรพลาสต์","chloroplast","มีคลอโรฟิลล์ ทำการสังเคราะห์ด้วยแสง",.25,.24,.075,"--p3","chloro"),
+    O("คลอโรพลาสต์","chloroplast","มีคลอโรฟิลล์ ทำการสังเคราะห์ด้วยแสง",.78,.28,.075,"--p3","chloro"),
+    O("แวคิวโอลกลาง","central vacuole","ถุงน้ำใหญ่ เก็บน้ำและสาร ทำให้เซลล์เต่ง",.5,.62,.16,"--p1","vac")
+  ]);
+  let plant=false, sel=null;
+  const F=Fig(host,{});
+  const out=readout(document.getElementById("cellOut"),["*ออร์แกเนลล์","ชื่ออังกฤษ","*หน้าที่"]);
+  const P=o=>[o.x*F.w,o.y*F.h], R=o=>o.r*Math.min(F.w,F.h);
+  F.render=()=>{
+    const c=F.ctx,w=F.w,h=F.h; if(!w)return;
+    c.clearRect(0,0,w,h);
+    const list=plant?PLANT:ANIMAL;
+    // cell body
+    c.save();
+    if(plant){
+      c.fillStyle=alpha("--p3",.10); c.strokeStyle=cv("--p3"); c.lineWidth=7;
+      c.beginPath(); c.roundRect?c.roundRect(14,14,w-28,h-28,10):c.rect(14,14,w-28,h-28); c.fill(); c.stroke();
+      c.strokeStyle=cv("--p2"); c.lineWidth=2.4;
+      c.beginPath(); c.roundRect?c.roundRect(22,22,w-44,h-44,8):c.rect(22,22,w-44,h-44); c.stroke();
+    }else{
+      c.fillStyle=alpha("--p1",.07); c.strokeStyle=cv("--p2"); c.lineWidth=3.2;
+      c.beginPath(); c.ellipse(w/2,h/2,w/2-14,h/2-14,0,0,7); c.fill(); c.stroke();
+    }
+    c.restore();
+    list.forEach(o=>{
+      const [x,y]=P(o), r=R(o), on=o===sel, col=cv(o.c);
+      c.save(); c.lineWidth=on?3:1.6; c.strokeStyle=col; c.fillStyle=alpha(o.c,on?.5:.26);
+      if(on){c.shadowColor=col;c.shadowBlur=14}
+      const el=(rx,ry,rot)=>{c.beginPath();c.ellipse(x,y,rx,ry,rot||0,0,7);c.fill();c.stroke()};
+      if(o.s==="nucleus"){
+        el(r,r*.92); c.setLineDash([4,3]); c.beginPath(); c.ellipse(x,y,r*.86,r*.78,0,0,7); c.stroke(); c.setLineDash([]);
+      }
+      else if(o.s==="mito"){
+        el(r,r*.55,-.4);
+        c.beginPath();
+        for(let i=-2;i<=2;i++){const t=i/2.4;c.moveTo(x+Math.cos(-.4)*r*t,y+Math.sin(-.4)*r*t-r*.4);c.lineTo(x+Math.cos(-.4)*r*t,y+Math.sin(-.4)*r*t+r*.4)}
+        c.stroke();
+      }
+      else if(o.s==="rer"||o.s==="ser"){
+        c.beginPath();
+        for(let k=0;k<3;k++){
+          const yy=y+(k-1)*r*.42;
+          c.moveTo(x-r,yy);
+          for(let i=0;i<=20;i++)c.lineTo(x-r+2*r*i/20,yy+Math.sin(i/2.2+k)*r*.13);
+        }
+        c.stroke();
+        if(o.s==="rer"){c.fillStyle=col;for(let k=0;k<10;k++){c.beginPath();c.arc(x-r+2*r*(k/9),y+((k%3)-1)*r*.42-r*.13,1.9,0,7);c.fill()}}
+      }
+      else if(o.s==="golgi"){
+        c.beginPath();
+        for(let k=0;k<4;k++){c.moveTo(x-r*(1-k*.13),y+(k-1.5)*r*.3);c.quadraticCurveTo(x,y+(k-1.5)*r*.3-r*.22,x+r*(1-k*.13),y+(k-1.5)*r*.3)}
+        c.stroke();
+      }
+      else if(o.s==="lyso"){ el(r,r); c.fillStyle=col; for(let k=0;k<5;k++){c.beginPath();c.arc(x+(k%3-1)*r*.4,y+(Math.floor(k/3)-.5)*r*.4,1.7,0,7);c.fill()} }
+      else if(o.s==="centri"){ c.fillRect(x-r*.7,y-r*.25,r*.5,r*.5); c.strokeRect(x-r*.7,y-r*.25,r*.5,r*.5); c.fillRect(x+r*.2,y-r*.55,r*.5,r*.5); c.strokeRect(x+r*.2,y-r*.55,r*.5,r*.5) }
+      else if(o.s==="chloro"){ el(r,r*.6,.35); c.beginPath(); for(let k=0;k<3;k++){const cx2=x+(k-1)*r*.45,cy2=y+(k-1)*r*.18;c.moveTo(cx2-r*.16,cy2);c.lineTo(cx2+r*.16,cy2)} c.lineWidth=4; c.stroke() }
+      else if(o.s==="vac"){ el(r,r*.7) }
+      else if(o.s==="dots"){ c.fillStyle=col; for(let k=0;k<7;k++){c.beginPath();c.arc(x+((k*37)%40-20)/20*r,y+((k*53)%40-20)/20*r,on?3.4:2.4,0,7);c.fill()} }
+      else if(o.s==="tag"){ c.beginPath(); c.arc(x,y,on?7:5,0,7); c.fill(); c.stroke() }
+      else el(r,r);
+      c.restore();
+    });
+    c.save(); c.font="600 12px "+cv("--display"); c.fillStyle=cv("--ink-faint");
+    c.textAlign="right"; c.textBaseline="top";
+    c.fillText(plant?"เซลล์พืช":"เซลล์สัตว์",w-16,plant?30:16);
+    c.textAlign="left"; c.font="11px "+cv("--mono");
+    c.fillText("แตะออร์แกเนลล์เพื่อดูหน้าที่",16,h-22); c.restore();
+    if(sel){
+      out["ออร์แกเนลล์"].textContent=sel.n;
+      out["ชื่ออังกฤษ"].textContent=sel.en;
+      out["หน้าที่"].textContent=sel.f;
+    }else{
+      out["ออร์แกเนลล์"].textContent="—"; out["ชื่ออังกฤษ"].textContent="—";
+      out["หน้าที่"].textContent="ยังไม่ได้เลือก — แตะที่ภาพเลย";
+    }
+  };
+  host.addEventListener("pointerdown",e=>{
+    const r=F.canvas.getBoundingClientRect(), px=e.clientX-r.left, py=e.clientY-r.top;
+    const list=plant?PLANT:ANIMAL; let best=null,bd=1e9;
+    list.forEach(o=>{const [x,y]=P(o),d=Math.hypot(px-x,py-y)-R(o)*.9; if(d<bd){bd=d;best=o}});
+    if(best&&bd<26){sel=best;F.render()}
+  });
+  chipset(document.getElementById("cellChips"),[{t:"เซลล์สัตว์",p:false},{t:"เซลล์พืช",p:true}],
+    it=>{plant=it.p;sel=null;F.render&&F.render()});
+})();
+
+/* ===== tool 26 · osmosis ===== */
+(()=>{
+  const host=document.getElementById("osmo"); if(!host)return;
+  const F=Fig(host,{});
+  let plant=false;
+  const S=sliders(document.getElementById("osmoCtl"),[
+    {id:"out",label:"ความเข้มข้นสารละลายนอกเซลล์ (mM)",min:0,max:120,step:5,val:60,dec:0}
+  ],()=>F.render());
+  const o=readout(document.getElementById("osmoOut"),["*ชนิดสารละลาย","*ทิศทางน้ำ","*สภาพเซลล์","ในเซลล์ / นอกเซลล์"]);
+  const IN=60;
+  F.render=()=>{
+    const c=F.ctx,w=F.w,h=F.h; if(!w)return;
+    c.clearRect(0,0,w,h);
+    const d=IN-S.out;                     // + = น้ำเข้า
+    const k=Math.tanh(d/45);
+    // beaker
+    c.save(); c.fillStyle=alpha("--p1",.06); c.fillRect(8,8,w-16,h-16);
+    c.strokeStyle=cv("--line"); c.lineWidth=1.4; c.strokeRect(8,8,w-16,h-16);
+    // solute dots outside
+    const n=Math.round(6+S.out*.75);
+    c.fillStyle=alpha("--p3",.75);
+    for(let i=0;i<n;i++){
+      const a=(i*2654435761)%100000;
+      const x=12+(a%97)/97*(w-24), y=12+((a>>7)%89)/89*(h-24);
+      if(Math.hypot(x-w/2,y-h/2)<Math.min(w,h)*.3)continue;
+      c.beginPath(); c.arc(x,y,2.6,0,7); c.fill();
+    }
+    c.restore();
+    const cx=w/2, cy=h/2, base=Math.min(w,h)*.27;
+    const burst=(!plant&&k>.55), plasmo=(plant&&k<-.35);
+    if(plant){
+      const ww=base*1.5, hh=base*1.15;
+      c.save(); c.strokeStyle=cv("--p3"); c.lineWidth=6;
+      c.strokeRect(cx-ww,cy-hh,ww*2,hh*2);
+      const s=1+.06*k-(plasmo?.22:0);
+      c.fillStyle=alpha("--p1",.16); c.strokeStyle=cv("--p2"); c.lineWidth=2.6;
+      c.beginPath(); c.ellipse(cx,cy,ww*.94*s,hh*.9*s,0,0,7); c.fill(); c.stroke(); c.restore();
+      if(plasmo)F.label(0,0,"",null,{});
+    }else{
+      const r=base*(1+.42*k);
+      c.save(); c.fillStyle=alpha("--p1",.16); c.strokeStyle=cv("--p2"); c.lineWidth=2.8;
+      c.beginPath();
+      if(burst){ for(let i=0;i<=40;i++){const a=i/40*Math.PI*2, rr=r*(1+(i%2?.12:-.06));i?c.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr):c.moveTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr)} }
+      else c.ellipse(cx,cy,r,r,0,0,7);
+      c.closePath(); c.fill(); c.stroke(); c.restore();
+    }
+    // water arrows
+    const col=Math.abs(k)<.06?cv("--ink-faint"):cv("--p1");
+    for(let i=0;i<4;i++){
+      const a=Math.PI*2*i/4+.4, R1=base*1.75, R2=base*1.15;
+      const x1=cx+Math.cos(a)*R1, y1=cy+Math.sin(a)*R1, x2=cx+Math.cos(a)*R2, y2=cy+Math.sin(a)*R2;
+      const c2=F.ctx; c2.save(); c2.strokeStyle=col; c2.fillStyle=col; c2.lineWidth=2.4;
+      const [ax,ay,bx,by]=d>=0?[x1,y1,x2,y2]:[x2,y2,x1,y1];
+      const ang=Math.atan2(by-ay,bx-ax);
+      c2.beginPath(); c2.moveTo(ax,ay); c2.lineTo(bx-Math.cos(ang)*7,by-Math.sin(ang)*7); c2.stroke();
+      c2.beginPath(); c2.moveTo(bx,by);
+      c2.lineTo(bx-Math.cos(ang-.42)*9,by-Math.sin(ang-.42)*9);
+      c2.lineTo(bx-Math.cos(ang+.42)*9,by-Math.sin(ang+.42)*9);
+      c2.closePath(); c2.fill(); c2.restore();
+    }
+    c.save(); c.font="600 12px "+cv("--display"); c.fillStyle=cv("--ink-faint");
+    c.textAlign="left"; c.textBaseline="top";
+    c.fillText(plant?"เซลล์พืช (มีผนังเซลล์)":"เซลล์สัตว์ (ไม่มีผนังเซลล์)",16,14); c.restore();
+    const type=S.out<IN-4?"ไฮโพโทนิก (นอกเจือจางกว่า)":S.out>IN+4?"ไฮเพอร์โทนิก (นอกเข้มข้นกว่า)":"ไอโซโทนิก (เท่ากัน)";
+    o["ชนิดสารละลาย"].textContent=type;
+    o["ทิศทางน้ำ"].textContent=Math.abs(d)<5?"เข้า-ออกสมดุลกัน":d>0?"น้ำออสโมซิสเข้าเซลล์":"น้ำออสโมซิสออกจากเซลล์";
+    o["สภาพเซลล์"].textContent=plant
+      ? (d>10?"เต่ง (turgid) — ผนังเซลล์กันไม่ให้แตก":d<-15?"พลาสโมไลซิส — เยื่อหุ้มหดออกจากผนัง":"ปกติ")
+      : (burst?"บวมจนแตก (lysis)":d>10?"บวมน้ำ":d<-15?"เหี่ยว (crenation)":"ปกติ");
+    o["ในเซลล์ / นอกเซลล์"].textContent=IN+" / "+fmt(S.out,0)+" mM";
+  };
+  chipset(document.getElementById("osmoChips"),[{t:"เซลล์สัตว์",p:false},{t:"เซลล์พืช",p:true}],
+    it=>{plant=it.p;F.render&&F.render()});
+})();
+
+/* ===== tool 27 · Punnett square ===== */
+(()=>{
+  const grid=document.getElementById("punGrid"); if(!grid)return;
+  /* แอลลีลเด่น (ตัวพิมพ์ใหญ่) ต้องมาก่อนเสมอ — localeCompare เรียงตัวพิมพ์เล็กก่อน */
+  const DOM=(x,y)=>x===y?0:(x===x.toUpperCase()?-1:1);
+  const MODES=[
+    {t:"โมโนไฮบริด (Aa)",k:"mono",opts:["AA","Aa","aa"],
+     gam:g=>[g[0],g[1]],
+     norm:c=>c.split("").sort(DOM).join(""),
+     phen:c=>c.includes("A")?"ลักษณะเด่น (A_)":"ลักษณะด้อย (aa)"},
+    {t:"ไดไฮบริด (AaBb)",k:"di",opts:["AaBb","AABB","AaBB","AABb","aabb","Aabb","aaBb"],
+     gam:g=>{const a=[g[0],g[1]],b=[g[2],g[3]],r=[];a.forEach(x=>b.forEach(y=>r.push(x+y)));return r},
+     norm:c=>[c[0],c[2]].sort(DOM).join("")+[c[1],c[3]].sort(DOM).join(""),
+     phen:c=>{const A=c.slice(0,2).includes("A"),B=c.slice(2).includes("B");
+       return (A?"A เด่น":"a ด้อย")+" + "+(B?"B เด่น":"b ด้อย")}},
+    {t:"หมู่เลือด ABO",k:"blood",opts:["AA","AB","Ai","BB","Bi","ii"],
+     gam:g=>[g[0],g[1]],
+     norm:c=>c.split("").sort((a,b)=>a==="i"?1:b==="i"?-1:a.localeCompare(b)).join(""),
+     phen:c=>{const A=c.includes("A"),B=c.includes("B");return A&&B?"หมู่ AB":A?"หมู่ A":B?"หมู่ B":"หมู่ O"}}
+  ];
+  let mode=MODES[0], p1=mode.opts[1], p2=mode.opts[1];
+  const out=readout(document.getElementById("punOut"),["*การผสม","*อัตราส่วนจีโนไทป์","*อัตราส่วนฟีโนไทป์"]);
+  const show=s=>mode.k==="blood"?s.replace(/A/g,"Iᴬ").replace(/B/g,"Iᴮ"):s;
+  function draw(){
+    const g1=mode.gam(p1), g2=mode.gam(p2);
+    const cells=[], gcount={}, pcount={};
+    let html='<table><thead><tr><th></th>'+g2.map(g=>`<th class="m">${show(g)}</th>`).join("")+"</tr></thead><tbody>";
+    g1.forEach(a=>{
+      html+=`<tr><th class="m">${show(a)}</th>`;
+      g2.forEach(b=>{
+        const geno=mode.norm(a+b), ph=mode.phen(geno);
+        gcount[geno]=(gcount[geno]||0)+1; pcount[ph]=(pcount[ph]||0)+1; cells.push(geno);
+        const dom=ph.includes("ด้อย")&&!ph.includes("เด่น");
+        html+=`<td class="m" style="text-align:center;font-weight:600;background:${dom?"var(--surface-2)":"var(--accent-soft)"}">${show(geno)}</td>`;
+      });
+      html+="</tr>";
+    });
+    grid.innerHTML=html+"</tbody></table>";
+    const total=cells.length;
+    const fr=obj=>Object.entries(obj).sort((a,b)=>b[1]-a[1])
+      .map(([k,v])=>`${show(k)} ${v}/${total}`).join(" · ");
+    out["การผสม"].textContent=show(p1)+" × "+show(p2);
+    out["อัตราส่วนจีโนไทป์"].textContent=fr(gcount);
+    out["อัตราส่วนฟีโนไทป์"].textContent=fr(pcount);
+  }
+  function parents(){
+    ["punP1","punP2"].forEach((id,i)=>{
+      const host=document.getElementById(id); host.innerHTML="";
+      chipset(host,mode.opts.map(o=>({t:show(o),v:o})),it=>{
+        if(i===0)p1=it.v; else p2=it.v; draw();
+      },Math.min(1,mode.opts.length-1));
+    });
+  }
+  chipset(document.getElementById("punMode"),MODES,it=>{
+    mode=it; p1=it.opts[1]||it.opts[0]; p2=it.opts[1]||it.opts[0]; parents(); draw();
+  });
+})();
+
+/* ===== tool 28 · DNA → RNA → protein ===== */
+(()=>{
+  const inp=document.getElementById("dnaIn"); if(!inp)return;
+  const CODON={UUU:"Phe",UUC:"Phe",UUA:"Leu",UUG:"Leu",CUU:"Leu",CUC:"Leu",CUA:"Leu",CUG:"Leu",
+   AUU:"Ile",AUC:"Ile",AUA:"Ile",AUG:"Met",GUU:"Val",GUC:"Val",GUA:"Val",GUG:"Val",
+   UCU:"Ser",UCC:"Ser",UCA:"Ser",UCG:"Ser",CCU:"Pro",CCC:"Pro",CCA:"Pro",CCG:"Pro",
+   ACU:"Thr",ACC:"Thr",ACA:"Thr",ACG:"Thr",GCU:"Ala",GCC:"Ala",GCA:"Ala",GCG:"Ala",
+   UAU:"Tyr",UAC:"Tyr",UAA:"STOP",UAG:"STOP",CAU:"His",CAC:"His",CAA:"Gln",CAG:"Gln",
+   AAU:"Asn",AAC:"Asn",AAA:"Lys",AAG:"Lys",GAU:"Asp",GAC:"Asp",GAA:"Glu",GAG:"Glu",
+   UGU:"Cys",UGC:"Cys",UGA:"STOP",UGG:"Trp",CGU:"Arg",CGC:"Arg",CGA:"Arg",CGG:"Arg",
+   AGU:"Ser",AGC:"Ser",AGA:"Arg",AGG:"Arg",GGU:"Gly",GGC:"Gly",GGA:"Gly",GGG:"Gly"};
+  const TH={Phe:"ฟีนิลอะลานีน",Leu:"ลิวซีน",Ile:"ไอโซลิวซีน",Met:"เมไทโอนีน (เริ่มต้น)",Val:"วาลีน",
+   Ser:"ซีรีน",Pro:"โพรลีน",Thr:"ทรีโอนีน",Ala:"อะลานีน",Tyr:"ไทโรซีน",His:"ฮิสทิดีน",Gln:"กลูตามีน",
+   Asn:"แอสพาราจีน",Lys:"ไลซีน",Asp:"กรดแอสพาร์ติก",Glu:"กรดกลูตามิก",Cys:"ซิสเทอีน",Trp:"ทริปโตเฟน",
+   Arg:"อาร์จินีน",Gly:"ไกลซีน",STOP:"หยุดการแปลรหัส"};
+  const COMP={A:"U",T:"A",G:"C",C:"G"};
+  const out=readout(document.getElementById("dnaOut"),["*mRNA","*สายกรดอะมิโน","จำนวนเบส / โคดอน","สถานะ"]);
+  const table=document.getElementById("dnaTable");
+  function draw(){
+    const dna=(inp.value||"").toUpperCase().replace(/[^ATGC]/g,"");
+    if(inp.value!==dna)inp.value=dna;
+    const mrna=dna.split("").map(b=>COMP[b]).join("");
+    const codons=mrna.match(/.{1,3}/g)||[];
+    const aa=[]; let stopped=false;
+    codons.forEach(c=>{
+      if(c.length<3||stopped)return;
+      const a=CODON[c]||"?";
+      if(a==="STOP"){aa.push("STOP");stopped=true;return}
+      aa.push(a);
+    });
+    out["mRNA"].textContent=mrna||"—";
+    out["สายกรดอะมิโน"].textContent=aa.length?aa.join(" – "):"—";
+    out["จำนวนเบส / โคดอน"].textContent=dna.length+" เบส / "+codons.filter(c=>c.length===3).length+" โคดอน";
+    out["สถานะ"].textContent=!dna.length?"ยังไม่มีลำดับเบส"
+      :codons[0]==="AUG"?(stopped?"เริ่มด้วย AUG และเจอโคดอนหยุด":"เริ่มด้วย AUG ถูกต้อง"):
+      "โคดอนแรกไม่ใช่ AUG (สายต้นแบบควรเริ่มด้วย TAC)";
+    let head="",r1="",r2="",r3="",r4="";
+    codons.forEach((c,i)=>{
+      if(c.length<3)return;
+      const a=i<aa.length?aa[i]:"—", isStop=a==="STOP";
+      head+=`<th style="text-align:center">${i+1}</th>`;
+      r1+=`<td class="m" style="text-align:center;letter-spacing:.08em">${dna.substr(i*3,3)}</td>`;
+      r2+=`<td class="m" style="text-align:center;letter-spacing:.08em;color:var(--p1);font-weight:600">${c}</td>`;
+      r3+=`<td style="text-align:center;font-weight:600;color:${isStop?"var(--bad)":"var(--p3)"}">${a}</td>`;
+      r4+=`<td style="text-align:center;font-size:.78rem;color:var(--ink-faint)">${TH[a]||"—"}</td>`;
+    });
+    table.innerHTML=codons.length?`<table><thead><tr><th>โคดอนที่</th>${head}</tr></thead><tbody>
+      <tr><th>DNA ต้นแบบ</th>${r1}</tr><tr><th>mRNA</th>${r2}</tr>
+      <tr><th>กรดอะมิโน</th>${r3}</tr><tr><th>ชื่อไทย</th>${r4}</tr></tbody></table>`:"";
+  }
+  inp.addEventListener("input",draw);
+  document.getElementById("dnaRand").addEventListener("click",()=>{
+    let s="TAC"; const B="ATGC";
+    for(let i=0;i<5;i++){
+      let c; do{c=B[Math.floor(Math.random()*4)]+B[Math.floor(Math.random()*4)]+B[Math.floor(Math.random()*4)]}
+      while(["ATT","ATC","ACT"].includes(c));
+      s+=c;
+    }
+    inp.value=s; draw();
+  });
+  document.getElementById("dnaMut").addEventListener("click",()=>{
+    const s=inp.value.split(""); if(s.length<4)return;
+    const i=3+Math.floor(Math.random()*(s.length-3)), B="ATGC".replace(s[i],"");
+    s[i]=B[Math.floor(Math.random()*B.length)];
+    inp.value=s.join(""); draw();
+  });
+  draw();
+})();
+
+/* ===== tool 29 · enzyme ===== */
+(()=>{
+  const host=document.getElementById("enz"); if(!host)return;
+  const F=Fig(host,{xmin:0,xmax:70,ymin:-8,ymax:112,step:10});
+  const MODES=[
+    {t:"อุณหภูมิ",k:"temp",min:0,max:70,unit:"°C",opt:37,
+     f:T=>{const b=Math.exp(-((T-37)**2)/(2*11*11));return 100*b*Math.exp(-Math.max(0,T-42)/2.6)}},
+    {t:"pH",k:"ph",min:0,max:14,unit:"",opt:7,
+     f:p=>100*Math.exp(-((p-7)**2)/(2*1.6*1.6))},
+    {t:"ความเข้มข้นซับสเตรต",k:"sub",min:0,max:100,unit:"mM",opt:null,
+     f:s=>100*s/(18+s)}
+  ];
+  let mode=MODES[0];
+  const S=sliders(document.getElementById("enzCtl"),[
+    {id:"x",label:"ค่าปัจจุบัน",min:0,max:70,step:1,val:37,dec:0}
+  ],()=>F.render());
+  const out=readout(document.getElementById("enzOut"),["*ค่าที่ตั้ง","*อัตราการทำงาน","สถานะเอนไซม์"]);
+  F.render=()=>{
+    F.xmin=mode.min; F.xmax=mode.max;
+    F.clear(); F.grid((mode.max-mode.min)/7); F.axes({step:(mode.max-mode.min)/7});
+    F.area(mode.f,mode.min,mode.max,alpha("--p3",.12));
+    F.curve(mode.f,cv("--p3"),{w:3});
+    if(mode.opt!==null){
+      F.seg(mode.opt,0,mode.opt,100,cv("--p4"),{w:1.4,dash:[5,4]});
+      F.label(mode.opt,104,"ค่าเหมาะสม "+mode.opt+mode.unit,cv("--p4"),{size:11,align:"center"});
+    }
+    const x=clamp(S.x,mode.min,mode.max), y=mode.f(x);
+    F.seg(x,0,x,y,cv("--p1"),{w:2});
+    F.dot(x,y,cv("--p1"),6);
+    F.label(x,y,fmt(y,0)+"%",cv("--p1"),{size:12,dy:-9,align:"center"});
+    F.label(mode.min+(mode.max-mode.min)*.02,106,
+      mode.k==="temp"?"อุณหภูมิ (°C)":mode.k==="ph"?"pH":"ความเข้มข้นซับสเตรต (mM)",cv("--ink-faint"),{size:11});
+    out["ค่าที่ตั้ง"].textContent=fmt(x,0)+" "+mode.unit;
+    out["อัตราการทำงาน"].textContent=fmt(y,1)+"%";
+    out["สถานะเอนไซม์"].textContent=
+      mode.k==="temp"?(x>48?"เสียสภาพถาวร (denatured)":x>42?"เริ่มเสียสภาพ":x<10?"ทำงานช้ามาก โมเลกุลชนกันน้อย":"ทำงานได้ดี")
+      :mode.k==="ph"?(Math.abs(x-7)>3?"เสียสภาพจาก pH ที่ไม่เหมาะสม":"โครงรูปปกติ")
+      :(x>60?"อิ่มตัว — เอนไซม์ทำงานเต็มที่แล้ว":"ยังเพิ่มอัตราได้ตามซับสเตรต");
+  };
+  chipset(document.getElementById("enzChips"),MODES,it=>{
+    mode=it;
+    const inp=document.querySelector("#enzCtl input");
+    if(inp){inp.min=it.min;inp.max=it.max;inp.step=it.k==="ph"?.5:1;}
+    S["_set_x"](it.opt!==null?it.opt:40);
+    F.render&&F.render();
+  });
+})();
+
+/* ===== tool 30 · photosynthesis ===== */
+(()=>{
+  const host=document.getElementById("photo"); if(!host)return;
+  const F=Fig(host,{xmin:0,xmax:100,ymin:-8,ymax:112,step:20});
+  const S=sliders(document.getElementById("photoCtl"),[
+    {id:"light",label:"ความเข้มแสง",min:0,max:100,step:1,val:40,dec:0},
+    {id:"co2",label:"ความเข้มข้น CO₂ (%)",min:5,max:100,step:5,val:60,dec:0},
+    {id:"temp",label:"อุณหภูมิ (°C)",min:5,max:45,step:1,val:25,dec:0}
+  ],()=>F.render());
+  const out=readout(document.getElementById("photoOut"),["*อัตราปัจจุบัน","*ปัจจัยจำกัด","เพดานสูงสุดตอนนี้"]);
+  const tempF=T=>Math.exp(-((T-30)**2)/(2*8*8))*Math.exp(-Math.max(0,T-38)/2.2);
+  F.render=()=>{
+    const ceilCO2=S.co2, ceilT=tempF(S.temp)*100, ceiling=Math.min(ceilCO2,ceilT);
+    const rate=L=>Math.min(L*2.2,ceiling);
+    F.clear(); F.grid(20); F.axes({step:20});
+    F.area(rate,0,100,alpha("--p3",.12));
+    F.seg(0,ceiling,100,ceiling,cv("--p4"),{w:1.6,dash:[6,4]});
+    F.label(98,ceiling,"เพดาน "+fmt(ceiling,0),cv("--p4"),{size:11,align:"right",dy:-6});
+    F.curve(rate,cv("--p3"),{w:3});
+    const y=rate(S.light);
+    F.seg(S.light,0,S.light,y,cv("--p1"),{w:2});
+    F.dot(S.light,y,cv("--p1"),6);
+    F.label(S.light,y,fmt(y,0),cv("--p1"),{size:12,dy:-9,align:"center"});
+    F.label(2,106,"อัตราการสังเคราะห์แสง ← เทียบกับ ความเข้มแสง →",cv("--ink-faint"),{size:11});
+    const lim=(S.light*2.2<ceiling)?"ความเข้มแสง":(ceilT<ceilCO2?"อุณหภูมิ":"ความเข้มข้น CO₂");
+    out["อัตราปัจจุบัน"].textContent=fmt(y,1);
+    out["ปัจจัยจำกัด"].textContent=lim+(S.temp>38?" (ร้อนเกินไป เอนไซม์เสียสภาพ)":"");
+    out["เพดานสูงสุดตอนนี้"].textContent=fmt(ceiling,1)+" (CO₂ "+fmt(ceilCO2,0)+" · อุณหภูมิ "+fmt(ceilT,0)+")";
+  };
+})();
+
+/* ===== tool 31 · predator–prey ===== */
+(()=>{
+  const host=document.getElementById("eco"); if(!host)return;
+  const F=Fig(host,{xmin:0,xmax:100,ymin:-6,ymax:120,step:20});
+  const S=sliders(document.getElementById("ecoCtl"),[
+    {id:"a",label:"อัตราเกิดของเหยื่อ",min:.2,max:1.6,step:.05,val:.9,dec:2},
+    {id:"b",label:"อัตราการล่า",min:.005,max:.05,step:.005,val:.02,dec:3},
+    {id:"c",label:"อัตราตายของผู้ล่า",min:.2,max:1.4,step:.05,val:.7,dec:2}
+  ],()=>{});
+  const out=readout(document.getElementById("ecoOut"),["*เหยื่อตอนนี้","*ผู้ล่าตอนนี้","เวลา (รอบ)","สถานะ"]);
+  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let x=60,y=25,t=0,hist=[],playing=!reduced,raf=null;
+  const reset=()=>{x=60;y=25;t=0;hist=[];F.render()};
+  function step(){
+    const dt=.02;
+    for(let i=0;i<3;i++){
+      const dx=S.a*x-S.b*x*y, dy=-S.c*y+S.b*.55*x*y;
+      x=clamp(x+dx*dt,0,400); y=clamp(y+dy*dt,0,400); t+=dt;
+    }
+    hist.push([x,y]); if(hist.length>320)hist.shift();
+  }
+  F.render=()=>{
+    F.clear(); F.grid(20); F.axes({labels:false});
+    const n=hist.length||1;
+    const px=i=>i/320*100;
+    F.path(hist.map((p,i)=>[px(i),clamp(p[0],0,118)]),cv("--p3"),{w:2.6});
+    F.path(hist.map((p,i)=>[px(i),clamp(p[1],0,118)]),cv("--p2"),{w:2.6});
+    if(hist.length){
+      F.dot(px(n-1),clamp(x,0,118),cv("--p3"),5);
+      F.dot(px(n-1),clamp(y,0,118),cv("--p2"),5);
+    }
+    F.label(2,114,"จำนวนประชากร ← เทียบกับ เวลา →",cv("--ink-faint"),{size:11});
+    out["เหยื่อตอนนี้"].textContent=fmt(x,1);
+    out["ผู้ล่าตอนนี้"].textContent=fmt(y,1);
+    out["เวลา (รอบ)"].textContent=fmt(t,1);
+    out["สถานะ"].textContent=x<1?"เหยื่อสูญพันธุ์ — ระบบพัง":y<1?"ผู้ล่าสูญพันธุ์":playing?"กำลังจำลอง…":"หยุดชั่วคราว";
+  };
+  function loop(){
+    if(!playing){raf=null;return}
+    step(); F.render(); raf=requestAnimationFrame(loop);
+  }
+  chipset(document.getElementById("ecoChips"),[
+    {t:"▶︎ เล่น / ⏸ หยุด",k:"toggle"},{t:"↻ เริ่มใหม่",k:"reset"},
+    {t:"ตั้งค่าแกว่งสวย ๆ",k:"nice"},{t:"ล่าหนักมาก",k:"hunt"}
+  ],it=>{
+    if(it.k==="toggle"){playing=!playing; if(playing&&!raf)loop(); else F.render()}
+    else if(it.k==="reset"){reset()}
+    else if(it.k==="nice"){S["_set_a"](.9);S["_set_b"](.02);S["_set_c"](.7);reset();if(!playing){playing=true;loop()}}
+    else{S["_set_a"](1.1);S["_set_b"](.045);S["_set_c"](.5);reset();if(!playing){playing=true;loop()}}
+  },-1);
+  if(playing)loop(); else F.render();
+})();
+
+/* ===== ศัพท์ชีววิทยา A-Level (data) ===== */
+const BIO=[];
+const B=(g,rows)=>rows.forEach(r=>BIO.push({g,t:r[0],e:r[1],d:r[2]}));
+B("เซลล์ & ออร์แกเนลล์",[
+ ["เยื่อหุ้มเซลล์","cell membrane","ชั้นฟอสโฟลิพิดสองชั้น ควบคุมสารเข้าออกแบบเลือกผ่าน"],
+ ["ผนังเซลล์","cell wall","ชั้นเซลลูโลสนอกเยื่อหุ้ม พบในพืช เห็ดรา แบคทีเรีย ทำให้เซลล์ไม่แตก"],
+ ["ไมโทคอนเดรีย","mitochondrion","สร้าง ATP จากการหายใจระดับเซลล์ มี DNA ของตัวเอง"],
+ ["คลอโรพลาสต์","chloroplast","มีคลอโรฟิลล์ ใช้สังเคราะห์ด้วยแสง พบเฉพาะพืชและสาหร่าย"],
+ ["ไรโบโซม","ribosome","แปลรหัส mRNA เป็นโปรตีน ไม่มีเยื่อหุ้ม"],
+ ["ร่างแหเอนโดพลาซึม","endoplasmic reticulum","แบบขยาย (rough) สร้างโปรตีน · แบบเรียบ (smooth) สร้างลิพิดและกำจัดสารพิษ"],
+ ["กอลจิคอมเพลกซ์","Golgi complex","ปรับแต่ง บรรจุ และส่งโปรตีนออกนอกเซลล์"],
+ ["ไลโซโซม","lysosome","ถุงเอนไซม์ย่อยสลายของเสียและเชื้อโรค เด่นในเซลล์สัตว์"],
+ ["แวคิวโอล","vacuole","ถุงเก็บน้ำและสาร ในพืชมีขนาดใหญ่กลางเซลล์ ทำให้เซลล์เต่ง"],
+ ["เซนทริโอล","centriole","สร้างเส้นใยสปินเดิลขณะแบ่งเซลล์ พบในเซลล์สัตว์"],
+ ["โพรคาริโอต","prokaryote","เซลล์ไม่มีเยื่อหุ้มนิวเคลียส เช่น แบคทีเรีย"],
+ ["ยูคาริโอต","eukaryote","เซลล์มีเยื่อหุ้มนิวเคลียสและออร์แกเนลล์ครบ"]
+]);
+B("การลำเลียงสาร",[
+ ["การแพร่","diffusion","สารเคลื่อนจากที่เข้มข้นสูงไปต่ำ ไม่ใช้พลังงาน"],
+ ["ออสโมซิส","osmosis","การแพร่ของน้ำผ่านเยื่อเลือกผ่าน จากสารละลายเจือจางไปเข้มข้น"],
+ ["การแพร่แบบฟาซิลิเทต","facilitated diffusion","แพร่ผ่านโปรตีนตัวพา ตามความเข้มข้น ไม่ใช้ ATP"],
+ ["การลำเลียงแบบใช้พลังงาน","active transport","ขนส่งทวนความเข้มข้น ต้องใช้ ATP เช่น โซเดียม-โพแทสเซียมปั๊ม"],
+ ["ไฮโพโทนิก","hypotonic","สารละลายนอกเจือจางกว่าในเซลล์ → น้ำเข้าเซลล์ เซลล์บวม"],
+ ["ไฮเพอร์โทนิก","hypertonic","สารละลายนอกเข้มข้นกว่า → น้ำออก เซลล์เหี่ยว"],
+ ["ไอโซโทนิก","isotonic","ความเข้มข้นเท่ากันทั้งสองฝั่ง น้ำเข้าออกสมดุล"],
+ ["พลาสโมไลซิส","plasmolysis","เยื่อหุ้มเซลล์พืชหดออกจากผนังเซลล์เพราะเสียน้ำ"],
+ ["เอนโดไซโทซิส","endocytosis","เซลล์โอบกลืนสารขนาดใหญ่เข้าไปเป็นถุง"],
+ ["เอกโซไซโทซิส","exocytosis","ถุงภายในเซลล์รวมกับเยื่อหุ้มเพื่อปล่อยสารออกนอกเซลล์"]
+]);
+B("พันธุศาสตร์",[
+ ["ยีน","gene","ช่วงของ DNA ที่ควบคุมลักษณะหนึ่ง ๆ"],
+ ["แอลลีล","allele","รูปแบบต่าง ๆ ของยีนเดียวกัน เช่น A กับ a"],
+ ["จีโนไทป์","genotype","คู่แอลลีลที่สิ่งมีชีวิตมี เช่น Aa"],
+ ["ฟีโนไทป์","phenotype","ลักษณะที่แสดงออกให้เห็น เช่น ดอกสีม่วง"],
+ ["ฮอมอไซกัส","homozygous","แอลลีลเหมือนกันทั้งคู่ (AA หรือ aa) หรือ พันธุ์แท้"],
+ ["เฮเทอโรไซกัส","heterozygous","แอลลีลต่างกัน (Aa) หรือ พันทาง"],
+ ["ลักษณะเด่น","dominant","แอลลีลที่แสดงออกแม้มีเพียงตัวเดียว"],
+ ["ลักษณะด้อย","recessive","แสดงออกเมื่อได้แอลลีลด้อยครบทั้งคู่เท่านั้น"],
+ ["การผสมทดสอบ","test cross","ผสมกับตัวด้อยแท้ (aa) เพื่อตรวจว่าตัวเด่นเป็นพันธุ์แท้หรือพันทาง"],
+ ["กฎการแยกตัว","law of segregation","แอลลีลคู่หนึ่งแยกออกจากกันตอนสร้างเซลล์สืบพันธุ์"],
+ ["กฎการรวมกลุ่มอย่างอิสระ","law of independent assortment","ยีนต่างคู่แยกและรวมกลุ่มเป็นอิสระต่อกัน"],
+ ["การข่มร่วมกัน","codominance","แอลลีลทั้งคู่แสดงออกพร้อมกัน เช่น หมู่เลือด AB"],
+ ["การข่มไม่สมบูรณ์","incomplete dominance","ลูกผสมแสดงลักษณะกึ่งกลาง เช่น ดอกแดง × ขาว ได้ชมพู"],
+ ["ยีนบนโครโมโซมเพศ","sex-linked gene","ยีนบนโครโมโซม X เช่น ตาบอดสี ฮีโมฟีเลีย พบในเพศชายมากกว่า"],
+ ["มิวเทชัน","mutation","การเปลี่ยนแปลงลำดับเบสของ DNA อาจถ่ายทอดสู่รุ่นลูกได้"],
+ ["พาหะ","carrier","ผู้ที่มีแอลลีลด้อยแฝงแต่ไม่แสดงอาการ"]
+]);
+B("DNA & การแบ่งเซลล์",[
+ ["โครโมโซม","chromosome","สาย DNA ที่ขดแน่นกับโปรตีนฮิสโตน คนมี 46 แท่ง (23 คู่)"],
+ ["ดีเอ็นเอ","DNA","สารพันธุกรรมเกลียวคู่ เบสจับคู่ A–T และ G–C"],
+ ["อาร์เอ็นเอ","RNA","สายเดี่ยว ใช้ U แทน T ทำหน้าที่ถ่ายทอดและแปลรหัส"],
+ ["การจำลองดีเอ็นเอ","DNA replication","สร้าง DNA ชุดใหม่แบบกึ่งอนุรักษ์ ก่อนเซลล์แบ่งตัว"],
+ ["การถอดรหัส","transcription","สร้าง mRNA จากสาย DNA ต้นแบบในนิวเคลียส"],
+ ["การแปลรหัส","translation","ไรโบโซมอ่านโคดอนบน mRNA แล้วต่อกรดอะมิโนเป็นโปรตีน"],
+ ["โคดอน","codon","ลำดับเบส 3 ตัวบน mRNA ที่กำหนดกรดอะมิโน 1 ตัว"],
+ ["แอนติโคดอน","anticodon","เบส 3 ตัวบน tRNA ที่จับคู่กับโคดอน"],
+ ["ไมโทซิส","mitosis","แบ่งเซลล์ร่างกาย ได้ 2 เซลล์ที่มีโครโมโซมเท่าเดิม (2n → 2n)"],
+ ["ไมโอซิส","meiosis","แบ่งเซลล์สืบพันธุ์ ได้ 4 เซลล์ที่มีโครโมโซมลดครึ่ง (2n → n)"],
+ ["ครอสซิงโอเวอร์","crossing over","การแลกชิ้นส่วนโครโมโซมคู่เหมือนในไมโอซิส ทำให้เกิดความหลากหลาย"],
+ ["ดิพลอยด์ / แฮพลอยด์","diploid / haploid","2n มีโครโมโซมเป็นคู่ · n มีชุดเดียว เช่น เซลล์สืบพันธุ์"]
+]);
+B("เอนไซม์ & เมแทบอลิซึม",[
+ ["เอนไซม์","enzyme","โปรตีนเร่งปฏิกิริยา ลดพลังงานกระตุ้น ใช้ซ้ำได้ จำเพาะต่อสารตั้งต้น"],
+ ["ซับสเตรต","substrate","สารตั้งต้นที่เอนไซม์เข้าจับ"],
+ ["บริเวณเร่ง","active site","ตำแหน่งบนเอนไซม์ที่ซับสเตรตเข้าจับพอดีเหมือนกุญแจกับแม่กุญแจ"],
+ ["การเสียสภาพ","denaturation","โครงรูปโปรตีนเปลี่ยนถาวรจากความร้อนหรือ pH ผิดปกติ ทำให้เอนไซม์ใช้ไม่ได้"],
+ ["ตัวยับยั้งแบบแข่งขัน","competitive inhibitor","แย่งจับบริเวณเร่ง แก้ได้ด้วยการเพิ่มซับสเตรต"],
+ ["โคแฟกเตอร์","cofactor","สารช่วยที่เอนไซม์ต้องใช้ เช่น ไอออนโลหะหรือวิตามิน"],
+ ["การหายใจระดับเซลล์","cellular respiration","สลายกลูโคสได้ ATP · แบบใช้ออกซิเจนได้พลังงานมากกว่ามาก"],
+ ["การหมัก","fermentation","สลายกลูโคสแบบไม่ใช้ออกซิเจน ได้ ATP น้อย และได้แลกเทตหรือแอลกอฮอล์"],
+ ["เอทีพี","ATP","สารพลังงานสูงที่เซลล์ใช้ทำงาน"],
+ ["ไกลโคไลซิส","glycolysis","ขั้นแรกของการสลายกลูโคส เกิดในไซโทพลาซึม ได้ไพรูเวต"]
+]);
+B("พืช & การสังเคราะห์แสง",[
+ ["การสังเคราะห์ด้วยแสง","photosynthesis","6CO₂ + 6H₂O + แสง → กลูโคส + 6O₂ เกิดในคลอโรพลาสต์"],
+ ["คลอโรฟิลล์","chlorophyll","รงควัตถุสีเขียวที่ดูดกลืนแสงสีน้ำเงินและแดง สะท้อนสีเขียว"],
+ ["ปฏิกิริยาใช้แสง","light-dependent reaction","เกิดที่ไทลาคอยด์ ได้ ATP, NADPH และปล่อย O₂ จากการแยกน้ำ"],
+ ["วัฏจักรคัลวิน","Calvin cycle","เกิดที่สโตรมา ตรึง CO₂ เป็นน้ำตาล ไม่ต้องใช้แสงโดยตรง"],
+ ["ปัจจัยจำกัด","limiting factor","ปัจจัยที่มีน้อยที่สุดและกำหนดอัตราการเกิดปฏิกิริยา"],
+ ["ปากใบ","stoma","ช่องบนใบสำหรับแลกเปลี่ยนแก๊สและคายน้ำ ควบคุมด้วยเซลล์คุม"],
+ ["การคายน้ำ","transpiration","การสูญเสียน้ำในรูปไอผ่านปากใบ ช่วยดึงน้ำขึ้นจากราก"],
+ ["ไซเลม","xylem","ท่อลำเลียงน้ำและแร่ธาตุจากรากขึ้นสู่ใบ ทิศทางเดียว"],
+ ["โฟลเอ็ม","phloem","ท่อลำเลียงอาหารจากใบไปส่วนต่าง ๆ ได้ทั้งขึ้นและลง"],
+ ["ออกซิน","auxin","ฮอร์โมนพืชกระตุ้นการยืดตัวของเซลล์ ทำให้ยอดโค้งเข้าหาแสง"]
+]);
+B("ระบบร่างกาย",[
+ ["ฮอร์โมน","hormone","สารเคมีจากต่อมไร้ท่อ ลำเลียงทางเลือดไปออกฤทธิ์ที่อวัยวะเป้าหมาย"],
+ ["ฮอร์โมนอินซูลิน","insulin","ลดระดับน้ำตาลในเลือด สร้างจากตับอ่อน"],
+ ["ภาวะธำรงดุล","homeostasis","การรักษาสภาพภายในร่างกายให้คงที่ เช่น อุณหภูมิ น้ำตาล น้ำ"],
+ ["เซลล์ประสาท","neuron","หน่วยนำกระแสประสาท มีเดนไดรต์ ตัวเซลล์ และแอกซอน"],
+ ["ไซแนปส์","synapse","จุดเชื่อมระหว่างเซลล์ประสาท ส่งสัญญาณด้วยสารสื่อประสาท"],
+ ["แอนติบอดี","antibody","โปรตีนจากเซลล์เม็ดเลือดขาว จับกับแอนติเจนเฉพาะชนิด"],
+ ["แอนติเจน","antigen","สารแปลกปลอมที่กระตุ้นให้ร่างกายสร้างแอนติบอดี"],
+ ["ภูมิคุ้มกัน","immunity","ความสามารถต้านเชื้อโรค ได้จากการติดเชื้อหรือวัคซีน"],
+ ["การกรองที่ไต","filtration","ไตกรองของเสียจากเลือดที่โกลเมอรูลัสแล้วดูดกลับสารที่มีประโยชน์"],
+ ["การแลกเปลี่ยนแก๊ส","gas exchange","O₂ เข้าและ CO₂ ออกที่ถุงลมปอดโดยการแพร่"]
+]);
+B("นิเวศวิทยา & วิวัฒนาการ",[
+ ["ระบบนิเวศ","ecosystem","สิ่งมีชีวิตทั้งหมดกับสิ่งแวดล้อมที่มีปฏิสัมพันธ์กัน"],
+ ["ผู้ผลิต","producer","สิ่งมีชีวิตที่สร้างอาหารเองได้ เช่น พืช สาหร่าย"],
+ ["ผู้บริโภค","consumer","กินสิ่งมีชีวิตอื่นเป็นอาหาร แบ่งเป็นลำดับที่ 1, 2, 3"],
+ ["ผู้ย่อยสลาย","decomposer","ย่อยซากสิ่งมีชีวิตให้กลับเป็นสารอนินทรีย์ เช่น เห็ดรา แบคทีเรีย"],
+ ["ห่วงโซ่อาหาร","food chain","เส้นทางถ่ายทอดพลังงานจากผู้ผลิตสู่ผู้บริโภคเป็นลำดับ"],
+ ["สายใยอาหาร","food web","ห่วงโซ่อาหารหลายสายที่เชื่อมโยงกันในระบบนิเวศ"],
+ ["พีระมิดพลังงาน","energy pyramid","พลังงานถ่ายทอดขึ้นลำดับขั้นได้เพียงราว 10% ที่เหลือสูญเป็นความร้อน"],
+ ["ขีดจำกัดการรองรับ","carrying capacity","จำนวนประชากรสูงสุดที่สิ่งแวดล้อมรองรับได้"],
+ ["ภาวะพึ่งพากัน","mutualism","อยู่ร่วมกันแล้วได้ประโยชน์ทั้งสองฝ่าย เช่น ไลเคน"],
+ ["ภาวะปรสิต","parasitism","ฝ่ายหนึ่งได้ประโยชน์ อีกฝ่ายเสียประโยชน์"],
+ ["การคัดเลือกโดยธรรมชาติ","natural selection","ผู้ที่เหมาะสมกับสิ่งแวดล้อมอยู่รอดและถ่ายทอดยีนต่อได้มากกว่า"],
+ ["ความหลากหลายทางชีวภาพ","biodiversity","ความหลากหลายของชนิด พันธุกรรม และระบบนิเวศ"],
+ ["สปีชีส์","species","กลุ่มสิ่งมีชีวิตที่ผสมพันธุ์กันแล้วได้ลูกที่ไม่เป็นหมัน"],
+ ["การปรับตัว","adaptation","ลักษณะที่ช่วยให้อยู่รอดและสืบพันธุ์ได้ดีขึ้นในสภาพแวดล้อมนั้น"]
+]);
+
 /* ===== ศัพท์อังกฤษ A-Level (data) ===== */
 const ENV=[];
 const E=(g,rows)=>rows.forEach(r=>ENV.push({g,t:r[0],e:r[1],d:r[2]}));
@@ -3333,6 +4033,7 @@ const TGAT=[
 /* ===== decks ===== */
 const DECKS=[
   {id:"tgat",label:"TGAT / A-Level (A–Z)",items:TGAT},
+  {id:"bio",label:"ศัพท์ชีววิทยา",items:BIO},
   {id:"en",label:"ชุดคัดสรรตามหมวดใช้งาน",items:ENV},
   {id:"math",label:"ศัพท์เทคนิคคณิต",items:VOCAB}
 ];
