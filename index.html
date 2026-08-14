@@ -3,13 +3,18 @@
 <style>
 /* ============ tokens ============ */
 :root{
-  --paper:#F1F4F7; --surface:#FFFFFF; --surface-2:#F7F9FB;
-  --ink:#14243A; --ink-soft:#4E5F76; --ink-faint:#8A9AAE;
-  --line:#D8E0E8; --grid:rgba(20,36,58,.075); --grid-bold:rgba(20,36,58,.16);
-  --accent:#1B4FD8; --accent-soft:#E7EDFD; --mark:#FFD24A;
-  --p1:#1B4FD8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
+  --paper:#EDF0F4; --surface:#FFFFFF; --surface-2:#F5F7FA;
+  --ink:#101B2B; --ink-soft:#4A5A6E; --ink-faint:#8493A5;
+  --line:#DCE2EA; --line-soft:#E8EDF2; --grid:rgba(16,27,43,.055); --grid-bold:rgba(16,27,43,.16);
+  --accent:#2049C8; --accent-soft:#E6EBFB; --mark:#FFD24A;
+  --p1:#2049C8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
   --good:#0F8A5F; --warn:#C97A0A; --bad:#C8322B;
-  --shadow:0 1px 2px rgba(20,36,58,.06),0 10px 28px -18px rgba(20,36,58,.3);
+  /* สีประจำวิชา — ใช้เป็นระบบนำทาง ไม่ใช่แค่ตกแต่ง */
+  --s-math:#2049C8; --s-bio:#0B7A55; --s-eng:#6B3FD4; --s-exam:#C2661A; --s-voc:#0E7C8A;
+  --shadow-sm:0 1px 2px rgba(16,27,43,.05);
+  --shadow:0 1px 2px rgba(16,27,43,.05), 0 12px 28px -20px rgba(16,27,43,.35);
+  --shadow-lg:0 2px 4px rgba(16,27,43,.06), 0 22px 45px -26px rgba(16,27,43,.45);
+  --r-lg:18px; --r-md:12px; --r-sm:9px;
   --display:"Kanit","Prompt","Noto Sans Thai","IBM Plex Sans Thai",system-ui,sans-serif;
   --body:"Sarabun","IBM Plex Sans Thai","Noto Sans Thai","Thonburi",system-ui,sans-serif;
   --math:"Cambria Math","STIX Two Math","Latin Modern Math",Georgia,"Times New Roman",serif;
@@ -17,44 +22,60 @@
 }
 @media (prefers-color-scheme:dark){
   :root{
-    --paper:#0E141C; --surface:#161F2A; --surface-2:#1B2530;
-    --ink:#E7EEF5; --ink-soft:#9FB0C2; --ink-faint:#6F8095;
-    --line:#28323F; --grid:rgba(231,238,245,.07); --grid-bold:rgba(231,238,245,.16);
-    --accent:#7AA2FF; --accent-soft:#1C2942; --mark:#FFCE5C;
-    --p1:#7AA2FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
+    --paper:#0A0F16; --surface:#131C26; --surface-2:#18222E;
+    --ink:#E9EFF6; --ink-soft:#9DB0C4; --ink-faint:#6C7E92;
+    --line:#26313E; --line-soft:#1E2833; --grid:rgba(233,239,246,.055); --grid-bold:rgba(233,239,246,.16);
+    --accent:#7FA5FF; --accent-soft:#182642; --mark:#FFCE5C;
+    --p1:#7FA5FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
     --good:#43C98D; --warn:#FFC163; --bad:#FF7B72;
-    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -20px rgba(0,0,0,.85);
+    --s-math:#7FA5FF; --s-bio:#40D3A0; --s-eng:#B39BFF; --s-exam:#FFB05C; --s-voc:#4ED2E0;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.5);
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 32px -22px rgba(0,0,0,.9);
+    --shadow-lg:0 2px 6px rgba(0,0,0,.55), 0 26px 50px -28px rgba(0,0,0,1);
   }
 }
 :root[data-theme="dark"]{
-  --paper:#0E141C; --surface:#161F2A; --surface-2:#1B2530;
-  --ink:#E7EEF5; --ink-soft:#9FB0C2; --ink-faint:#6F8095;
-  --line:#28323F; --grid:rgba(231,238,245,.07); --grid-bold:rgba(231,238,245,.16);
-  --accent:#7AA2FF; --accent-soft:#1C2942; --mark:#FFCE5C;
-  --p1:#7AA2FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
+  --paper:#0A0F16; --surface:#131C26; --surface-2:#18222E;
+  --ink:#E9EFF6; --ink-soft:#9DB0C4; --ink-faint:#6C7E92;
+  --line:#26313E; --line-soft:#1E2833; --grid:rgba(233,239,246,.055); --grid-bold:rgba(233,239,246,.16);
+  --accent:#7FA5FF; --accent-soft:#182642; --mark:#FFCE5C;
+  --p1:#7FA5FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
   --good:#43C98D; --warn:#FFC163; --bad:#FF7B72;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -20px rgba(0,0,0,.85);
+  --s-math:#7FA5FF; --s-bio:#40D3A0; --s-eng:#B39BFF; --s-exam:#FFB05C; --s-voc:#4ED2E0;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.5);
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 32px -22px rgba(0,0,0,.9);
+  --shadow-lg:0 2px 6px rgba(0,0,0,.55), 0 26px 50px -28px rgba(0,0,0,1);
 }
 :root[data-theme="light"]{
-  --paper:#F1F4F7; --surface:#FFFFFF; --surface-2:#F7F9FB;
-  --ink:#14243A; --ink-soft:#4E5F76; --ink-faint:#8A9AAE;
-  --line:#D8E0E8; --grid:rgba(20,36,58,.075); --grid-bold:rgba(20,36,58,.16);
-  --accent:#1B4FD8; --accent-soft:#E7EDFD; --mark:#FFD24A;
-  --p1:#1B4FD8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
+  --paper:#EDF0F4; --surface:#FFFFFF; --surface-2:#F5F7FA;
+  --ink:#101B2B; --ink-soft:#4A5A6E; --ink-faint:#8493A5;
+  --line:#DCE2EA; --line-soft:#E8EDF2; --grid:rgba(16,27,43,.055); --grid-bold:rgba(16,27,43,.16);
+  --accent:#2049C8; --accent-soft:#E6EBFB; --mark:#FFD24A;
+  --p1:#2049C8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
   --good:#0F8A5F; --warn:#C97A0A; --bad:#C8322B;
-  --shadow:0 1px 2px rgba(20,36,58,.06),0 10px 28px -18px rgba(20,36,58,.3);
+  --s-math:#2049C8; --s-bio:#0B7A55; --s-eng:#6B3FD4; --s-exam:#C2661A; --s-voc:#0E7C8A;
+  --shadow-sm:0 1px 2px rgba(16,27,43,.05);
+  --shadow:0 1px 2px rgba(16,27,43,.05), 0 12px 28px -20px rgba(16,27,43,.35);
+  --shadow-lg:0 2px 4px rgba(16,27,43,.06), 0 22px 45px -26px rgba(16,27,43,.45);
 }
 
 *{box-sizing:border-box}
 body{
   margin:0; background:var(--paper); color:var(--ink);
-  font-family:var(--body); font-size:16.5px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  font-family:var(--body); font-size:16.5px; line-height:1.72; -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
+/* กระดาษกราฟ + แสงอุ่นมุมบนขวาให้พื้นไม่แบน */
 body::before{
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:26px 26px;
+  background-image:
+    radial-gradient(70rem 45rem at 88% -10%, color-mix(in srgb,var(--accent) 8%,transparent), transparent 70%),
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:auto, 28px 28px, 28px 28px;
 }
+/* แถบความคืบหน้าการอ่านด้านบนสุด */
+#prog{position:fixed; top:0; left:0; height:3px; width:0; z-index:60; background:var(--sub,var(--accent)); transition:width .1s linear, background .3s}
 h1,h2,h3,h4,h5{font-family:var(--display); font-weight:600; line-height:1.25; text-wrap:balance; margin:0}
 a{color:var(--accent)}
 :focus-visible{outline:2.5px solid var(--accent); outline-offset:2px; border-radius:5px}
@@ -67,62 +88,134 @@ a{color:var(--accent)}
 mark{background:linear-gradient(transparent 55%,var(--mark) 55%); color:inherit; padding:0 .1em}
 
 /* ============ shell ============ */
-.wrap{display:grid; grid-template-columns:262px minmax(0,1fr); max-width:1420px; margin:0 auto}
+.wrap{display:grid; grid-template-columns:278px minmax(0,1fr); max-width:1460px; margin:0 auto}
 .side{
-  position:sticky; top:0; align-self:start; height:100dvh; overflow-y:auto;
+  position:sticky; top:0; align-self:start; height:100dvh; overflow-y:auto; scrollbar-width:thin;
   padding:1.5rem 1rem 3rem; border-right:1px solid var(--line);
-  background:color-mix(in srgb,var(--paper) 88%,transparent); backdrop-filter:blur(8px);
+  background:color-mix(in srgb,var(--paper) 82%,transparent); backdrop-filter:blur(14px) saturate(1.3);
 }
-.brand{display:flex; gap:.55rem; align-items:center}
-.brand svg{width:30px; height:30px; flex:0 0 auto}
-.brand b{font-family:var(--display); font-size:1rem; letter-spacing:-.01em; line-height:1.2}
-.side .sub{font-size:.75rem; color:var(--ink-faint); margin:.5rem 0 1rem}
-.idx{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1px}
+.brand{display:flex; gap:.6rem; align-items:center}
+.brand svg{width:34px; height:34px; flex:0 0 auto}
+.brand b{font-family:var(--display); font-size:1.02rem; font-weight:600; letter-spacing:-.015em; line-height:1.25}
+.side .sub{font-size:.73rem; color:var(--ink-faint); margin:.55rem 0 .9rem; line-height:1.55}
+.navfind{
+  width:100%; font:inherit; font-size:.82rem; color:var(--ink); margin-bottom:.7rem;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-sm); padding:.4rem .6rem;
+}
+.navfind::placeholder{color:var(--ink-faint)}
+.navfind:focus{border-color:var(--accent); outline:none}
+.idx{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px}
 .idx a{
-  display:grid; grid-template-columns:1.7rem 1fr; align-items:baseline; gap:.3rem;
-  padding:.32rem .5rem; border-radius:8px; text-decoration:none; color:var(--ink-soft); font-size:.87rem;
+  position:relative; display:grid; grid-template-columns:1.9rem 1fr; align-items:baseline; gap:.35rem;
+  padding:.34rem .5rem .34rem .62rem; border-radius:var(--r-sm); text-decoration:none;
+  color:var(--ink-soft); font-size:.865rem; line-height:1.45; transition:background .14s, color .14s;
+}
+.idx a::before{
+  content:""; position:absolute; left:0; top:50%; transform:translateY(-50%);
+  width:3px; height:0; border-radius:2px; background:var(--sub,var(--accent)); transition:height .18s;
 }
 .idx a:hover{background:var(--surface); color:var(--ink)}
-.idx a.on{background:var(--accent-soft); color:var(--accent); font-weight:600}
-.idx .n{font-family:var(--mono); font-size:.68rem; color:var(--ink-faint); font-variant-numeric:tabular-nums}
-.idx a.on .n{color:var(--accent)}
-.idx-group{font-size:.66rem; text-transform:uppercase; letter-spacing:.14em; color:var(--ink-faint); margin:1rem 0 .3rem .5rem}
-.side-foot{margin-top:1.4rem; padding-top:.9rem; border-top:1px solid var(--line)}
+.idx a:hover::before{height:55%}
+.idx a.on{background:var(--surface); color:var(--sub,var(--accent)); font-weight:600; box-shadow:var(--shadow-sm)}
+.idx a.on::before{height:70%}
+.idx .n{font-family:var(--mono); font-size:.67rem; color:var(--ink-faint); font-variant-numeric:tabular-nums}
+.idx a.on .n{color:var(--sub,var(--accent))}
+.idx-group{
+  display:flex; align-items:center; gap:.4rem;
+  font-size:.65rem; text-transform:uppercase; letter-spacing:.15em; font-weight:600;
+  color:var(--ink-faint); margin:1.15rem 0 .35rem .1rem;
+}
+.idx-group::before{content:""; width:7px; height:7px; border-radius:2px; background:var(--sub,var(--ink-faint)); flex:0 0 auto}
+.side-foot{margin-top:1.5rem; padding-top:.9rem; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:.4rem}
 .tbtn{
   appearance:none; background:var(--surface); border:1px solid var(--line); color:var(--ink-soft);
-  border-radius:9px; padding:.42rem .6rem; font:inherit; font-size:.79rem; cursor:pointer; text-align:left; width:100%;
+  border-radius:var(--r-sm); padding:.45rem .65rem; font:inherit; font-size:.78rem; cursor:pointer;
+  text-align:left; width:100%; transition:border-color .15s, color .15s;
 }
 .tbtn:hover{border-color:var(--accent); color:var(--accent)}
-main{min-width:0; padding:0 clamp(1rem,3vw,2.8rem) 5rem}
+main{min-width:0; padding:0 clamp(1rem,3.2vw,3rem) 6rem}
+#toTop{
+  position:fixed; right:1.1rem; bottom:1.1rem; z-index:50; width:2.6rem; height:2.6rem; border-radius:50%;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink-soft); cursor:pointer;
+  font-size:1rem; box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:opacity .25s, transform .25s;
+  transform:translateY(8px);
+}
+#toTop.show{opacity:1; pointer-events:auto; transform:none}
+#toTop:hover{color:var(--accent); border-color:var(--accent)}
 
 /* ============ hero ============ */
-.hero{padding:clamp(2.2rem,5vw,3.8rem) 0 1.6rem}
-.eyebrow{font-size:.71rem; text-transform:uppercase; letter-spacing:.18em; color:var(--accent); font-weight:600; margin:0 0 .7rem}
-.hero h1{font-size:clamp(2rem,5vw,3.2rem); letter-spacing:-.02em}
-.hero h1 em{font-style:normal; color:var(--accent)}
-.hero .lead{font-size:1.08rem; color:var(--ink-soft); max-width:54ch; margin:.9rem 0 0}
-.hero-how{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.4rem}
+.hero{padding:clamp(2.4rem,5.5vw,4.2rem) 0 1.8rem; position:relative}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:.45rem;
+  font-size:.68rem; text-transform:uppercase; letter-spacing:.2em; color:var(--accent);
+  font-weight:600; margin:0 0 .9rem;
+}
+.eyebrow::before{content:""; width:1.6rem; height:1px; background:currentColor}
+.hero h1{font-size:clamp(2.1rem,5.4vw,3.5rem); letter-spacing:-.03em; font-weight:600; line-height:1.14}
+.hero h1 em{
+  font-style:normal; color:var(--accent);
+  background:linear-gradient(transparent 62%, color-mix(in srgb,var(--mark) 60%,transparent) 62%);
+}
+.hero .lead{font-size:1.06rem; color:var(--ink-soft); max-width:56ch; margin:1rem 0 0}
+.hero-how{display:flex; flex-wrap:wrap; gap:.45rem; margin-top:1.5rem}
 .pill{
-  font-size:.79rem; background:var(--surface); border:1px solid var(--line); color:var(--ink-soft);
-  padding:.3rem .7rem; border-radius:20px;
+  font-size:.78rem; background:var(--surface); border:1px solid var(--line); color:var(--ink-soft);
+  padding:.32rem .75rem; border-radius:20px; box-shadow:var(--shadow-sm);
 }
 .pill b{color:var(--ink)}
+/* การ์ดวิชา — ทางลัดเข้าแต่ละหมวด */
+.subjects{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.7rem; margin-top:1.9rem}
+.subj{
+  position:relative; display:block; text-decoration:none; overflow:hidden;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg);
+  padding:1rem 1.05rem 1.1rem; box-shadow:var(--shadow-sm);
+  transition:transform .2s cubic-bezier(.2,.8,.3,1), box-shadow .2s, border-color .2s;
+}
+.subj::after{content:""; position:absolute; inset:0 auto 0 0; width:3px; background:var(--sub); }
+.subj:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--sub) 45%,var(--line))}
+.subj .n{font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--sub); font-weight:600}
+.subj h3{font-family:var(--display); font-size:1.12rem; font-weight:600; margin:.25rem 0 .3rem; color:var(--ink); letter-spacing:-.01em}
+.subj p{margin:0; font-size:.83rem; color:var(--ink-soft); line-height:1.55}
+.subj .go{display:block; margin-top:.6rem; font-size:.76rem; color:var(--sub); font-weight:600}
 
-/* ============ chapter = playground ============ */
-.ch{padding:2.6rem 0 .6rem; border-top:1px solid var(--line)}
-.ch-head{margin-bottom:1.1rem}
-.ch-kicker{display:flex; align-items:center; gap:.6rem; margin-bottom:.45rem}
-.ch-num{font-family:var(--mono); font-size:.7rem; background:var(--ink); color:var(--paper); padding:.14rem .42rem; border-radius:5px}
-.ch-tag{font-size:.71rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint)}
-.ch h2{font-size:clamp(1.45rem,3vw,1.95rem); letter-spacing:-.015em}
-.ch-why{color:var(--ink-soft); max-width:62ch; margin:.4rem 0 0; font-size:.98rem}
-.ch-why b{color:var(--ink)}
+/* ============ chapter ============ */
+.ch{position:relative; padding:3rem 0 .8rem; border-top:1px solid var(--line-soft)}
+/* เลขบทยักษ์จาง ๆ เป็นลายเซ็นของหน้า — ใช้ค่าจริงจาก data-n */
+.ch::before{
+  content:attr(data-n); position:absolute; right:-.1rem; top:1.5rem; pointer-events:none; z-index:0;
+  font-family:var(--display); font-weight:200; font-size:clamp(4rem,11vw,8.5rem); line-height:.8;
+  color:var(--sub,var(--accent)); opacity:.07; letter-spacing:-.06em; white-space:nowrap;
+}
+.ch>*{position:relative; z-index:1}
+.ch-head{margin-bottom:1.2rem; padding-left:1rem; border-left:3px solid var(--sub,var(--accent))}
+.ch-kicker{display:flex; align-items:center; gap:.55rem; margin-bottom:.5rem; flex-wrap:wrap}
+.ch-num{
+  font-family:var(--mono); font-size:.7rem; font-weight:600; letter-spacing:.03em;
+  background:var(--sub,var(--accent)); color:#fff; padding:.16rem .5rem; border-radius:6px;
+}
+.ch-tag{font-size:.7rem; text-transform:uppercase; letter-spacing:.13em; color:var(--ink-faint); font-weight:600}
+.ch h2{font-size:clamp(1.5rem,3.2vw,2.15rem); letter-spacing:-.025em; font-weight:600; line-height:1.2}
+.ch-why{color:var(--ink-soft); max-width:64ch; margin:.5rem 0 0; font-size:.99rem}
+.ch-why b{color:var(--ink); font-weight:600}
 
-.lab{margin:1.3rem 0; background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); overflow:hidden}
-.lab-head{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; padding:.75rem 1rem; border-bottom:1px solid var(--line); background:var(--surface-2)}
-.lab-head h4{font-size:.92rem}
-.lab-head span{font-family:var(--mono); font-size:.68rem; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); white-space:nowrap}
-.lab-body{padding:1rem}
+.lab{
+  margin:1.4rem 0; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg);
+  box-shadow:var(--shadow); overflow:hidden; transition:box-shadow .25s, border-color .25s;
+}
+.lab:hover{box-shadow:var(--shadow-lg)}
+.lab-head{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding:.8rem 1.05rem; border-bottom:1px solid var(--line-soft);
+  background:linear-gradient(to bottom, color-mix(in srgb,var(--sub,var(--accent)) 5%,var(--surface)), var(--surface));
+}
+.lab-head h4{font-size:.94rem; font-weight:600; display:flex; align-items:center; gap:.5rem}
+.lab-head h4::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--sub,var(--accent)); flex:0 0 auto}
+.lab-head span{
+  font-family:var(--mono); font-size:.65rem; text-transform:uppercase; letter-spacing:.11em;
+  color:var(--sub,var(--accent)); white-space:nowrap; background:color-mix(in srgb,var(--sub,var(--accent)) 10%,transparent);
+  padding:.2rem .5rem; border-radius:20px;
+}
+.lab-body{padding:1.05rem}
 .lab-canvas{
   position:relative; width:100%; aspect-ratio:16/10; min-height:240px;
   border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--surface-2); touch-action:none;
@@ -334,7 +427,57 @@ table.cmp td{vertical-align:top}
 .sheet-grid ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.3rem; font-family:var(--math); font-size:.96rem; color:var(--ink-soft)}
 footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-faint); font-size:.83rem; max-width:66ch}
 
+/* ============ subject colour system ============ */
+.ch[data-group="พื้นฐาน"],
+.ch[data-group="ฟังก์ชัน & กราฟ"],
+.ch[data-group="เรขาคณิต & เวกเตอร์"],
+.ch[data-group="ข้อมูล & แคลคูลัส"],
+[data-g="math"]{--sub:var(--s-math)}
+.ch[data-group="ชีววิทยา"],[data-g="bio"]{--sub:var(--s-bio)}
+.ch[data-group="ภาษาอังกฤษ"],[data-g="eng"]{--sub:var(--s-eng)}
+.ch[data-group="ฝึกทำข้อสอบ"],[data-g="exam"]{--sub:var(--s-exam)}
+.ch[data-group="ท่องจำ & คำศัพท์"],[data-g="voc"]{--sub:var(--s-voc)}
+.sheet{--sub:var(--accent)}
+
+/* ส่วนประกอบภายในบทรับสีวิชาอัตโนมัติ */
+.ch .chip:hover{border-color:var(--sub,var(--accent)); color:var(--sub,var(--accent))}
+.ch .chip[aria-pressed=true]{background:var(--sub,var(--accent)); border-color:var(--sub,var(--accent)); color:#fff}
+.ch .ctrl label b{color:var(--sub,var(--accent))}
+.ch .readout span.hi{border-color:color-mix(in srgb,var(--sub,var(--accent)) 50%,var(--line)); background:color-mix(in srgb,var(--sub,var(--accent)) 9%,var(--surface))}
+.ch .readout span.hi b{color:var(--sub,var(--accent))}
+.ch .hint::before{color:var(--sub,var(--accent))}
+.ch .exp h3::before{background:var(--sub,var(--accent))}
+.ch .steps>div::before{background:var(--sub,var(--accent))}
+.ch .form{border-left-color:var(--sub,var(--accent))}
+.ch input[type=range]::-webkit-slider-thumb{background:var(--sub,var(--accent))}
+.ch input[type=range]::-moz-range-thumb{background:var(--sub,var(--accent))}
+.ch .fcbtn:hover{border-color:var(--sub,var(--accent))}
+
+/* ============ refinements ============ */
+.lab-canvas{border-color:var(--line-soft); border-radius:var(--r-md); background:color-mix(in srgb,var(--sub,var(--accent)) 2.5%,var(--surface-2))}
+.readout span,.keys,.tblwrap table th{border-radius:var(--r-sm)}
+.chip{transition:background .15s, border-color .15s, color .15s; box-shadow:var(--shadow-sm)}
+.try>div,.callout,.card{box-shadow:var(--shadow-sm)}
+.try>div{border-radius:0 var(--r-md) var(--r-md) 0}
+.keys{border-radius:var(--r-md)}
+table{border-radius:var(--r-md); overflow:hidden}
+th,td{border-color:var(--line-soft)}
+th{letter-spacing:.01em}
+.sheet-grid section{border-radius:var(--r-md); box-shadow:var(--shadow-sm)}
+footer{max-width:70ch}
+.hero-stats,.tags span{border-radius:20px}
+
+/* เผยเนื้อหาเมื่อเลื่อนถึง */
+/* ผูกกับคลาส js เพื่อให้เนื้อหายังแสดงครบถ้าสคริปต์ไม่ทำงาน */
+@media (prefers-reduced-motion:no-preference){
+  .js .ch{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.3,1)}
+  .js .ch.seen,.js .ch:target{opacity:1; transform:none}
+}
+
 @media (max-width:940px){
+  .ch::before{font-size:4rem; top:.9rem; opacity:.05}
+  .subjects{grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.5rem}
+  .subj{padding:.8rem .85rem}
   .wrap{grid-template-columns:1fr}
   .side{position:static; height:auto; border-right:0; border-bottom:1px solid var(--line); padding:.9rem 1rem 1rem}
   .side .idx{display:grid; grid-template-columns:repeat(auto-fill,minmax(145px,1fr)); gap:2px}
@@ -344,33 +487,66 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
 @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
 </style>
 
+<div id="prog"></div>
+<button id="toTop" type="button" aria-label="กลับขึ้นบนสุด">↑</button>
+
 <div class="wrap">
 <aside class="side">
   <div class="brand">
     <svg viewBox="0 0 32 32" aria-hidden="true">
-      <rect x="1" y="1" width="30" height="30" rx="6" fill="none" stroke="var(--line)"/>
-      <path d="M4 24C10 24 12 8 16 8s6 16 12 16" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
-      <circle cx="16" cy="8" r="2.6" fill="var(--mark)"/>
+      <rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" fill="none" stroke="var(--line)" stroke-width="1.4"/>
+      <path d="M4.5 23.5C10 23.5 12 8.5 16 8.5s6 15 11.5 15" fill="none" stroke="var(--s-math)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="16" cy="8.5" r="2.7" fill="var(--s-exam)"/>
+      <circle cx="7" cy="26" r="1.7" fill="var(--s-bio)"/>
+      <circle cx="25" cy="26" r="1.7" fill="var(--s-eng)"/>
     </svg>
     <b>A-Level Playground<br>คณิต · ชีวะ · อังกฤษ</b>
   </div>
-  <p class="sub">50 บท 3 วิชา · 36 เครื่องมือ · ข้อสอบจำลองจับเวลา · ศัพท์ 1,408 คำ</p>
-  <nav aria-label="สารบัญเครื่องมือ"><p class="idx-group">พื้นฐาน</p><ul class="idx" id="idx"></ul></nav>
-  <div class="side-foot"><button class="tbtn" id="theme">◐ สลับโหมดสว่าง / กระดานดำ</button></div>
+  <p class="sub">54 บท · 38 เครื่องมือโต้ตอบ · ข้อสอบจำลองจับเวลา · คลังศัพท์ 1,408 คำ</p>
+  <input class="navfind" id="navfind" type="search" placeholder="ค้นหาบท เช่น ตรีโกณ, DNA, tense…" aria-label="ค้นหาบทเรียน">
+  <nav aria-label="สารบัญบทเรียน"><p class="idx-group">พื้นฐาน</p><ul class="idx" id="idx"></ul></nav>
+  <div class="side-foot">
+    <button class="tbtn" id="theme">◐ สลับโหมดสว่าง / กระดานดำ</button>
+  </div>
 </aside>
 
 <main>
 <header class="hero">
-  <p class="eyebrow">คณิตศาสตร์ประยุกต์ 1 · TCAS A-Level</p>
-  <h1>อย่าอ่านคณิต —<br><em>ลากมันเล่น</em>ดูก่อน</h1>
-  <p class="lead">ทุกเรื่องที่ใช้สอบเข้ามหาวิทยาลัย เปลี่ยนเป็นเครื่องมือที่กดเล่นได้ เลื่อนค่าแล้วดูกราฟ วงกลม เมทริกซ์ เซลล์ หรือประชากรขยับจริง ๆ — ครบทั้งคณิต ชีววิทยา ภาษาอังกฤษ และคลังศัพท์พร้อม flashcard</p>
+  <p class="eyebrow">TCAS A-Level · เตรียมสอบเข้ามหาวิทยาลัย</p>
+  <h1>อย่าท่องมัน —<br><em>ลากเล่น</em>ให้เห็นภาพก่อน</h1>
+  <p class="lead">ทุกเรื่องที่ใช้สอบเข้ามหาวิทยาลัย เปลี่ยนเป็นเครื่องมือที่กดเล่นได้ และคำอธิบายที่อ่านจบใน 5 นาที — ครบทั้งคณิตศาสตร์ ชีววิทยา ภาษาอังกฤษ คลังศัพท์พร้อม flashcard และข้อสอบจำลองจับเวลา</p>
+
+  <div class="subjects">
+    <a class="subj" href="#ch1" style="--sub:var(--s-math)">
+      <span class="n">16 บท · 22 เครื่องมือ</span>
+      <h3>คณิตศาสตร์</h3>
+      <p>ลากกราฟ วงกลมหนึ่งหน่วย เมทริกซ์ เวกเตอร์ และพื้นที่ใต้กราฟด้วยมือตัวเอง</p>
+      <span class="go">เริ่มที่บทเซต →</span>
+    </a>
+    <a class="subj" href="#bio1" style="--sub:var(--s-bio)">
+      <span class="n">18 บท · 9 เครื่องมือ</span>
+      <h3>ชีววิทยา</h3>
+      <p>ผ่าเซลล์ ตารางพันเนตต์ ถอดรหัส DNA พร้อมคำอธิบายพร้อมอุปมาทุกบท</p>
+      <span class="go">เริ่มที่บทเซลล์ →</span>
+    </a>
+    <a class="subj" href="#en1" style="--sub:var(--s-eng)">
+      <span class="n">16 บท · 3 เครื่องมือ</span>
+      <h3>ภาษาอังกฤษ</h3>
+      <p>ไวยากรณ์ครบทุกจุดที่ออกสอบ พร้อมตัวอย่างถูก–ผิดคู่กันและเทคนิคทำข้อสอบ</p>
+      <span class="go">เริ่มที่ Tense →</span>
+    </a>
+    <a class="subj" href="#exam" style="--sub:var(--s-exam)">
+      <span class="n">63 ข้อ · จับเวลา</span>
+      <h3>ฝึกทำข้อสอบ</h3>
+      <p>ข้อสอบจำลอง 90 วินาทีต่อข้อ และแบบฝึกเติมคำ พร้อมเฉลยเหตุผลทุกข้อ</p>
+      <span class="go">เข้าห้องสอบ →</span>
+    </a>
+  </div>
+
   <div class="hero-how">
     <span class="pill">🖱️ <b>ลาก</b> จุดในกราฟได้เลย</span>
-    <span class="pill">🎚️ <b>เลื่อน</b> สไลเดอร์ดูค่าเปลี่ยน</span>
-    <span class="pill">🔢 <b>อ่าน</b> ตัวเลขสดใต้ภาพ</span>
-    <span class="pill">📖 <b>อ่านเข้าใจง่าย</b> ชีววิทยาครบทุกบท</span>
-    <span class="pill">🃏 <b>Flashcard</b> ศัพท์ 1,408 คำ</span>
-    <span class="pill">⏱️ <b>ข้อสอบจำลอง</b> จับเวลา 90 วิ/ข้อ</span>
+    <span class="pill">🎚️ <b>เลื่อน</b> ค่าดูผลเปลี่ยนสด</span>
+    <span class="pill">🃏 <b>Flashcard</b> 1,408 คำ</span>
     <span class="pill">◐ <b>กระดานดำ</b> สำหรับอ่านกลางคืน</span>
   </div>
 </header>
@@ -2195,6 +2371,7 @@ footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-
 
 <script>
 /* ================= mini graphing lib ================= */
+document.documentElement.classList.add("js");
 const cv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const figs=[];
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
@@ -2374,6 +2551,8 @@ document.getElementById("theme").addEventListener("click",()=>{
   requestAnimationFrame(redraw);
 });
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>requestAnimationFrame(redraw));
+const GKEY={"พื้นฐาน":"math","ฟังก์ชัน & กราฟ":"math","เรขาคณิต & เวกเตอร์":"math","ข้อมูล & แคลคูลัส":"math",
+  "ชีววิทยา":"bio","ภาษาอังกฤษ":"eng","ฝึกทำข้อสอบ":"exam","ท่องจำ & คำศัพท์":"voc"};
 function buildIndex(){
   const ul=document.getElementById("idx"); ul.innerHTML="";
   const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส","ชีววิทยา","ภาษาอังกฤษ","ฝึกทำข้อสอบ","ท่องจำ & คำศัพท์"];
@@ -2382,20 +2561,64 @@ function buildIndex(){
   let first=true;
   order.forEach(g=>{
     if(!groups[g].length)return;
-    if(first){document.querySelector(".idx-group").textContent=g;first=false}
-    else{const p=document.createElement("p");p.className="idx-group";p.textContent=g;ul.appendChild(p)}
+    const k=GKEY[g]||"math";
+    if(first){
+      const h=document.querySelector(".idx-group");
+      h.textContent=g; h.dataset.g=k; first=false;
+    }
+    else{const p=document.createElement("p");p.className="idx-group";p.textContent=g;p.dataset.g=k;ul.appendChild(p)}
     groups[g].forEach(s=>{
       const li=document.createElement("li");
+      li.dataset.g=k;
+      li.dataset.find=(s.dataset.title+" "+s.dataset.n+" "+g).toLowerCase();
       li.innerHTML=`<a href="#${s.id}"><span class="n">${s.dataset.n}</span><span>${s.dataset.title}</span></a>`;
       ul.appendChild(li);
     });
   });
   const links=[...ul.querySelectorAll("a")];
+  const prog=document.getElementById("prog");
   const io=new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting)links.forEach(a=>a.classList.toggle("on",a.hash==="#"+e.target.id));
+    if(!e.isIntersecting)return;
+    links.forEach(a=>a.classList.toggle("on",a.hash==="#"+e.target.id));
+    const c=getComputedStyle(e.target).getPropertyValue("--sub").trim();
+    if(prog&&c)prog.style.background=c;
+    e.target.classList.add("seen");
   }),{rootMargin:"-20% 0px -70% 0px"});
-  document.querySelectorAll("section.ch").forEach(s=>io.observe(s));
+  const seen=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add("seen");seen.unobserve(e.target)}
+  }),{rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll("section.ch").forEach(s=>{io.observe(s);seen.observe(s)});
+  document.querySelectorAll("section.sheet, footer").forEach(s=>s.classList.add("seen"));
+
+  /* ค้นหาบทในสารบัญ */
+  const find=document.getElementById("navfind");
+  if(find)find.addEventListener("input",()=>{
+    const q=find.value.trim().toLowerCase();
+    ul.querySelectorAll("li").forEach(li=>{
+      li.style.display=(!q||li.dataset.find.includes(q))?"":"none";
+    });
+    ul.querySelectorAll(".idx-group").forEach(p=>{
+      let n=p.nextElementSibling, any=false;
+      while(n&&n.tagName==="LI"){ if(n.style.display!=="none")any=true; n=n.nextElementSibling }
+      p.style.display=(!q||any)?"":"none";
+    });
+  });
 }
+/* แถบความคืบหน้าการอ่าน + ปุ่มกลับขึ้นบน */
+(()=>{
+  const prog=document.getElementById("prog"), top=document.getElementById("toTop");
+  if(!prog)return;
+  const upd=()=>{
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    const y=window.scrollY||0;
+    prog.style.width=(h>0?Math.min(100,y/h*100):0)+"%";
+    if(top)top.classList.toggle("show",y>700);
+  };
+  window.addEventListener("scroll",upd,{passive:true});
+  window.addEventListener("resize",upd);
+  if(top)top.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+  upd();
+})();
 </script>
 <script>
 /* ===== tool 01 · venn ===== */
