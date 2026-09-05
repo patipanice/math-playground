@@ -3,9 +3,9 @@
 <style>
 /* ============ tokens ============ */
 :root{
-  --paper:#EDF0F4; --surface:#FFFFFF; --surface-2:#F5F7FA;
-  --ink:#101B2B; --ink-soft:#4A5A6E; --ink-faint:#8493A5;
-  --line:#DCE2EA; --line-soft:#E8EDF2; --grid:rgba(16,27,43,.055); --grid-bold:rgba(16,27,43,.16);
+  --paper:#E4E9F0; --sheet:#F7F9FC; --surface:#FFFFFF; --surface-2:#F3F6FA;
+  --ink:#0D1725; --ink-soft:#3F4E62; --ink-faint:#5E6E84;
+  --line:#DCE2EA; --line-soft:#EAEFF4; --grid:rgba(16,27,43,.05); --grid-bold:rgba(16,27,43,.16);
   --accent:#2049C8; --accent-soft:#E6EBFB; --mark:#FFD24A;
   --p1:#2049C8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
   --good:#0F8A5F; --warn:#C97A0A; --bad:#C8322B;
@@ -22,8 +22,8 @@
 }
 @media (prefers-color-scheme:dark){
   :root{
-    --paper:#0A0F16; --surface:#131C26; --surface-2:#18222E;
-    --ink:#E9EFF6; --ink-soft:#9DB0C4; --ink-faint:#6C7E92;
+    --paper:#060A10; --sheet:#0E1621; --surface:#17212D; --surface-2:#1C2734;
+    --ink:#EDF3F9; --ink-soft:#A8BACE; --ink-faint:#7A8DA2;
     --line:#26313E; --line-soft:#1E2833; --grid:rgba(233,239,246,.055); --grid-bold:rgba(233,239,246,.16);
     --accent:#7FA5FF; --accent-soft:#182642; --mark:#FFCE5C;
     --p1:#7FA5FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
@@ -35,8 +35,8 @@
   }
 }
 :root[data-theme="dark"]{
-  --paper:#0A0F16; --surface:#131C26; --surface-2:#18222E;
-  --ink:#E9EFF6; --ink-soft:#9DB0C4; --ink-faint:#6C7E92;
+  --paper:#060A10; --sheet:#0E1621; --surface:#17212D; --surface-2:#1C2734;
+  --ink:#EDF3F9; --ink-soft:#A8BACE; --ink-faint:#7A8DA2;
   --line:#26313E; --line-soft:#1E2833; --grid:rgba(233,239,246,.055); --grid-bold:rgba(233,239,246,.16);
   --accent:#7FA5FF; --accent-soft:#182642; --mark:#FFCE5C;
   --p1:#7FA5FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
@@ -47,9 +47,9 @@
   --shadow-lg:0 2px 6px rgba(0,0,0,.55), 0 26px 50px -28px rgba(0,0,0,1);
 }
 :root[data-theme="light"]{
-  --paper:#EDF0F4; --surface:#FFFFFF; --surface-2:#F5F7FA;
-  --ink:#101B2B; --ink-soft:#4A5A6E; --ink-faint:#8493A5;
-  --line:#DCE2EA; --line-soft:#E8EDF2; --grid:rgba(16,27,43,.055); --grid-bold:rgba(16,27,43,.16);
+  --paper:#E4E9F0; --sheet:#F7F9FC; --surface:#FFFFFF; --surface-2:#F3F6FA;
+  --ink:#0D1725; --ink-soft:#3F4E62; --ink-faint:#5E6E84;
+  --line:#DCE2EA; --line-soft:#EAEFF4; --grid:rgba(16,27,43,.05); --grid-bold:rgba(16,27,43,.16);
   --accent:#2049C8; --accent-soft:#E6EBFB; --mark:#FFD24A;
   --p1:#2049C8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
   --good:#0F8A5F; --warn:#C97A0A; --bad:#C8322B;
@@ -62,17 +62,22 @@
 *{box-sizing:border-box}
 body{
   margin:0; background:var(--paper); color:var(--ink);
-  font-family:var(--body); font-size:16.5px; line-height:1.72; -webkit-font-smoothing:antialiased;
+  font-family:var(--body); font-size:17px; line-height:1.78; -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
-/* กระดาษกราฟ + แสงอุ่นมุมบนขวาให้พื้นไม่แบน */
+/* ลายกราฟอยู่บน "พื้นโต๊ะ" เท่านั้น ไม่วิ่งใต้ตัวหนังสือ */
 body::before{
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
   background-image:
-    radial-gradient(70rem 45rem at 88% -10%, color-mix(in srgb,var(--accent) 8%,transparent), transparent 70%),
     linear-gradient(var(--grid) 1px,transparent 1px),
     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:auto, 28px 28px, 28px 28px;
+  background-size:34px 34px;
+}
+/* แผ่นกระดาษที่วางเนื้อหา — สีเรียบ อ่านสบาย */
+main{
+  background:var(--sheet);
+  border-inline:1px solid var(--line-soft);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--line) 35%,transparent), 0 24px 60px -50px rgba(16,27,43,.6);
 }
 /* แถบความคืบหน้าการอ่านด้านบนสุด */
 #prog{position:fixed; top:0; left:0; height:3px; width:0; z-index:60; background:var(--sub,var(--accent)); transition:width .1s linear, background .3s}
@@ -92,7 +97,7 @@ mark{background:linear-gradient(transparent 55%,var(--mark) 55%); color:inherit;
 .side{
   position:sticky; top:0; align-self:start; height:100dvh; overflow-y:auto; scrollbar-width:thin;
   padding:1.5rem 1rem 3rem; border-right:1px solid var(--line);
-  background:color-mix(in srgb,var(--paper) 82%,transparent); backdrop-filter:blur(14px) saturate(1.3);
+  background:var(--paper); box-shadow:inset -1px 0 0 var(--line-soft);
 }
 .brand{display:flex; gap:.6rem; align-items:center}
 .brand svg{width:34px; height:34px; flex:0 0 auto}
@@ -133,7 +138,7 @@ mark{background:linear-gradient(transparent 55%,var(--mark) 55%); color:inherit;
   text-align:left; width:100%; transition:border-color .15s, color .15s;
 }
 .tbtn:hover{border-color:var(--accent); color:var(--accent)}
-main{min-width:0; padding:0 clamp(1rem,3.2vw,3rem) 6rem}
+main{min-width:0; padding:0 clamp(1.1rem,3.4vw,3.4rem) 6rem}
 #toTop{
   position:fixed; right:1.1rem; bottom:1.1rem; z-index:50; width:2.6rem; height:2.6rem; border-radius:50%;
   border:1px solid var(--line); background:var(--surface); color:var(--ink-soft); cursor:pointer;
@@ -144,7 +149,13 @@ main{min-width:0; padding:0 clamp(1rem,3.2vw,3rem) 6rem}
 #toTop:hover{color:var(--accent); border-color:var(--accent)}
 
 /* ============ hero ============ */
-.hero{padding:clamp(2.4rem,5.5vw,4.2rem) 0 1.8rem; position:relative}
+.hero{
+  padding:clamp(2.4rem,5.5vw,4.2rem) clamp(.6rem,2vw,1.4rem) 1.9rem; position:relative;
+  margin:0 clamp(-.6rem,-2vw,-1.4rem) 1rem; border-radius:0 0 var(--r-lg) var(--r-lg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:34px 34px;
+  border-bottom:1px solid var(--line-soft);
+}
 .eyebrow{
   display:inline-flex; align-items:center; gap:.45rem;
   font-size:.68rem; text-transform:uppercase; letter-spacing:.2em; color:var(--accent);
@@ -195,7 +206,7 @@ main{min-width:0; padding:0 clamp(1rem,3.2vw,3rem) 6rem}
 }
 .ch-tag{font-size:.7rem; text-transform:uppercase; letter-spacing:.13em; color:var(--ink-faint); font-weight:600}
 .ch h2{font-size:clamp(1.5rem,3.2vw,2.15rem); letter-spacing:-.025em; font-weight:600; line-height:1.2}
-.ch-why{color:var(--ink-soft); max-width:64ch; margin:.5rem 0 0; font-size:.99rem}
+.ch-why{color:var(--ink-soft); max-width:64ch; margin:.55rem 0 0; font-size:1.01rem; line-height:1.75}
 .ch-why b{color:var(--ink); font-weight:600}
 
 .lab{
@@ -244,21 +255,21 @@ input[type=range]::-moz-range-thumb{width:14px; height:14px; border-radius:50%; 
 .readout span.hi b{color:var(--accent)}
 .legend{display:flex; flex-wrap:wrap; gap:.3rem .9rem; margin-top:.7rem; font-size:.78rem; color:var(--ink-soft)}
 .legend i{display:inline-block; width:15px; height:3px; border-radius:2px; margin-right:.3rem; vertical-align:middle}
-.hint{font-size:.79rem; color:var(--ink-faint); margin:.75rem 0 0}
+.hint{font-size:.83rem; color:var(--ink-soft); margin:.8rem 0 0; line-height:1.65}
 .hint::before{content:"↳ "; color:var(--accent)}
 
 /* try-this: the point of the page */
 .try{margin:1.1rem 0 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.6rem}
 .try>div{
   background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--mark);
-  border-radius:0 10px 10px 0; padding:.6rem .8rem; font-size:.87rem; color:var(--ink-soft);
+  border-radius:0 10px 10px 0; padding:.65rem .85rem; font-size:.9rem; color:var(--ink-soft); line-height:1.65;
 }
 .try>div b{display:block; font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--warn); margin-bottom:.15rem}
 .try>div em{font-style:normal; color:var(--ink)}
 .keys{margin:1rem 0 0; padding:.7rem .9rem; background:var(--surface-2); border:1px solid var(--line); border-radius:10px; font-family:var(--math); font-size:1.02rem; display:flex; flex-wrap:wrap; gap:.3rem 1.4rem; overflow-x:auto}
 .keys b{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); align-self:center}
 .tblwrap{overflow-x:auto; margin:.9rem 0 0}
-table{border-collapse:collapse; font-size:.86rem; min-width:100%}
+table{border-collapse:collapse; font-size:.89rem; min-width:100%; line-height:1.6}
 th,td{border:1px solid var(--line); padding:.38rem .65rem; text-align:left}
 th{background:var(--surface-2); font-family:var(--display); font-weight:500; font-size:.8rem}
 td{font-variant-numeric:tabular-nums}
@@ -266,15 +277,15 @@ tbody tr:nth-child(even) td{background:var(--surface-2)}
 .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:.9rem}
 
 /* ============ explanatory content ============ */
-.exp{max-width:70ch; margin:1.1rem 0}
-.exp p{margin:0 0 .85rem}
+.exp{max-width:68ch; margin:1.15rem 0}
+.exp p{margin:0 0 .95rem}
 .exp h3{font-size:1.06rem; margin:1.6rem 0 .55rem; display:flex; gap:.5rem; align-items:center}
 .exp h3::before{content:""; width:6px; height:6px; border-radius:2px; background:var(--accent); flex:0 0 auto}
 .exp ul,.exp ol{margin:0 0 .9rem; padding-left:1.25rem}
 .exp li{margin:.3rem 0}
 .exp li::marker{color:var(--ink-faint)}
 .exp b{color:var(--ink)}
-.callout{margin:1.1rem 0; background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--p5); border-radius:0 12px 12px 0; padding:.75rem .95rem; font-size:.93rem; color:var(--ink-soft)}
+.callout{margin:1.15rem 0; background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--p5); border-radius:0 12px 12px 0; padding:.8rem 1rem; font-size:.95rem; line-height:1.72; color:var(--ink-soft)}
 .callout>b{display:block; font-family:var(--display); font-size:.7rem; letter-spacing:.11em; text-transform:uppercase; color:var(--p5); margin-bottom:.25rem}
 .callout p{margin:.4rem 0 0}
 .callout.ask{border-left-color:var(--p2)}
@@ -282,7 +293,7 @@ tbody tr:nth-child(even) td{background:var(--surface-2)}
 .callout.warn{border-left-color:var(--warn)}
 .callout.warn>b{color:var(--warn)}
 .steps{display:flex; flex-direction:column; gap:.45rem; margin:1.1rem 0; counter-reset:st}
-.steps>div{position:relative; padding:.6rem .9rem .6rem 2.7rem; background:var(--surface); border:1px solid var(--line); border-radius:10px; font-size:.92rem; color:var(--ink-soft)}
+.steps>div{position:relative; padding:.68rem .95rem .68rem 2.75rem; background:var(--surface); border:1px solid var(--line); border-radius:10px; font-size:.94rem; line-height:1.7; color:var(--ink-soft)}
 .steps>div::before{counter-increment:st; content:counter(st); position:absolute; left:.72rem; top:.62rem; width:1.5rem; height:1.5rem; border-radius:50%; background:var(--accent); color:#fff; font-family:var(--mono); font-size:.72rem; display:grid; place-items:center}
 .steps>div em{font-style:normal; color:var(--ink); font-weight:600}
 .steps>div small{display:block; color:var(--ink-faint); font-size:.82rem; margin-top:.15rem}
@@ -1014,7 +1025,7 @@ footer{max-width:70ch}
 <section class="ch" id="bio1" data-subject="bio" data-n="ช1" data-title="เซลล์ &amp; การลำเลียง" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช1</span><span class="ch-tag">เครื่องมือ: ผ่าเซลล์ + ออสโมซิส</span></div>
-    <h2>เซลล์และการลำเลียงสาร</h2>
+    <h2>เซลล์และการลำเลียงสาร <span style="color:var(--ink-faint);font-weight:400;font-size:.62em">Cell &amp; Transport</span></h2>
     <p class="ch-why">คลิกออร์แกเนลล์ดูว่าแต่ละอันทำอะไร แล้วเลื่อนความเข้มข้นของสารละลายนอกเซลล์ดูว่าน้ำไหลเข้าหรือออก — <b>เซลล์สัตว์แตก แต่เซลล์พืชแค่เหี่ยว</b> เพราะอะไร ลองเองได้เลย</p>
   </header>
   <div class="lab">
@@ -1047,7 +1058,7 @@ footer{max-width:70ch}
 <section class="ch" id="bio2" data-subject="bio" data-n="ช2" data-title="พันธุศาสตร์" data-group="พันธุศาสตร์ & DNA">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช2</span><span class="ch-tag">เครื่องมือ: ตารางพันเนตต์อัตโนมัติ</span></div>
-    <h2>พันธุศาสตร์ &amp; การถ่ายทอดลักษณะ</h2>
+    <h2>พันธุศาสตร์ &amp; การถ่ายทอดลักษณะ <span style="color:var(--ink-faint);font-weight:400;font-size:.62em">Punnett Square</span></h2>
     <p class="ch-why">เลือกจีโนไทป์พ่อแม่ แล้วตารางจะแตกช่องให้เอง พร้อมนับ<b>อัตราส่วนจีโนไทป์และฟีโนไทป์</b> — ไล่ดูว่าทำไม Aa × Aa ได้ 3 : 1 และ AaBb × AaBb ได้ 9 : 3 : 3 : 1</p>
   </header>
   <div class="lab">
@@ -1101,7 +1112,7 @@ footer{max-width:70ch}
 <section class="ch" id="bio4" data-subject="bio" data-n="ช4" data-title="เอนไซม์ &amp; สังเคราะห์แสง" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช4</span><span class="ch-tag">เครื่องมือ: กราฟอัตราการทำงาน</span></div>
-    <h2>เอนไซม์ &amp; การสังเคราะห์ด้วยแสง</h2>
+    <h2>เอนไซม์ &amp; การสังเคราะห์ด้วยแสง <span style="color:var(--ink-faint);font-weight:400;font-size:.62em">Enzyme &amp; Photosynthesis</span></h2>
     <p class="ch-why">สองเรื่องนี้ออกสอบเป็น “กราฟ” เสมอ เลื่อนอุณหภูมิกับ pH ดูว่าเอนไซม์เสียสภาพตอนไหน และเลื่อนแสง/CO₂ ดูว่า<b>ปัจจัยไหนกำลังเป็นตัวจำกัด</b>ที่ทำให้กราฟแบน</p>
   </header>
   <div class="lab">
@@ -1133,7 +1144,7 @@ footer{max-width:70ch}
 <section class="ch" id="bio5" data-subject="bio" data-n="ช5" data-title="ระบบนิเวศ" data-group="นิเวศ & ความหลากหลาย">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช5</span><span class="ch-tag">เครื่องมือ: จำลองผู้ล่า–เหยื่อ</span></div>
-    <h2>ระบบนิเวศ &amp; ประชากร</h2>
+    <h2>ระบบนิเวศ &amp; ประชากร <span style="color:var(--ink-faint);font-weight:400;font-size:.62em">Predator–Prey</span></h2>
     <p class="ch-why">กดเล่นแล้วดูจริง ๆ ว่าประชากรกระต่ายกับสุนัขจิ้งจอกแกว่งขึ้นลง<b>ตามกันแบบเหลื่อมเวลา</b> — ยอดผู้ล่ามาทีหลังยอดเหยื่อเสมอ นี่คือกราฟที่ข้อสอบชอบเอามาถาม</p>
   </header>
   <div class="lab">
@@ -1157,7 +1168,7 @@ footer{max-width:70ch}
 <section class="ch" id="bio6" data-subject="bio" data-n="ช6" data-title="เคมีของชีวิต" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช6</span><span class="ch-tag">อ่านเข้าใจใน 5 นาที</span></div>
-    <h2>สารชีวโมเลกุล 4 ชนิด</h2>
+    <h2>สารชีวโมเลกุล 4 ชนิด <span style="color:var(--ink-faint);font-weight:400;font-size:.62em">Biomolecules</span></h2>
     <p class="ch-why">ทั้งร่างกายสร้างจากโมเลกุลใหญ่แค่ 4 กลุ่ม และทุกกลุ่มสร้างแบบเดียวกันคือ <b>เอาหน่วยย่อยมาต่อกันโดยดึงน้ำออก 1 โมเลกุลต่อ 1 พันธะ</b> (ปฏิกิริยาควบแน่น) และย่อยกลับด้วยการเติมน้ำ (ไฮโดรลิซิส)</p>
   </header>
 
@@ -1196,7 +1207,7 @@ footer{max-width:70ch}
 <section class="ch" id="bio7" data-subject="bio" data-n="ช7" data-title="การแบ่งเซลล์" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช7</span><span class="ch-tag">มีเครื่องมือ: ไล่เฟสทีละขั้น</span></div>
-    <h2>ไมโทซิส &amp; ไมโอซิส</h2>
+    <h2>ไมโทซิส &amp; ไมโอซิส <span style="color:var(--ink-faint);font-weight:400;font-size:.62em">Mitosis &amp; Meiosis</span></h2>
     <p class="ch-why">สองอย่างนี้ต่างกันแค่ประเด็นเดียวที่ต้องจำให้แม่น: <b>ไมโทซิสทำสำเนาให้เหมือนเดิม ส่วนไมโอซิสหารครึ่ง</b> ที่เหลือคือรายละเอียดว่าโครโมโซมเรียงตัวและถูกดึงแยกตอนไหน</p>
   </header>
 
@@ -1247,7 +1258,7 @@ footer{max-width:70ch}
 <section class="ch" id="bio8" data-subject="bio" data-n="ช8" data-title="การหายใจระดับเซลล์" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช8</span><span class="ch-tag">อ่านเข้าใจใน 6 นาที</span></div>
-    <h2>การสลายกลูโคสเป็นพลังงาน</h2>
+    <h2>การสลายกลูโคสเป็นพลังงาน <span style="color:var(--ink-faint);font-weight:400;font-size:.62em">Cellular Respiration</span></h2>
     <p class="ch-why">อย่าท่องชื่อสารทีละตัว ให้จับหลักว่า<b>กลูโคสถูกฉีกทีละนิดเพื่อดึงอิเล็กตรอนออกมา</b> แล้วเอาอิเล็กตรอนนั้นไปปั่น ATP ที่ขั้นสุดท้าย — ATP ส่วนใหญ่เกิดที่ขั้นสุดท้ายขั้นเดียว</p>
   </header>
 
@@ -1395,7 +1406,7 @@ footer{max-width:70ch}
 <section class="ch" id="bio12" data-subject="bio" data-n="ช12" data-title="วิวัฒนาการ" data-group="พันธุศาสตร์ & DNA">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช12</span><span class="ch-tag">มีเครื่องมือ: ฮาร์ดี–ไวน์เบิร์ก</span></div>
-    <h2>วิวัฒนาการ &amp; พันธุศาสตร์ประชากร</h2>
+    <h2>วิวัฒนาการ &amp; พันธุศาสตร์ประชากร <span style="color:var(--ink-faint);font-weight:400;font-size:.62em">Hardy–Weinberg</span></h2>
     <p class="ch-why">หัวใจของบทนี้คือประโยคเดียว: <b>สิ่งมีชีวิตไม่ได้ “พยายามปรับตัว” แต่ตัวที่บังเอิญเหมาะสมกว่าเหลือรอดและมีลูกมากกว่า</b> — ความแปรผันมีอยู่ก่อนแล้ว สิ่งแวดล้อมเป็นแค่ผู้คัดเลือก</p>
   </header>
 
@@ -3559,7 +3570,7 @@ function buildIndex(){
 (()=>{
   const host=document.getElementById("conic"); if(!host)return;
   const F=Fig(host,{xmin:-6,xmax:6,ymin:-3.75,ymax:3.75,step:1});
-  const KIND=[{t:"วงกลม",k:"cir"},{t:"วงรี",k:"ell"},{t:"ไฮเพอร์โบลา",k:"hyp"},{t:"พาราโบลา",k:"par"}];
+  const KIND=[{t:"Circle",k:"cir"},{t:"Ellipse",k:"ell"},{t:"Hyperbola",k:"hyp"},{t:"Parabola",k:"par"}];
   let kind=KIND[1];
   const S=sliders(document.getElementById("conCtl"),[
     {id:"a",label:"a",min:.5,max:5,step:.25,val:3,dec:2},
@@ -3617,7 +3628,7 @@ function buildIndex(){
 (()=>{
   const host=document.getElementById("seq"); if(!host)return;
   const F=Fig(host,{xmin:0,xmax:13,ymin:-2,ymax:10,step:1});
-  const KIND=[{t:"เลขคณิต (AP)",k:"ap"},{t:"เรขาคณิต (GP)",k:"gp"}];
+  const KIND=[{t:"เลขคณิต · AP",k:"ap"},{t:"เรขาคณิต · GP",k:"gp"}];
   let kind=KIND[0];
   const S=sliders(document.getElementById("seqCtl"),[
     {id:"a1",label:"พจน์แรก a₁",min:-4,max:6,step:.5,val:2,dec:1},
@@ -4179,7 +4190,7 @@ V("แคลคูลัส",[
     list.forEach(o=>{const [x,y]=P(o),d=Math.hypot(px-x,py-y)-R(o)*.9; if(d<bd){bd=d;best=o}});
     if(best&&bd<26){sel=best;F.render()}
   });
-  chipset(document.getElementById("cellChips"),[{t:"เซลล์สัตว์",p:false},{t:"เซลล์พืช",p:true}],
+  chipset(document.getElementById("cellChips"),[{t:"Animal cell",p:false},{t:"Plant cell",p:true}],
     it=>{plant=it.p;sel=null;F.render&&F.render()});
 })();
 
@@ -4254,7 +4265,7 @@ V("แคลคูลัส",[
       : (burst?"บวมจนแตก (lysis)":d>10?"บวมน้ำ":d<-15?"เหี่ยว (crenation)":"ปกติ");
     o["ในเซลล์ / นอกเซลล์"].textContent=IN+" / "+fmt(S.out,0)+" mM";
   };
-  chipset(document.getElementById("osmoChips"),[{t:"เซลล์สัตว์",p:false},{t:"เซลล์พืช",p:true}],
+  chipset(document.getElementById("osmoChips"),[{t:"Animal cell",p:false},{t:"Plant cell",p:true}],
     it=>{plant=it.p;F.render&&F.render()});
 })();
 
@@ -4264,16 +4275,16 @@ V("แคลคูลัส",[
   /* แอลลีลเด่น (ตัวพิมพ์ใหญ่) ต้องมาก่อนเสมอ — localeCompare เรียงตัวพิมพ์เล็กก่อน */
   const DOM=(x,y)=>x===y?0:(x===x.toUpperCase()?-1:1);
   const MODES=[
-    {t:"โมโนไฮบริด (Aa)",k:"mono",opts:["AA","Aa","aa"],
+    {t:"Monohybrid (Aa)",k:"mono",opts:["AA","Aa","aa"],
      gam:g=>[g[0],g[1]],
      norm:c=>c.split("").sort(DOM).join(""),
      phen:c=>c.includes("A")?"ลักษณะเด่น (A_)":"ลักษณะด้อย (aa)"},
-    {t:"ไดไฮบริด (AaBb)",k:"di",opts:["AaBb","AABB","AaBB","AABb","aabb","Aabb","aaBb"],
+    {t:"Dihybrid (AaBb)",k:"di",opts:["AaBb","AABB","AaBB","AABb","aabb","Aabb","aaBb"],
      gam:g=>{const a=[g[0],g[1]],b=[g[2],g[3]],r=[];a.forEach(x=>b.forEach(y=>r.push(x+y)));return r},
      norm:c=>[c[0],c[2]].sort(DOM).join("")+[c[1],c[3]].sort(DOM).join(""),
      phen:c=>{const A=c.slice(0,2).includes("A"),B=c.slice(2).includes("B");
        return (A?"A เด่น":"a ด้อย")+" + "+(B?"B เด่น":"b ด้อย")}},
-    {t:"หมู่เลือด ABO",k:"blood",opts:["AA","AB","Ai","BB","Bi","ii"],
+    {t:"หมู่เลือด ABO (blood type)",k:"blood",opts:["AA","AB","Ai","BB","Bi","ii"],
      gam:g=>[g[0],g[1]],
      norm:c=>c.split("").sort((a,b)=>a==="i"?1:b==="i"?-1:a.localeCompare(b)).join(""),
      phen:c=>{const A=c.includes("A"),B=c.includes("B");return A&&B?"หมู่ AB":A?"หมู่ A":B?"หมู่ B":"หมู่ O"}}
@@ -4390,11 +4401,11 @@ V("แคลคูลัส",[
   const host=document.getElementById("enz"); if(!host)return;
   const F=Fig(host,{xmin:0,xmax:70,ymin:-8,ymax:112,step:10});
   const MODES=[
-    {t:"อุณหภูมิ",k:"temp",min:0,max:70,unit:"°C",opt:37,
+    {t:"Temperature",k:"temp",min:0,max:70,unit:"°C",opt:37,
      f:T=>{const b=Math.exp(-((T-37)**2)/(2*11*11));return 100*b*Math.exp(-Math.max(0,T-42)/2.6)}},
     {t:"pH",k:"ph",min:0,max:14,unit:"",opt:7,
      f:p=>100*Math.exp(-((p-7)**2)/(2*1.6*1.6))},
-    {t:"ความเข้มข้นซับสเตรต",k:"sub",min:0,max:100,unit:"mM",opt:null,
+    {t:"Substrate",k:"sub",min:0,max:100,unit:"mM",opt:null,
      f:s=>100*s/(18+s)}
   ];
   let mode=MODES[0];
@@ -4640,7 +4651,7 @@ V("แคลคูลัส",[
     out["จำนวนโครโมโซม"].textContent=ph.c;
     out["เกิดอะไรขึ้น"].innerHTML=ph.d;
   };
-  chipset(document.getElementById("mitChips"),[{t:"ไมโทซิส",m:false},{t:"ไมโอซิส",m:true}],it=>{
+  chipset(document.getElementById("mitChips"),[{t:"Mitosis",m:false},{t:"Meiosis",m:true}],it=>{
     meio=it.m; i=0;
     const inp=document.querySelector("#mitCtl input");
     if(inp){inp.max=(meio?MEI.length:MIT.length)-1;}
