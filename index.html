@@ -10,7 +10,7 @@
   --p1:#2049C8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
   --good:#0F8A5F; --warn:#C97A0A; --bad:#C8322B;
   /* สีประจำวิชา — ใช้เป็นระบบนำทาง ไม่ใช่แค่ตกแต่ง */
-  --s-math:#2049C8; --s-bio:#0B7A55; --s-eng:#6B3FD4; --s-exam:#C2661A; --s-voc:#0E7C8A;
+  --s-math:#2049C8; --s-bio:#0B7A55; --s-eng:#6B3FD4; --s-exam:#C2661A; --s-voc:#0E7C8A; --s-plan:#B03060;
   --shadow-sm:0 1px 2px rgba(16,27,43,.05);
   --shadow:0 1px 2px rgba(16,27,43,.05), 0 12px 28px -20px rgba(16,27,43,.35);
   --shadow-lg:0 2px 4px rgba(16,27,43,.06), 0 22px 45px -26px rgba(16,27,43,.45);
@@ -28,7 +28,7 @@
     --accent:#7FA5FF; --accent-soft:#182642; --mark:#FFCE5C;
     --p1:#7FA5FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
     --good:#43C98D; --warn:#FFC163; --bad:#FF7B72;
-    --s-math:#7FA5FF; --s-bio:#40D3A0; --s-eng:#B39BFF; --s-exam:#FFB05C; --s-voc:#4ED2E0;
+    --s-math:#7FA5FF; --s-bio:#40D3A0; --s-eng:#B39BFF; --s-exam:#FFB05C; --s-voc:#4ED2E0; --s-plan:#FF86AE;
     --shadow-sm:0 1px 2px rgba(0,0,0,.5);
     --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 32px -22px rgba(0,0,0,.9);
     --shadow-lg:0 2px 6px rgba(0,0,0,.55), 0 26px 50px -28px rgba(0,0,0,1);
@@ -41,7 +41,7 @@
   --accent:#7FA5FF; --accent-soft:#182642; --mark:#FFCE5C;
   --p1:#7FA5FF; --p2:#FF74A8; --p3:#3ED0B4; --p4:#FFB35C; --p5:#B39BFF;
   --good:#43C98D; --warn:#FFC163; --bad:#FF7B72;
-  --s-math:#7FA5FF; --s-bio:#40D3A0; --s-eng:#B39BFF; --s-exam:#FFB05C; --s-voc:#4ED2E0;
+  --s-math:#7FA5FF; --s-bio:#40D3A0; --s-eng:#B39BFF; --s-exam:#FFB05C; --s-voc:#4ED2E0; --s-plan:#FF86AE;
   --shadow-sm:0 1px 2px rgba(0,0,0,.5);
   --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 32px -22px rgba(0,0,0,.9);
   --shadow-lg:0 2px 6px rgba(0,0,0,.55), 0 26px 50px -28px rgba(0,0,0,1);
@@ -53,7 +53,7 @@
   --accent:#2049C8; --accent-soft:#E6EBFB; --mark:#FFD24A;
   --p1:#2049C8; --p2:#C81E68; --p3:#0F8A7A; --p4:#D98416; --p5:#6B4FD8;
   --good:#0F8A5F; --warn:#C97A0A; --bad:#C8322B;
-  --s-math:#2049C8; --s-bio:#0B7A55; --s-eng:#6B3FD4; --s-exam:#C2661A; --s-voc:#0E7C8A;
+  --s-math:#2049C8; --s-bio:#0B7A55; --s-eng:#6B3FD4; --s-exam:#C2661A; --s-voc:#0E7C8A; --s-plan:#B03060;
   --shadow-sm:0 1px 2px rgba(16,27,43,.05);
   --shadow:0 1px 2px rgba(16,27,43,.05), 0 12px 28px -20px rgba(16,27,43,.35);
   --shadow-lg:0 2px 4px rgba(16,27,43,.06), 0 22px 45px -26px rgba(16,27,43,.45);
@@ -427,16 +427,51 @@ table.cmp td{vertical-align:top}
 .sheet-grid ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.3rem; font-family:var(--math); font-size:.96rem; color:var(--ink-soft)}
 footer{padding:2.5rem 0 1rem; border-top:1px solid var(--line); color:var(--ink-faint); font-size:.83rem; max-width:66ch}
 
+/* ============ สารบัญ 2 ระดับ ============ */
+.navsub{border-bottom:1px solid var(--line-soft)}
+.navsub:last-child{border-bottom:0}
+.navsub-h{
+  display:flex; align-items:center; gap:.5rem; width:100%; appearance:none; cursor:pointer;
+  background:none; border:0; padding:.62rem .35rem; font:inherit; color:var(--ink);
+  font-family:var(--display); font-size:.9rem; font-weight:600; text-align:left; letter-spacing:-.005em;
+}
+.navsub-h .dot{width:9px; height:9px; border-radius:3px; background:var(--sub); flex:0 0 auto}
+.navsub-h .cnt{
+  margin-left:auto; font-family:var(--mono); font-size:.67rem; font-weight:500; color:var(--ink-faint);
+  background:var(--surface-2); border:1px solid var(--line); border-radius:20px; padding:.1rem .42rem;
+}
+.navsub-h .chev{color:var(--ink-faint); font-size:.7rem; transition:transform .2s; flex:0 0 auto}
+.navsub.open .navsub-h{color:var(--sub)}
+.navsub.open .navsub-h .chev{transform:rotate(90deg)}
+.navsub-body{display:none; padding:0 0 .55rem}
+.navsub.open .navsub-body{display:block}
+.navsub .idx-group{margin:.5rem 0 .25rem .1rem; font-size:.62rem; letter-spacing:.13em}
+.navsub .idx-group::before{width:5px; height:5px}
+
+/* ============ แบนเนอร์คั่นวิชา ============ */
+.sbanner{
+  margin:3.4rem 0 0; padding:1.15rem 1.3rem; border-radius:var(--r-lg); position:relative; overflow:hidden;
+  background:linear-gradient(120deg, color-mix(in srgb,var(--sub) 13%,var(--surface)), var(--surface) 62%);
+  border:1px solid color-mix(in srgb,var(--sub) 28%,var(--line));
+}
+.sbanner::after{content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--sub)}
+.sbanner h2{font-size:clamp(1.35rem,3vw,1.85rem); letter-spacing:-.025em; color:var(--ink)}
+.sbanner .k{font-family:var(--mono); font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--sub); font-weight:600}
+.sbanner p{margin:.35rem 0 0; color:var(--ink-soft); font-size:.92rem; max-width:62ch}
+.sbanner .meta{display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.8rem}
+.sbanner .meta span{
+  font-size:.75rem; background:var(--surface); border:1px solid var(--line); border-radius:20px;
+  padding:.22rem .62rem; color:var(--ink-soft);
+}
+.sbanner .meta span b{color:var(--sub)}
+
 /* ============ subject colour system ============ */
-.ch[data-group="พื้นฐาน"],
-.ch[data-group="ฟังก์ชัน & กราฟ"],
-.ch[data-group="เรขาคณิต & เวกเตอร์"],
-.ch[data-group="ข้อมูล & แคลคูลัส"],
-[data-g="math"]{--sub:var(--s-math)}
-.ch[data-group="ชีววิทยา"],[data-g="bio"]{--sub:var(--s-bio)}
-.ch[data-group="ภาษาอังกฤษ"],[data-g="eng"]{--sub:var(--s-eng)}
-.ch[data-group="ฝึกทำข้อสอบ"],[data-g="exam"]{--sub:var(--s-exam)}
-.ch[data-group="ท่องจำ & คำศัพท์"],[data-g="voc"]{--sub:var(--s-voc)}
+.ch[data-subject="math"],[data-g="math"]{--sub:var(--s-math)}
+.ch[data-subject="bio"],[data-g="bio"]{--sub:var(--s-bio)}
+.ch[data-subject="eng"],[data-g="eng"]{--sub:var(--s-eng)}
+.ch[data-subject="exam"],[data-g="exam"]{--sub:var(--s-exam)}
+.ch[data-subject="voc"],[data-g="voc"]{--sub:var(--s-voc)}
+.ch[data-subject="plan"],[data-g="plan"]{--sub:var(--s-plan)}
 .sheet{--sub:var(--accent)}
 
 /* ส่วนประกอบภายในบทรับสีวิชาอัตโนมัติ */
@@ -502,7 +537,7 @@ footer{max-width:70ch}
     </svg>
     <b>A-Level Playground<br>คณิต · ชีวะ · อังกฤษ</b>
   </div>
-  <p class="sub">54 บท · 38 เครื่องมือโต้ตอบ · ข้อสอบจำลองจับเวลา · คลังศัพท์ 1,408 คำ</p>
+  <p class="sub">62 บท 5 หมวด · 38 เครื่องมือโต้ตอบ · ข้อสอบจำลอง · ศัพท์ 1,408 คำ</p>
   <input class="navfind" id="navfind" type="search" placeholder="ค้นหาบท เช่น ตรีโกณ, DNA, tense…" aria-label="ค้นหาบทเรียน">
   <nav aria-label="สารบัญบทเรียน"><p class="idx-group">พื้นฐาน</p><ul class="idx" id="idx"></ul></nav>
   <div class="side-foot">
@@ -524,22 +559,28 @@ footer{max-width:70ch}
       <span class="go">เริ่มที่บทเซต →</span>
     </a>
     <a class="subj" href="#bio1" style="--sub:var(--s-bio)">
-      <span class="n">18 บท · 9 เครื่องมือ</span>
+      <span class="n">21 บท · 9 เครื่องมือ</span>
       <h3>ชีววิทยา</h3>
       <p>ผ่าเซลล์ ตารางพันเนตต์ ถอดรหัส DNA พร้อมคำอธิบายพร้อมอุปมาทุกบท</p>
       <span class="go">เริ่มที่บทเซลล์ →</span>
     </a>
     <a class="subj" href="#en1" style="--sub:var(--s-eng)">
-      <span class="n">16 บท · 3 เครื่องมือ</span>
+      <span class="n">19 บท · 3 เครื่องมือ</span>
       <h3>ภาษาอังกฤษ</h3>
       <p>ไวยากรณ์ครบทุกจุดที่ออกสอบ พร้อมตัวอย่างถูก–ผิดคู่กันและเทคนิคทำข้อสอบ</p>
       <span class="go">เริ่มที่ Tense →</span>
     </a>
     <a class="subj" href="#exam" style="--sub:var(--s-exam)">
-      <span class="n">63 ข้อ · จับเวลา</span>
+      <span class="n">3 ส่วน · 63 ข้อ</span>
       <h3>ฝึกทำข้อสอบ</h3>
-      <p>ข้อสอบจำลอง 90 วินาทีต่อข้อ และแบบฝึกเติมคำ พร้อมเฉลยเหตุผลทุกข้อ</p>
+      <p>เทคนิคบริหารเวลา ข้อสอบจำลอง 90 วินาทีต่อข้อ และแบบฝึกเติมคำพร้อมเฉลย</p>
       <span class="go">เข้าห้องสอบ →</span>
+    </a>
+    <a class="subj" href="#plan" style="--sub:var(--s-plan)">
+      <span class="n">แผน 8 สัปดาห์</span>
+      <h3>วางแผนอ่าน</h3>
+      <p>ลำดับการอ่านทั้งสามวิชาแบบสัปดาห์ต่อสัปดาห์ พร้อมลิงก์ตรงไปแต่ละบท</p>
+      <span class="go">ดูแผนทั้งหมด →</span>
     </a>
   </div>
 
@@ -550,7 +591,7 @@ footer{max-width:70ch}
     <span class="pill">◐ <b>กระดานดำ</b> สำหรับอ่านกลางคืน</span>
   </div>
 </header>
-<section class="ch" id="ch1" data-n="01" data-title="เซต" data-group="พื้นฐาน">
+<section class="ch" id="ch1" data-subject="math" data-n="01" data-title="เซต" data-group="พื้นฐาน & พีชคณิต">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">01</span><span class="ch-tag">เครื่องมือ: เวนน์ไดอะแกรม</span></div>
     <h2>เซต</h2>
@@ -571,7 +612,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>n(A∪B) = n(A)+n(B) − n(A∩B)</span><span>สับเซตทั้งหมด = 2<sup>n</sup></span><span>A − B = A ∩ B′</span></div>
 </section>
 
-<section class="ch" id="ch2" data-n="02" data-title="ตรรกศาสตร์" data-group="พื้นฐาน">
+<section class="ch" id="ch2" data-subject="math" data-n="02" data-title="ตรรกศาสตร์" data-group="พื้นฐาน & พีชคณิต">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">02</span><span class="ch-tag">เครื่องมือ: สวิตช์ค่าความจริง</span></div>
     <h2>ตรรกศาสตร์</h2>
@@ -593,7 +634,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>p → q ≡ ~p ∨ q ≡ ~q → ~p</span><span>~(p → q) ≡ p ∧ ~q</span><span>~∀x[P] ≡ ∃x[~P]</span></div>
 </section>
 
-<section class="ch" id="ch3" data-n="03" data-title="อสมการ &amp; ค่าสัมบูรณ์" data-group="พื้นฐาน">
+<section class="ch" id="ch3" data-subject="math" data-n="03" data-title="อสมการ &amp; ค่าสัมบูรณ์" data-group="พื้นฐาน & พีชคณิต">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">03</span><span class="ch-tag">เครื่องมือ: ตารางเครื่องหมาย + เส้นจำนวน</span></div>
     <h2>อสมการ &amp; ค่าสัมบูรณ์</h2>
@@ -626,7 +667,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>|x − a| &lt; r ⇔ a−r &lt; x &lt; a+r</span><span>√(x²) = |x|</span><span>a + b ≥ 2√(ab) เมื่อ a,b &gt; 0</span></div>
 </section>
 
-<section class="ch" id="ch4" data-n="04" data-title="เลขยกกำลัง" data-group="พื้นฐาน">
+<section class="ch" id="ch4" data-subject="math" data-n="04" data-title="เลขยกกำลัง" data-group="พื้นฐาน & พีชคณิต">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">04</span><span class="ch-tag">เครื่องมือ: มอร์ฟกราฟ xⁿ</span></div>
     <h2>เลขยกกำลัง &amp; กรณฑ์</h2>
@@ -650,7 +691,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>a<sup>m</sup>a<sup>n</sup> = a<sup>m+n</sup></span><span>a<sup>−n</sup> = 1/a<sup>n</sup></span><span>a<sup>m/n</sup> = <sup>n</sup>√(a<sup>m</sup>)</span></div>
 </section>
 
-<section class="ch" id="ch5" data-n="05" data-title="ฟังก์ชัน &amp; การเลื่อนกราฟ" data-group="ฟังก์ชัน &amp; กราฟ">
+<section class="ch" id="ch5" data-subject="math" data-n="05" data-title="ฟังก์ชัน &amp; การเลื่อนกราฟ" data-group="ฟังก์ชัน & กราฟ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">05</span><span class="ch-tag">เครื่องมือ: ตัวเลื่อนกราฟ + กระจกอินเวอร์ส</span></div>
     <h2>ฟังก์ชันและการแปลงกราฟ</h2>
@@ -682,7 +723,7 @@ footer{max-width:70ch}
   </div>
   <div class="keys"><b>ติดตัวไป</b><span>f(x−h)+k → เลื่อนขวา h, ขึ้น k</span><span>a &lt; 0 → พลิกแกน x</span><span>(f<sup>−1</sup>∘f)(x) = x</span></div>
 </section>
-<section class="ch" id="ch6" data-n="06" data-title="พาราโบลา" data-group="ฟังก์ชัน &amp; กราฟ">
+<section class="ch" id="ch6" data-subject="math" data-n="06" data-title="พาราโบลา" data-group="ฟังก์ชัน & กราฟ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">06</span><span class="ch-tag">เครื่องมือ: เครื่องปั้นพาราโบลา</span></div>
     <h2>ฟังก์ชันกำลังสอง</h2>
@@ -705,7 +746,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>จุดยอด x = −b/2a</span><span>x = (−b ± √(b²−4ac)) / 2a</span><span>ผลบวกราก = −b/a · ผลคูณราก = c/a</span></div>
 </section>
 
-<section class="ch" id="ch7" data-n="07" data-title="เอกซ์โพ &amp; ลอการิทึม" data-group="ฟังก์ชัน &amp; กราฟ">
+<section class="ch" id="ch7" data-subject="math" data-n="07" data-title="เอกซ์โพ &amp; ลอการิทึม" data-group="ฟังก์ชัน & กราฟ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">07</span><span class="ch-tag">เครื่องมือ: กระจกคู่แฝด</span></div>
     <h2>เอกซ์โพเนนเชียล &amp; ลอการิทึม</h2>
@@ -729,7 +770,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>log<sub>b</sub>(xy) = log<sub>b</sub>x + log<sub>b</sub>y</span><span>log<sub>b</sub>(x<sup>n</sup>) = n·log<sub>b</sub>x</span><span>log<sub>b</sub>x = log x / log b</span><span>b<sup>log<sub>b</sub>x</sup> = x</span></div>
 </section>
 
-<section class="ch" id="ch8" data-n="08" data-title="ตรีโกณมิติ" data-group="ฟังก์ชัน &amp; กราฟ">
+<section class="ch" id="ch8" data-subject="math" data-n="08" data-title="ตรีโกณมิติ" data-group="ฟังก์ชัน & กราฟ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">08</span><span class="ch-tag">เครื่องมือ: วงกลมหนึ่งหน่วย + เครื่องปั้นคลื่น</span></div>
     <h2>ตรีโกณมิติ</h2>
@@ -760,7 +801,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>sin²θ + cos²θ = 1</span><span>sin 2θ = 2 sinθ cosθ</span><span>cos 2θ = 1 − 2sin²θ</span><span>คาบของ sin(bx) = 2π/b</span></div>
 </section>
 
-<section class="ch" id="ch9" data-n="09" data-title="เมทริกซ์" data-group="เรขาคณิต &amp; เวกเตอร์">
+<section class="ch" id="ch9" data-subject="math" data-n="09" data-title="เมทริกซ์" data-group="เรขาคณิต & เวกเตอร์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">09</span><span class="ch-tag">เครื่องมือ: เครื่องบิดระนาบ</span></div>
     <h2>เมทริกซ์ &amp; ดีเทอร์มิแนนต์</h2>
@@ -783,7 +824,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>det = ad − bc</span><span>A<sup>−1</sup> = <span class="fr"><span>1</span><span>det</span></span>[[d, −b], [−c, a]]</span><span>det = 0 ⇒ ไม่มีอินเวอร์ส</span></div>
 </section>
 
-<section class="ch" id="ch10" data-n="10" data-title="เวกเตอร์" data-group="เรขาคณิต &amp; เวกเตอร์">
+<section class="ch" id="ch10" data-subject="math" data-n="10" data-title="เวกเตอร์" data-group="เรขาคณิต & เวกเตอร์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">10</span><span class="ch-tag">เครื่องมือ: ลากเวกเตอร์ 2 ตัว</span></div>
     <h2>เวกเตอร์</h2>
@@ -805,7 +846,7 @@ footer{max-width:70ch}
   </div>
   <div class="keys"><b>ติดตัวไป</b><span>u · v = |u||v| cos θ</span><span>u ⊥ v ⇔ u · v = 0</span><span>พื้นที่ = |u₁v₂ − u₂v₁|</span></div>
 </section>
-<section class="ch" id="ch11" data-n="11" data-title="จำนวนเชิงซ้อน" data-group="เรขาคณิต &amp; เวกเตอร์">
+<section class="ch" id="ch11" data-subject="math" data-n="11" data-title="จำนวนเชิงซ้อน" data-group="เรขาคณิต & เวกเตอร์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">11</span><span class="ch-tag">เครื่องมือ: เครื่องหมุนจำนวนเชิงซ้อน</span></div>
     <h2>จำนวนเชิงซ้อน</h2>
@@ -828,7 +869,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>|z₁z₂| = |z₁||z₂|</span><span>z·z̄ = |z|²</span><span>z = r(cos θ + i sin θ)</span><span>zⁿ = rⁿ(cos nθ + i sin nθ)</span></div>
 </section>
 
-<section class="ch" id="ch12" data-n="12" data-title="ภาคตัดกรวย" data-group="เรขาคณิต &amp; เวกเตอร์">
+<section class="ch" id="ch12" data-subject="math" data-n="12" data-title="ภาคตัดกรวย" data-group="เรขาคณิต & เวกเตอร์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">12</span><span class="ch-tag">เครื่องมือ: สำรวจภาคตัดกรวย</span></div>
     <h2>เรขาคณิตวิเคราะห์ &amp; ภาคตัดกรวย</h2>
@@ -851,7 +892,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>วงรี: x²/a² + y²/b² = 1, c² = a² − b²</span><span>ไฮเพอร์โบลา: x²/a² − y²/b² = 1, c² = a² + b²</span><span>พาราโบลา: y² = 4px</span></div>
 </section>
 
-<section class="ch" id="ch13" data-n="13" data-title="ลำดับ &amp; อนุกรม" data-group="ข้อมูล &amp; แคลคูลัส">
+<section class="ch" id="ch13" data-subject="math" data-n="13" data-title="ลำดับ &amp; อนุกรม" data-group="ข้อมูล & แคลคูลัส">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">13</span><span class="ch-tag">เครื่องมือ: แท่งลำดับ + ผลบวกสะสม</span></div>
     <h2>ลำดับและอนุกรม</h2>
@@ -875,7 +916,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>aₙ = a₁ + (n−1)d</span><span>Sₙ = <span class="fr"><span>n</span><span>2</span></span>(a₁ + aₙ)</span><span>aₙ = a₁rⁿ⁻¹</span><span>Sₙ = a₁<span class="fr"><span>1 − rⁿ</span><span>1 − r</span></span></span><span>S<sub>∞</sub> = <span class="fr"><span>a₁</span><span>1 − r</span></span>, |r| &lt; 1</span></div>
 </section>
 
-<section class="ch" id="ch14" data-n="14" data-title="เรียงสับเปลี่ยน &amp; ความน่าจะเป็น" data-group="ข้อมูล &amp; แคลคูลัส">
+<section class="ch" id="ch14" data-subject="math" data-n="14" data-title="เรียงสับเปลี่ยน &amp; ความน่าจะเป็น" data-group="ข้อมูล & แคลคูลัส">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">14</span><span class="ch-tag">เครื่องมือ: สามเหลี่ยมปาสกาล</span></div>
     <h2>การนับ &amp; ความน่าจะเป็น</h2>
@@ -905,7 +946,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>P(n,r) = <span class="fr"><span>n!</span><span>(n−r)!</span></span></span><span>C(n,r) = <span class="fr"><span>n!</span><span>r!(n−r)!</span></span></span><span>P(E) = <span class="fr"><span>n(E)</span><span>n(S)</span></span></span><span>P(A∪B) = P(A)+P(B)−P(A∩B)</span></div>
 </section>
 
-<section class="ch" id="ch15" data-n="15" data-title="สถิติ" data-group="ข้อมูล &amp; แคลคูลัส">
+<section class="ch" id="ch15" data-subject="math" data-n="15" data-title="สถิติ" data-group="ข้อมูล & แคลคูลัส">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">15</span><span class="ch-tag">เครื่องมือ: ลากข้อมูล + โค้งปกติ</span></div>
     <h2>สถิติ &amp; การแจกแจงปกติ</h2>
@@ -937,7 +978,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>x̄ = Σx/N</span><span>s² = Σ(x − x̄)²/(N−1)</span><span>z = <span class="fr"><span>x − μ</span><span>σ</span></span></span><span>±1σ ≈ 68% · ±2σ ≈ 95%</span></div>
 </section>
 
-<section class="ch" id="ch16" data-n="16" data-title="แคลคูลัส" data-group="ข้อมูล &amp; แคลคูลัส">
+<section class="ch" id="ch16" data-subject="math" data-n="16" data-title="แคลคูลัส" data-group="ข้อมูล & แคลคูลัส">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">16</span><span class="ch-tag">เครื่องมือ: เส้นตัด→เส้นสัมผัส + แท่งอินทิเกรต</span></div>
     <h2>แคลคูลัส</h2>
@@ -970,7 +1011,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>f′(x) = lim<sub>h→0</sub> <span class="fr"><span>f(x+h) − f(x)</span><span>h</span></span></span><span><span class="fr"><span>d</span><span>dx</span></span>xⁿ = nxⁿ⁻¹</span><span>∫xⁿdx = <span class="fr"><span>xⁿ⁺¹</span><span>n+1</span></span> + C</span><span>∫<sub>a</sub><sup>b</sup>f = F(b) − F(a)</span></div>
 </section>
 
-<section class="ch" id="bio1" data-n="ช1" data-title="เซลล์ &amp; การลำเลียง" data-group="ชีววิทยา">
+<section class="ch" id="bio1" data-subject="bio" data-n="ช1" data-title="เซลล์ &amp; การลำเลียง" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช1</span><span class="ch-tag">เครื่องมือ: ผ่าเซลล์ + ออสโมซิส</span></div>
     <h2>เซลล์และการลำเลียงสาร</h2>
@@ -1003,7 +1044,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>ออสโมซิส = น้ำเคลื่อนจากเจือจาง → เข้มข้น</span><span>ไฮโพโทนิก = นอกเจือจางกว่า → น้ำเข้า</span><span>ไฮเพอร์โทนิก = นอกเข้มข้นกว่า → น้ำออก</span></div>
 </section>
 
-<section class="ch" id="bio2" data-n="ช2" data-title="พันธุศาสตร์" data-group="ชีววิทยา">
+<section class="ch" id="bio2" data-subject="bio" data-n="ช2" data-title="พันธุศาสตร์" data-group="พันธุศาสตร์ & DNA">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช2</span><span class="ch-tag">เครื่องมือ: ตารางพันเนตต์อัตโนมัติ</span></div>
     <h2>พันธุศาสตร์ &amp; การถ่ายทอดลักษณะ</h2>
@@ -1030,7 +1071,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>Aa × Aa → 1 AA : 2 Aa : 1 aa (ฟีโนไทป์ 3 : 1)</span><span>AaBb × AaBb → 9 : 3 : 3 : 1</span><span>หมู่เลือด: I<sup>A</sup>, I<sup>B</sup> เด่นร่วม · i ด้อย</span></div>
 </section>
 
-<section class="ch" id="bio3" data-n="ช3" data-title="DNA &amp; โปรตีน" data-group="ชีววิทยา">
+<section class="ch" id="bio3" data-subject="bio" data-n="ช3" data-title="DNA &amp; โปรตีน" data-group="พันธุศาสตร์ & DNA">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช3</span><span class="ch-tag">เครื่องมือ: เครื่องถอดรหัสพันธุกรรม</span></div>
     <h2>DNA → RNA → โปรตีน</h2>
@@ -1057,7 +1098,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>DNA จับคู่ A–T, G–C · RNA ใช้ U แทน T</span><span>โคดอนเริ่มต้น AUG</span><span>โคดอนหยุด UAA UAG UGA</span><span>1 โคดอน = 3 เบส = 1 กรดอะมิโน</span></div>
 </section>
 
-<section class="ch" id="bio4" data-n="ช4" data-title="เอนไซม์ &amp; สังเคราะห์แสง" data-group="ชีววิทยา">
+<section class="ch" id="bio4" data-subject="bio" data-n="ช4" data-title="เอนไซม์ &amp; สังเคราะห์แสง" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช4</span><span class="ch-tag">เครื่องมือ: กราฟอัตราการทำงาน</span></div>
     <h2>เอนไซม์ &amp; การสังเคราะห์ด้วยแสง</h2>
@@ -1089,7 +1130,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>6CO₂ + 6H₂O + แสง → C₆H₁₂O₆ + 6O₂</span><span>เอนไซม์เสียสภาพเมื่อร้อนเกิน (ย้อนกลับไม่ได้)</span><span>ปัจจัยจำกัด = ตัวที่ทำให้กราฟแบน</span></div>
 </section>
 
-<section class="ch" id="bio5" data-n="ช5" data-title="ระบบนิเวศ" data-group="ชีววิทยา">
+<section class="ch" id="bio5" data-subject="bio" data-n="ช5" data-title="ระบบนิเวศ" data-group="นิเวศ & ความหลากหลาย">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช5</span><span class="ch-tag">เครื่องมือ: จำลองผู้ล่า–เหยื่อ</span></div>
     <h2>ระบบนิเวศ &amp; ประชากร</h2>
@@ -1113,7 +1154,7 @@ footer{max-width:70ch}
   <div class="keys"><b>ติดตัวไป</b><span>พลังงานถ่ายทอดขึ้นลำดับขั้นได้ราว 10%</span><span>ผู้ผลิต → ผู้บริโภคลำดับ 1 → 2 → 3</span><span>ประชากรจริงมีขีดจำกัด (carrying capacity)</span></div>
 </section>
 
-<section class="ch" id="bio6" data-n="ช6" data-title="เคมีของชีวิต" data-group="ชีววิทยา">
+<section class="ch" id="bio6" data-subject="bio" data-n="ช6" data-title="เคมีของชีวิต" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช6</span><span class="ch-tag">อ่านเข้าใจใน 5 นาที</span></div>
     <h2>สารชีวโมเลกุล 4 ชนิด</h2>
@@ -1152,7 +1193,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio7" data-n="ช7" data-title="การแบ่งเซลล์" data-group="ชีววิทยา">
+<section class="ch" id="bio7" data-subject="bio" data-n="ช7" data-title="การแบ่งเซลล์" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช7</span><span class="ch-tag">มีเครื่องมือ: ไล่เฟสทีละขั้น</span></div>
     <h2>ไมโทซิส &amp; ไมโอซิส</h2>
@@ -1203,7 +1244,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio8" data-n="ช8" data-title="การหายใจระดับเซลล์" data-group="ชีววิทยา">
+<section class="ch" id="bio8" data-subject="bio" data-n="ช8" data-title="การหายใจระดับเซลล์" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช8</span><span class="ch-tag">อ่านเข้าใจใน 6 นาที</span></div>
     <h2>การสลายกลูโคสเป็นพลังงาน</h2>
@@ -1239,7 +1280,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio9" data-n="ช9" data-title="สังเคราะห์แสงเชิงลึก" data-group="ชีววิทยา">
+<section class="ch" id="bio9" data-subject="bio" data-n="ช9" data-title="สังเคราะห์แสงเชิงลึก" data-group="เซลล์ & ชีวโมเลกุล">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช9</span><span class="ch-tag">อ่านคู่กับเครื่องมือในบท ช4</span></div>
     <h2>สังเคราะห์ด้วยแสง: สองปฏิกิริยาที่ส่งของให้กัน</h2>
@@ -1277,7 +1318,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio10" data-n="ช10" data-title="พันธุศาสตร์นอกเหนือเมนเดล" data-group="ชีววิทยา">
+<section class="ch" id="bio10" data-subject="bio" data-n="ช10" data-title="พันธุศาสตร์นอกเหนือเมนเดล" data-group="พันธุศาสตร์ & DNA">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช10</span><span class="ch-tag">อ่านเข้าใจใน 6 นาที</span></div>
     <h2>เมื่อกฎเมนเดลไม่พอ &amp; การอ่านพันธุประวัติ</h2>
@@ -1315,7 +1356,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio11" data-n="ช11" data-title="เทคโนโลยีดีเอ็นเอ" data-group="ชีววิทยา">
+<section class="ch" id="bio11" data-subject="bio" data-n="ช11" data-title="เทคโนโลยีดีเอ็นเอ" data-group="พันธุศาสตร์ & DNA">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช11</span><span class="ch-tag">อ่านเข้าใจใน 4 นาที</span></div>
     <h2>พันธุวิศวกรรม &amp; ลายพิมพ์ DNA</h2>
@@ -1351,7 +1392,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio12" data-n="ช12" data-title="วิวัฒนาการ" data-group="ชีววิทยา">
+<section class="ch" id="bio12" data-subject="bio" data-n="ช12" data-title="วิวัฒนาการ" data-group="พันธุศาสตร์ & DNA">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช12</span><span class="ch-tag">มีเครื่องมือ: ฮาร์ดี–ไวน์เบิร์ก</span></div>
     <h2>วิวัฒนาการ &amp; พันธุศาสตร์ประชากร</h2>
@@ -1391,7 +1432,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio13" data-n="ช13" data-title="ความหลากหลายของสิ่งมีชีวิต" data-group="ชีววิทยา">
+<section class="ch" id="bio13" data-subject="bio" data-n="ช13" data-title="ความหลากหลายของสิ่งมีชีวิต" data-group="นิเวศ & ความหลากหลาย">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช13</span><span class="ch-tag">อ่านเข้าใจใน 5 นาที</span></div>
     <h2>ไวรัส แบคทีเรีย และอาณาจักรทั้งห้า</h2>
@@ -1429,7 +1470,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio14" data-n="ช14" data-title="พืช: ลำเลียง &amp; ฮอร์โมน" data-group="ชีววิทยา">
+<section class="ch" id="bio14" data-subject="bio" data-n="ช14" data-title="พืช: ลำเลียง &amp; ฮอร์โมน" data-group="พืช & ร่างกายมนุษย์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช14</span><span class="ch-tag">อ่านเข้าใจใน 6 นาที</span></div>
     <h2>โครงสร้างพืช การลำเลียง และฮอร์โมน</h2>
@@ -1473,7 +1514,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio15" data-n="ช15" data-title="ย่อยอาหาร &amp; หายใจ" data-group="ชีววิทยา">
+<section class="ch" id="bio15" data-subject="bio" data-n="ช15" data-title="ย่อยอาหาร &amp; หายใจ" data-group="พืช & ร่างกายมนุษย์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช15</span><span class="ch-tag">อ่านเข้าใจใน 6 นาที</span></div>
     <h2>ระบบย่อยอาหารและระบบหายใจ</h2>
@@ -1506,7 +1547,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio16" data-n="ช16" data-title="เลือด &amp; ภูมิคุ้มกัน" data-group="ชีววิทยา">
+<section class="ch" id="bio16" data-subject="bio" data-n="ช16" data-title="เลือด &amp; ภูมิคุ้มกัน" data-group="พืช & ร่างกายมนุษย์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช16</span><span class="ch-tag">อ่านเข้าใจใน 6 นาที</span></div>
     <h2>ระบบหมุนเวียนเลือดและภูมิคุ้มกัน</h2>
@@ -1546,7 +1587,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio17" data-n="ช17" data-title="ขับถ่าย ประสาท ฮอร์โมน" data-group="ชีววิทยา">
+<section class="ch" id="bio17" data-subject="bio" data-n="ช17" data-title="ขับถ่าย ประสาท ฮอร์โมน" data-group="พืช & ร่างกายมนุษย์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช17</span><span class="ch-tag">อ่านเข้าใจใน 7 นาที</span></div>
     <h2>ไต ระบบประสาท และต่อมไร้ท่อ</h2>
@@ -1594,7 +1635,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="bio18" data-n="ช18" data-title="สืบพันธุ์ &amp; พฤติกรรม" data-group="ชีววิทยา">
+<section class="ch" id="bio18" data-subject="bio" data-n="ช18" data-title="สืบพันธุ์ &amp; พฤติกรรม" data-group="พืช & ร่างกายมนุษย์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ช18</span><span class="ch-tag">อ่านเข้าใจใน 5 นาที</span></div>
     <h2>การสืบพันธุ์ การเจริญเติบโต และพฤติกรรม</h2>
@@ -1634,7 +1675,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en1" data-n="อ1" data-title="Tense ทั้ง 12" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en1" data-subject="eng" data-n="อ1" data-title="Tense ทั้ง 12" data-group="ไวยากรณ์พื้นฐาน">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ1</span><span class="ch-tag">มีเครื่องมือ: เส้นเวลา</span></div>
     <h2>Tense — เข้าใจจากเส้นเวลา ไม่ต้องท่อง 12 ช่อง</h2>
@@ -1680,7 +1721,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en2" data-n="อ2" data-title="Subject–Verb Agreement" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en2" data-subject="eng" data-n="อ2" data-title="Subject–Verb Agreement" data-group="ไวยากรณ์พื้นฐาน">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ2</span><span class="ch-tag">จุดตายอันดับ 1 ของ error identification</span></div>
     <h2>ประธานกับกริยาต้องสอดคล้องกัน</h2>
@@ -1712,7 +1753,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en3" data-n="อ3" data-title="Articles a / an / the" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en3" data-subject="eng" data-n="อ3" data-title="Articles a / an / the" data-group="ไวยากรณ์พื้นฐาน">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ3</span><span class="ch-tag">คนไทยพลาดเพราะภาษาไทยไม่มี</span></div>
     <h2>a / an / the และการไม่ใส่อะไรเลย</h2>
@@ -1740,7 +1781,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en4" data-n="อ4" data-title="Prepositions" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en4" data-subject="eng" data-n="อ4" data-title="Prepositions" data-group="ไวยากรณ์พื้นฐาน">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ4</span><span class="ch-tag">จำเป็นกลุ่ม อย่าจำทีละคำ</span></div>
     <h2>บุพบท in / on / at และคู่คำที่ต้องจำ</h2>
@@ -1785,7 +1826,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en5" data-n="อ5" data-title="Passive Voice" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en5" data-subject="eng" data-n="อ5" data-title="Passive Voice" data-group="ไวยากรณ์พื้นฐาน">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ5</span><span class="ch-tag">สูตรเดียวใช้ได้ทุก tense</span></div>
     <h2>ประโยค Passive — เมื่อผู้ถูกกระทำสำคัญกว่า</h2>
@@ -1821,7 +1862,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en6" data-n="อ6" data-title="Relative Clause" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en6" data-subject="eng" data-n="อ6" data-title="Relative Clause" data-group="โครงสร้างประโยค">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ6</span><span class="ch-tag">ออกทั้ง cloze และ error</span></div>
     <h2>ประโยคขยายนาม (who / which / that / whose)</h2>
@@ -1857,7 +1898,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en7" data-n="อ7" data-title="Conditionals (If-clause)" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en7" data-subject="eng" data-n="อ7" data-title="Conditionals (If-clause)" data-group="โครงสร้างประโยค">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ7</span><span class="ch-tag">มีเครื่องมือ: เทียบ 4 แบบ</span></div>
     <h2>ประโยคเงื่อนไข — จำจาก “ความเป็นไปได้”</h2>
@@ -1887,7 +1928,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en8" data-n="อ8" data-title="Reported Speech" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en8" data-subject="eng" data-n="อ8" data-title="Reported Speech" data-group="โครงสร้างประโยค">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ8</span><span class="ch-tag">เปลี่ยน 3 อย่างพร้อมกัน</span></div>
     <h2>การเล่าคำพูดของคนอื่น</h2>
@@ -1920,7 +1961,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en9" data-n="อ9" data-title="Gerund &amp; Infinitive" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en9" data-subject="eng" data-n="อ9" data-title="Gerund &amp; Infinitive" data-group="โครงสร้างประโยค">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ9</span><span class="ch-tag">ออกสอบทุกปี</span></div>
     <h2>กริยาตามด้วย V-ing หรือ to + V1</h2>
@@ -1959,7 +2000,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en10" data-n="อ10" data-title="Modal Verbs" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en10" data-subject="eng" data-n="อ10" data-title="Modal Verbs" data-group="โครงสร้างประโยค">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ10</span><span class="ch-tag">ใช้เยอะในพาร์ตบทสนทนา</span></div>
     <h2>กริยาช่วย — บอกระดับความมั่นใจและความสุภาพ</h2>
@@ -1995,7 +2036,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en11" data-n="อ11" data-title="Comparison" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en11" data-subject="eng" data-n="อ11" data-title="Comparison" data-group="โครงสร้างประโยค">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ11</span><span class="ch-tag">นับพยางค์ก่อนเสมอ</span></div>
     <h2>การเปรียบเทียบขั้นกว่าและขั้นสุด</h2>
@@ -2029,7 +2070,67 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en12" data-n="อ12" data-title="Connectors" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en17" data-subject="eng" data-n="อ17" data-title="Countable &amp; Quantifiers" data-group="โครงสร้างประโยค">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ17</span><span class="ch-tag">คนไทยพลาดเพราะภาษาไทยไม่แยก</span></div>
+    <h2>นามนับได้–นับไม่ได้ และคำบอกปริมาณ</h2>
+    <p class="ch-why">ภาษาไทยพูดว่า “ข้อมูลหลายอัน” ได้สบาย แต่อังกฤษต้องตัดสินก่อนว่า<b>นับได้หรือไม่</b> เพราะมันกำหนดทั้งรูปพหูพจน์ คำนำหน้า และคำบอกปริมาณที่ใช้ได้</p>
+  </header>
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th></th><th>นับได้ (countable)</th><th>นับไม่ได้ (uncountable)</th></tr></thead>
+      <tbody>
+        <tr><td>เติม s ได้ไหม</td><td>ได้ · <span class="en">book → books</span></td><td>ไม่ได้ · <span class="en">information</span> ไม่มี informations</td></tr>
+        <tr><td>ใช้ a/an</td><td>ได้ · <span class="en">a chair</span></td><td>ไม่ได้ · ต้องใช้หน่วยนำ <span class="en">a piece of advice</span></td></tr>
+        <tr><td>จำนวนมาก</td><td><span class="en">many / a few / few / a number of</span></td><td><span class="en">much / a little / little / a great deal of</span></td></tr>
+        <tr><td>ใช้ได้ทั้งคู่</td><td colspan="2"><span class="en">some, any, a lot of, lots of, plenty of, most, all, no</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout warn">
+    <b>คำที่คนไทยนึกว่านับได้ แต่นับไม่ได้</b>
+    <span class="en">information, advice, furniture, luggage, equipment, homework, news, research, knowledge, progress, traffic, money, work</span> — ทั้งหมดนี้<b>ห้ามเติม s และห้ามใช้ a/an</b>
+  </div>
+  <div class="exp"><h3>few กับ a few ต่างกันคนละความรู้สึก</h3></div>
+  <div class="gx">
+    <b class="yes">✓</b><span><span class="en">She has <b>a few</b> friends here.</span><span class="why">มีเพื่อนอยู่บ้าง — โทน<b>บวก</b></span></span>
+    <b class="yes">✓</b><span><span class="en">She has <b>few</b> friends here.</span><span class="why">แทบไม่มีเพื่อนเลย — โทน<b>ลบ</b> (little กับ a little ก็ต่างกันแบบเดียวกัน)</span></span>
+    <b class="no">✗</b><span><span class="en">I have many homeworks to do.</span></span>
+    <b class="yes">✓</b><span><span class="en">I have <b>much homework</b> to do.</span> / <span class="en">a lot of homework</span></span>
+    <b class="no">✗</b><span><span class="en">He gave me a good advice.</span></span>
+    <b class="yes">✓</b><span><span class="en">He gave me <b>a piece of</b> good advice.</span></span>
+    <b class="no">✗</b><span><span class="en">The number of students are increasing.</span></span>
+    <b class="yes">✓</b><span><span class="en">The number of students <b>is</b> increasing.</span><span class="why"><b>the number of</b> + พหูพจน์ → กริยาเอกพจน์ · แต่ <b>a number of</b> = หลาย → กริยาพหูพจน์</span></span>
+  </div>
+</section>
+
+<section class="ch" id="en18" data-subject="eng" data-n="อ18" data-title="Question Tags &amp; Inversion" data-group="โครงสร้างประโยค">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ18</span><span class="ch-tag">ออกในพาร์ตบทสนทนาและ error</span></div>
+    <h2>Question tags และการสลับที่ประธาน–กริยา</h2>
+    <p class="ch-why">Question tag มีสูตรตายตัว 3 ข้อ: <b>ประโยคบอกเล่า → tag ปฏิเสธ</b> · ใช้กริยาช่วยตัวเดียวกัน · และประธานต้องเป็นสรรพนามเสมอ</p>
+  </header>
+  <div class="form">He is late, isn't he?  ·  She doesn't smoke, does she?  ·  You will help, won't you?</div>
+  <div class="exp">
+    <h3>กรณีพิเศษที่ข้อสอบชอบเอามาถาม</h3>
+    <ul>
+      <li><span class="en">I am right, <b>aren't I</b>?</span> — ไม่ใช่ amn't I</li>
+      <li><span class="en"><b>Let's</b> go, <b>shall we</b>?</span> · <span class="en"><b>Open</b> the door, <b>will you</b>?</span> (ประโยคคำสั่ง)</li>
+      <li><span class="en">Nobody called, <b>did they</b>?</span> — everybody/somebody/nobody ใช้ <span class="en">they</span> แทน</li>
+      <li>ประโยคที่มีคำปฏิเสธซ่อนอยู่ เช่น <span class="en">never, hardly, seldom, rarely, no</span> ถือว่าเป็นปฏิเสธแล้ว จึงตามด้วย tag <b>บอกเล่า</b> — <span class="en">He <b>never</b> lies, <b>does he</b>?</span></li>
+    </ul>
+    <h3>Inversion — ยกคำปฏิเสธขึ้นต้นแล้วต้องสลับที่</h3>
+    <p>เมื่อขึ้นต้นประโยคด้วยคำเชิงปฏิเสธหรือจำกัด ต้องเรียงแบบ<b>คำถาม</b> (กริยาช่วยมาก่อนประธาน) ทั้งที่ยังเป็นประโยคบอกเล่า — เป็นสำนวนทางการที่พบในบทอ่าน</p>
+  </div>
+  <div class="gx">
+    <b class="no">✗</b><span><span class="en">Never I have seen such a thing.</span></span>
+    <b class="yes">✓</b><span><span class="en">Never <b>have I</b> seen such a thing.</span><span class="why">คำที่ทำให้ต้องสลับที่: <span class="en">never, rarely, seldom, hardly, no sooner, not only, little</span></span></span>
+    <b class="yes">✓</b><span><span class="en">Not only <b>did he</b> pass, but he also got the top score.</span></span>
+    <b class="yes">✓</b><span><span class="en">Hardly <b>had she</b> arrived when the rain started.</span><span class="why">คู่ประจำ: hardly…when · no sooner…than</span></span>
+  </div>
+</section>
+
+<section class="ch" id="en12" data-subject="eng" data-n="อ12" data-title="Connectors" data-group="ทักษะทำข้อสอบ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ12</span><span class="ch-tag">กุญแจของพาร์ต cloze</span></div>
     <h2>คำเชื่อม — ตัวชี้ทิศทางของประโยค</h2>
@@ -2062,7 +2163,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en13" data-n="อ13" data-title="Error Identification" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en13" data-subject="eng" data-n="อ13" data-title="Error Identification" data-group="ทักษะทำข้อสอบ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ13</span><span class="ch-tag">มีเครื่องมือ: ฝึกจับผิด</span></div>
     <h2>หาที่ผิดในประโยค — ไล่เช็ก 6 จุดตามลำดับ</h2>
@@ -2092,7 +2193,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en14" data-n="อ14" data-title="Reading" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en14" data-subject="eng" data-n="อ14" data-title="Reading" data-group="ทักษะทำข้อสอบ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ14</span><span class="ch-tag">พาร์ตคะแนนเยอะที่สุด</span></div>
     <h2>เทคนิคอ่านจับใจความ</h2>
@@ -2126,7 +2227,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en15" data-n="อ15" data-title="Conversation" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en15" data-subject="eng" data-n="อ15" data-title="Conversation" data-group="ทักษะทำข้อสอบ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ15</span><span class="ch-tag">พาร์ตแรกของข้อสอบ</span></div>
     <h2>บทสนทนา — เลือกจากความสุภาพและสถานการณ์</h2>
@@ -2158,7 +2259,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="en16" data-n="อ16" data-title="Writing &amp; Cloze" data-group="ภาษาอังกฤษ">
+<section class="ch" id="en16" data-subject="eng" data-n="อ16" data-title="Writing &amp; Cloze" data-group="ทักษะทำข้อสอบ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">อ16</span><span class="ch-tag">เก็บคะแนนง่ายถ้ารู้โครง</span></div>
     <h2>เรียงย่อหน้า &amp; เติมคำในบทความ</h2>
@@ -2187,7 +2288,70 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="cloze" data-n="ฝ1" data-title="แบบฝึกเติมคำ" data-group="ฝึกทำข้อสอบ">
+<section class="ch" id="en19" data-subject="eng" data-n="อ19" data-title="Word Formation" data-group="ทักษะทำข้อสอบ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">อ19</span><span class="ch-tag">เดาศัพท์ที่ไม่รู้ให้เป็น</span></div>
+    <h2>สร้างคำและเดาความหมายจากรากศัพท์</h2>
+    <p class="ch-why">ในห้องสอบคุณจะเจอคำที่ไม่เคยเห็นแน่นอน — ทักษะที่ช่วยได้จริงคือ<b>แยกคำออกเป็นส่วน ๆ</b> แล้วเดาจากคำนำหน้า รากศัพท์ และปัจจัย ไม่ใช่ท่องเพิ่มอีกพันคำ</p>
+  </header>
+  <div class="steps">
+    <div><em>ดูปัจจัยท้ายคำก่อน</em> — เพื่อรู้ว่าเป็นคำชนิดไหน แล้วเดาช่องว่างในประโยคได้ทันที<small>คำนาม: -tion, -ment, -ness, -ity, -ance · คำคุณศัพท์: -able, -ful, -less, -ous, -ive · กริยา: -ize, -ify, -en · กริยาวิเศษณ์: -ly</small></div>
+    <div><em>ดูคำนำหน้าเพื่อจับทิศทางความหมาย</em><small>ปฏิเสธ: un-, in-, im-, il-, ir-, dis-, non- · ผิด: mis- · ซ้ำ: re- · เกิน/ขาด: over-, under- · ก่อน/หลัง: pre-, post- · ร่วม: co-</small></div>
+    <div><em>เดารากศัพท์จากคำที่คุ้นเคย</em><small><span class="en">port</span> (แบก) → import, export, portable · <span class="en">dict</span> (พูด) → predict, dictate · <span class="en">vis/vid</span> (เห็น) → visible, evidence · <span class="en">bio</span> (ชีวิต) → biology, biography</small></div>
+    <div><em>ประกอบกลับแล้วตรวจกับบริบท</em> — ความหมายที่เดาต้องเข้ากับประโยคด้วย ถ้าขัดแย้งแปลว่าเดาผิด</div>
+  </div>
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>คำตั้งต้น</th><th>คำนาม</th><th>คำคุณศัพท์</th><th>กริยา</th></tr></thead>
+      <tbody>
+        <tr><td><span class="en">succeed</span></td><td><span class="en">success</span></td><td><span class="en">successful</span></td><td><span class="en">succeed</span></td></tr>
+        <tr><td><span class="en">decide</span></td><td><span class="en">decision</span></td><td><span class="en">decisive</span></td><td><span class="en">decide</span></td></tr>
+        <tr><td><span class="en">strong</span></td><td><span class="en">strength</span></td><td><span class="en">strong</span></td><td><span class="en">strengthen</span></td></tr>
+        <tr><td><span class="en">able</span></td><td><span class="en">ability</span></td><td><span class="en">able / unable</span></td><td><span class="en">enable</span></td></tr>
+        <tr><td><span class="en">economy</span></td><td><span class="en">economy / economics</span></td><td><span class="en">economic / economical</span></td><td><span class="en">economize</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout ask">
+    <b>ข้อสอบชอบถาม</b>
+    ให้เติมคำในช่องว่างโดยแปลงรูปคำที่ให้มา — ให้ดู<b>ตำแหน่งในประโยค</b>ก่อนเสมอ: หลัง the/a หรือหลังบุพบท → คำนาม · หน้าคำนาม → คำคุณศัพท์ · หลัง be หรือขยายกริยา → กริยาวิเศษณ์
+  </div>
+</section>
+
+<section class="ch" id="skill" data-subject="exam" data-n="ฝ0" data-title="เทคนิค &amp; บริหารเวลา" data-group="ฝึกทำข้อสอบ">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ฝ0</span><span class="ch-tag">อ่านก่อนลงสนามจริง</span></div>
+    <h2>เทคนิคทำข้อสอบและบริหารเวลา</h2>
+    <p class="ch-why">คนที่ทำไม่ทันส่วนใหญ่ไม่ได้อ่อนเนื้อหา แต่<b>ใช้เวลากับข้อยากนานเกินไป</b> จนไม่เหลือเวลาเก็บข้อง่ายที่อยู่ท้ายชุด — กติกาข้อเดียวที่ควรยึดคือ ทุกข้อมีค่าเท่ากัน</p>
+  </header>
+  <div class="steps">
+    <div><em>รอบแรก เก็บของง่ายให้หมดก่อน</em> — อ่านผ่านทั้งชุด ทำเฉพาะข้อที่<b>รู้ทันทีภายใน 30 วินาที</b><small>ข้อที่ลังเลให้ทำเครื่องหมายไว้แล้วข้ามทันที อย่าเสียดายเวลาที่ลงไปแล้ว</small></div>
+    <div><em>รอบสอง กลับมาที่ข้อทำเครื่องหมายไว้</em> — ตอนนี้สมองอุ่นเครื่องแล้วและบางข้อจะได้คำใบ้จากข้ออื่นในชุด</div>
+    <div><em>รอบสาม เดาอย่างมีหลัก</em> — ตัดตัวเลือกที่ผิดแน่ ๆ ออกก่อน แล้วค่อยเลือก<small>ข้อสอบ TCAS ไม่หักคะแนนข้อผิด ดังนั้น<b>ห้ามเว้นว่างเด็ดขาด</b> เหลือ 5 นาทีสุดท้ายให้ฝนให้ครบทุกข้อ</small></div>
+    <div><em>เผื่อเวลาฝนคำตอบ 5 นาที</em> — และเช็กว่าเลขข้อกับช่องคำตอบไม่เลื่อนกัน (ความผิดพลาดที่เจ็บที่สุดในห้องสอบ)</div>
+  </div>
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>วิชา</th><th>สัญญาณว่าควรข้าม</th><th>วิธีเก็บแต้มเร็ว</th></tr></thead>
+      <tbody>
+        <tr><td><b>คณิตศาสตร์</b></td><td>คำนวณเกิน 2 นาทีแล้วยังไม่เห็นทาง หรือติดพีชคณิตยาว</td><td>แทนค่าตัวเลือกกลับเข้าโจทย์ · ประมาณค่าเพื่อตัดช้อยส์ · วาดรูปเสมอในข้อเรขาคณิต</td></tr>
+        <tr><td><b>ชีววิทยา</b></td><td>จำชื่อเฉพาะไม่ได้จริง ๆ</td><td>ข้อที่ถามกลไกมักเดาได้จากเหตุผล · ระวังคำว่า “ไม่ใช่” และ “ยกเว้น” ในโจทย์</td></tr>
+        <tr><td><b>ภาษาอังกฤษ</b></td><td>อ่านบทความยาวแล้วยังจับใจความไม่ได้ใน 1 นาที</td><td>อ่านคำถามก่อนแล้วค่อยล่าคำตอบ · พาร์ตไวยากรณ์กับบทสนทนาทำก่อนเพราะเร็วกว่า</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout warn">
+    <b>กับดักที่ทำให้เสียคะแนนฟรี</b>
+    อ่านโจทย์ไม่ครบ (โดยเฉพาะคำว่า <b>ไม่</b>, <b>ยกเว้น</b>, <b>มากที่สุด</b>) · เปลี่ยนคำตอบตอนท้ายด้วยความรู้สึกล้วน ๆ ทั้งที่คำตอบแรกมักถูกกว่า · ลืมแปลงหน่วยในโจทย์คำนวณ · ฝนไม่ครบเพราะหมดเวลา
+  </div>
+  <div class="try">
+    <div><b>ซ้อมข้อ 1</b>ทำชุดจำลอง 20 ข้อในบทถัดไป โดย<em>ห้ามอยู่กับข้อใดเกิน 90 วินาที</em></div>
+    <div><b>ซ้อมข้อ 2</b>ดูตัวเลข <em>เวลาเฉลี่ยต่อข้อ</em> หลังส่ง ถ้าเกิน 90 วินาที แปลว่าต้องฝึกข้ามให้เด็ดขาดขึ้น</div>
+    <div><b>ซ้อมข้อ 3</b>อ่านเฉลยเฉพาะข้อที่ผิด แล้วกลับไปที่บทนั้นทันทีขณะยังจำความรู้สึกได้</div>
+  </div>
+</section>
+
+<section class="ch" id="cloze" data-subject="exam" data-n="ฝ1" data-title="แบบฝึกเติมคำ" data-group="ฝึกทำข้อสอบ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ฝ1</span><span class="ch-tag">เครื่องมือ: เติมคำในบทความ</span></div>
     <h2>Cloze — เติมคำในช่องว่างแบบโต้ตอบ</h2>
@@ -2208,7 +2372,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="exam" data-n="ฝ2" data-title="ข้อสอบจำลองจับเวลา" data-group="ฝึกทำข้อสอบ">
+<section class="ch" id="exam" data-subject="exam" data-n="ฝ2" data-title="ข้อสอบจำลองจับเวลา" data-group="ฝึกทำข้อสอบ">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ฝ2</span><span class="ch-tag">เครื่องมือ: ข้อสอบจำลอง</span></div>
     <h2>ชุดข้อสอบจำลอง พร้อมจับเวลา</h2>
@@ -2257,7 +2421,131 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="vocab" data-n="ก" data-title="คลังคำศัพท์ อังกฤษ" data-group="ท่องจำ &amp; คำศัพท์">
+<section class="ch" id="plan" data-subject="plan" data-n="ผ1" data-title="แผนอ่าน 8 สัปดาห์" data-group="วางแผนอ่าน">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ผ1</span><span class="ch-tag">ใช้เว็บนี้ให้คุ้มที่สุด</span></div>
+    <h2>แผนอ่าน 8 สัปดาห์</h2>
+    <p class="ch-why">ลำดับนี้ออกแบบให้<b>เก็บบทที่คะแนนมาง่ายก่อน</b> แล้วค่อยไต่ไปบทที่ต้องใช้เวลา · ถ้าเหลือเวลาน้อยกว่านี้ ให้ทำเฉพาะแถวที่ทำเครื่องหมาย ★ ไว้</p>
+  </header>
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>สัปดาห์</th><th>คณิตศาสตร์</th><th>ชีววิทยา</th><th>ภาษาอังกฤษ</th></tr></thead>
+      <tbody>
+        <tr><td><b>1</b> ★</td><td><a href="#ch1">เซต</a> · <a href="#ch2">ตรรกศาสตร์</a> · <a href="#ch3">อสมการ</a></td><td><a href="#bio1">เซลล์</a> · <a href="#bio6">เคมีของชีวิต</a></td><td><a href="#en1">Tense</a> · <a href="#en2">S–V Agreement</a></td></tr>
+        <tr><td><b>2</b> ★</td><td><a href="#ch4">เลขยกกำลัง</a> · <a href="#ch5">ฟังก์ชัน</a> · <a href="#ch6">พาราโบลา</a></td><td><a href="#bio2">พันธุศาสตร์</a> · <a href="#bio3">DNA</a></td><td><a href="#en3">Articles</a> · <a href="#en4">Prepositions</a></td></tr>
+        <tr><td><b>3</b></td><td><a href="#ch7">เอกซ์โพ &amp; ลอการิทึม</a> · <a href="#ch8">ตรีโกณมิติ</a></td><td><a href="#bio7">การแบ่งเซลล์</a> · <a href="#bio10">นอกเหนือเมนเดล</a></td><td><a href="#en5">Passive</a> · <a href="#en6">Relative clause</a></td></tr>
+        <tr><td><b>4</b> ★</td><td><a href="#ch9">เมทริกซ์</a> · <a href="#ch10">เวกเตอร์</a></td><td><a href="#bio8">การหายใจ</a> · <a href="#bio9">สังเคราะห์แสง</a></td><td><a href="#en7">Conditionals</a> · <a href="#en9">Gerund/Infinitive</a></td></tr>
+        <tr><td><b>5</b></td><td><a href="#ch11">จำนวนเชิงซ้อน</a> · <a href="#ch12">ภาคตัดกรวย</a></td><td><a href="#bio14">พืช</a> · <a href="#bio15">ย่อยอาหาร</a></td><td><a href="#en8">Reported speech</a> · <a href="#en10">Modals</a></td></tr>
+        <tr><td><b>6</b> ★</td><td><a href="#ch13">ลำดับ &amp; อนุกรม</a> · <a href="#ch14">ความน่าจะเป็น</a></td><td><a href="#bio16">เลือด &amp; ภูมิคุ้มกัน</a> · <a href="#bio17">ไต ประสาท ฮอร์โมน</a></td><td><a href="#en12">Connectors</a> · <a href="#en13">Error identification</a></td></tr>
+        <tr><td><b>7</b> ★</td><td><a href="#ch15">สถิติ</a> · <a href="#ch16">แคลคูลัส</a></td><td><a href="#bio12">วิวัฒนาการ</a> · <a href="#bio5">ระบบนิเวศ</a></td><td><a href="#en14">Reading</a> · <a href="#cloze">แบบฝึกเติมคำ</a></td></tr>
+        <tr><td><b>8</b> ★</td><td colspan="3">ทบทวนด้วย <a href="#exam">ข้อสอบจำลองจับเวลา</a> วันละ 1 ชุด · อ่านเฉพาะบทที่ทำผิด · ปิดท้ายด้วย <a href="#sheet">แผ่นสรุปสูตร</a> และปั่น <a href="#flash">flashcard</a> ทุกเช้า</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="try">
+    <div><b>กติกา 1</b>อ่านทฤษฎีไม่เกิน 20 นาทีต่อบท แล้ว<em>ลงมือเล่นเครื่องมือ</em>ทันที — เข้าใจจากการลองเร็วกว่าการอ่านซ้ำ</div>
+    <div><b>กติกา 2</b>จบทุกสัปดาห์ด้วยข้อสอบจำลอง 10 ข้อ เพื่อวัดว่าจำได้จริงไหม ไม่ใช่แค่รู้สึกว่าเข้าใจ</div>
+    <div><b>กติกา 3</b>ปั่น flashcard วันละ 1 รอบ 10 นาที ตลอด 8 สัปดาห์ — ศัพท์เป็นเรื่องสะสม เร่งท้าย ๆ ไม่ทัน</div>
+  </div>
+</section>
+
+<section class="ch" id="bio19" data-subject="bio" data-n="ช19" data-title="ระบบเคลื่อนไหว" data-group="พืช &amp; ร่างกายมนุษย์">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ช19</span><span class="ch-tag">อ่านเข้าใจใน 4 นาที</span></div>
+    <h2>กระดูกและกล้ามเนื้อ</h2>
+    <p class="ch-why">หลักการเดียวที่ต้องเข้าใจคือ <b>กล้ามเนื้อดึงได้อย่างเดียว ดันไม่ได้</b> — ร่างกายจึงต้องมีกล้ามเนื้อทำงานเป็นคู่ตรงข้ามกันเสมอ</p>
+  </header>
+  <div class="exp">
+    <h3>ทำงานเป็นคู่ตรงข้าม (antagonistic pair)</h3>
+    <p>ตอนงอแขน <b>ไบเซพส์หดตัว</b> ขณะที่ <b>ไตรเซพส์คลายตัว</b> · ตอนเหยียดแขนสลับกันพอดี — ถ้าทั้งคู่หดพร้อมกันแขนจะไม่ขยับเลย</p>
+    <p>กล้ามเนื้อยึดกับกระดูกด้วย<b>เอ็นกล้ามเนื้อ (tendon)</b> ส่วนกระดูกยึดกับกระดูกที่ข้อต่อด้วย<b>เอ็นยึดข้อ (ligament)</b> — ข้อสอบชอบสลับสองคำนี้</p>
+    <h3>กล้ามเนื้อ 3 ชนิด</h3>
+  </div>
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>ชนิด</th><th>ควบคุมได้ไหม</th><th>พบที่</th><th>ลักษณะ</th></tr></thead>
+      <tbody>
+        <tr><td><b>กล้ามเนื้อลาย</b></td><td>ควบคุมได้ (อยู่ในอำนาจจิตใจ)</td><td>ยึดกับกระดูกทั่วร่างกาย</td><td>มีลายตามขวาง หดเร็ว ล้าเร็ว</td></tr>
+        <tr><td><b>กล้ามเนื้อเรียบ</b></td><td>ควบคุมไม่ได้</td><td>ผนังทางเดินอาหาร หลอดเลือด มดลูก</td><td>ไม่มีลาย หดช้าแต่ทนนาน</td></tr>
+        <tr><td><b>กล้ามเนื้อหัวใจ</b></td><td>ควบคุมไม่ได้</td><td>หัวใจเท่านั้น</td><td>มีลายแต่ทำงานอัตโนมัติ ไม่ล้า</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <b>เทียบง่าย ๆ</b>
+    กล้ามเนื้อคือ<b>เชือกดึง</b> ไม่ใช่<b>ไม้ค้ำ</b> — ดึงกระดูกเข้าหากันได้อย่างเดียว จะดันกลับต้องให้เชือกอีกเส้นฝั่งตรงข้ามดึงแทน
+  </div>
+  <div class="callout ask">
+    <b>ข้อสอบชอบถาม</b>
+    “ขณะยกของขึ้น กล้ามเนื้อใดหดตัว” → ไบเซพส์หด ไตรเซพส์คลาย · “เอ็นชนิดใดยึดกระดูกกับกระดูก” → ligament (tendon ยึดกล้ามเนื้อกับกระดูก)
+  </div>
+</section>
+
+<section class="ch" id="bio20" data-subject="bio" data-n="ช20" data-title="อาหาร &amp; สารอาหาร" data-group="พืช &amp; ร่างกายมนุษย์">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ช20</span><span class="ch-tag">มีการทดสอบสารอาหารที่ออกสอบ</span></div>
+    <h2>สารอาหาร 6 หมู่ และการทดสอบ</h2>
+    <p class="ch-why">แยกให้ออกว่าสารอาหารไหน<b>ให้พลังงาน</b>และไหน<b>ไม่ให้พลังงานแต่ขาดไม่ได้</b> — แล้วจำผลการทดสอบสีเปลี่ยนไว้ เพราะออกสอบเป็นข้อทดลองประจำ</p>
+  </header>
+  <div class="tags">
+    <span>ให้พลังงาน: <b>คาร์โบไฮเดรต · โปรตีน · ไขมัน</b></span>
+    <span>ไม่ให้พลังงาน: <b>วิตามิน · แร่ธาตุ · น้ำ</b></span>
+  </div>
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>ทดสอบ</th><th>สารที่ใช้</th><th>ผลบวก (สีที่ได้)</th></tr></thead>
+      <tbody>
+        <tr><td><b>แป้ง</b></td><td>สารละลายไอโอดีน</td><td>น้ำตาลแดง → <b>น้ำเงินเข้ม/ม่วงดำ</b></td></tr>
+        <tr><td><b>น้ำตาลโมเลกุลเดี่ยว</b></td><td>สารละลายเบเนดิกต์ (ต้ม)</td><td>ฟ้า → เขียว → เหลือง → <b>ส้มอิฐ</b></td></tr>
+        <tr><td><b>โปรตีน</b></td><td>สารละลายไบยูเรต</td><td>ฟ้า → <b>ม่วง</b></td></tr>
+        <tr><td><b>ไขมัน</b></td><td>ถูบนกระดาษ / ซูดานทรี</td><td>เกิด<b>รอยโปร่งแสง</b> / ติดสีแดงส้ม</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="exp">
+    <h3>วิตามินและแร่ธาตุที่ออกสอบบ่อย</h3>
+    <ul>
+      <li><b>วิตามินละลายในน้ำ</b> (B, C) — ขับออกทางปัสสาวะ กินเกินไม่สะสม แต่ต้องกินทุกวัน</li>
+      <li><b>วิตามินละลายในไขมัน</b> (A, D, E, K) — สะสมในร่างกายได้ กินเกินเป็นพิษได้</li>
+      <li><b>เหล็ก</b> เป็นส่วนประกอบของฮีโมโกลบิน ขาดแล้วโลหิตจาง · <b>แคลเซียม</b> สร้างกระดูกและช่วยการแข็งตัวของเลือด · <b>ไอโอดีน</b> ใช้สร้างไทรอกซิน ขาดแล้วเป็นคอพอก</li>
+    </ul>
+  </div>
+  <div class="callout ask">
+    <b>ข้อสอบชอบถาม</b>
+    “หยดไอโอดีนแล้วเป็นสีน้ำเงินเข้ม แปลว่ามีสารใด” → แป้ง · “ต้มกับเบเนดิกต์แล้วได้ตะกอนสีส้มอิฐ” → น้ำตาลรีดิวซ์ปริมาณมาก (ถ้าเขียวคือมีน้อย)
+  </div>
+</section>
+
+<section class="ch" id="bio21" data-subject="bio" data-n="ช21" data-title="มลพิษ &amp; ทรัพยากร" data-group="นิเวศ &amp; ความหลากหลาย">
+  <header class="ch-head">
+    <div class="ch-kicker"><span class="ch-num">ช21</span><span class="ch-tag">เชื่อมกับข้อสอบแนววิเคราะห์</span></div>
+    <h2>มลพิษและการอนุรักษ์ทรัพยากร</h2>
+    <p class="ch-why">บทนี้ไม่ได้ถามความจำล้วน แต่ถามว่า<b>เข้าใจกลไกไหม</b> เช่นทำไมปุ๋ยไหลลงน้ำแล้วปลาตาย ทั้งที่ปุ๋ยไม่ได้เป็นพิษกับปลาโดยตรง</p>
+  </header>
+  <div class="steps">
+    <div><em>ยูโทรฟิเคชัน</em> — ปุ๋ยหรือน้ำเสียไหลลงแหล่งน้ำ ทำให้มีธาตุอาหารมากเกิน<small>สาหร่ายบูมคลุมผิวน้ำ → แสงส่องไม่ถึงพืชใต้น้ำ → พืชตาย → แบคทีเรียย่อยสลายใช้<b>ออกซิเจนจนหมด</b> → ปลาขาดออกซิเจนตาย</small></div>
+    <div><em>การสะสมสารพิษตามลำดับขั้น</em> — สารพิษที่สลายยาก เช่น DDT และปรอท เข้มข้นขึ้นเรื่อย ๆ เมื่อขึ้นห่วงโซ่อาหาร<small>ผู้บริโภคลำดับสูงสุดจึงได้รับพิษมากที่สุด แม้ในน้ำจะมีสารพิษเจือจางมาก</small></div>
+    <div><em>ภาวะโลกร้อน</em> — CO₂ และมีเทนสะสมในบรรยากาศ กักความร้อนไว้<small>ผลตามมา: น้ำแข็งขั้วโลกละลาย ระดับน้ำทะเลสูงขึ้น ปะการังฟอกขาว ฤดูกาลแปรปรวน</small></div>
+    <div><em>รูรั่วโอโซน</em> — สาร CFC ทำลายชั้นโอโซน ทำให้รังสี UV ส่องถึงพื้นมากขึ้น<small>ระวังสับสน: โอโซนคนละเรื่องกับภาวะโลกร้อน — โอโซนกันรังสี ส่วนเรือนกระจกกักความร้อน</small></div>
+  </div>
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th>คำ</th><th>ความหมาย</th></tr></thead>
+      <tbody>
+        <tr><td><b>BOD</b></td><td>ปริมาณออกซิเจนที่จุลินทรีย์ใช้ย่อยสลายสารอินทรีย์ — <b>ค่าสูง = น้ำเสียมาก</b></td></tr>
+        <tr><td><b>DO</b></td><td>ออกซิเจนที่ละลายอยู่ในน้ำ — <b>ค่าต่ำ = น้ำเสีย</b> (สวนทางกับ BOD)</td></tr>
+        <tr><td><b>ฝนกรด</b></td><td>แก๊ส SO₂ และ NOₓ จากการเผาไหม้ ทำปฏิกิริยากับน้ำในอากาศ ทำลายป่าและสิ่งก่อสร้าง</td></tr>
+        <tr><td><b>PM 2.5</b></td><td>ฝุ่นละอองเล็กกว่า 2.5 ไมครอน เข้าถึงถุงลมปอดและกระแสเลือดได้</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout ask">
+    <b>ข้อสอบชอบถาม</b>
+    “ปุ๋ยไหลลงบึงแล้วปลาตายเพราะอะไร” → ไม่ใช่พิษจากปุ๋ยโดยตรง แต่เป็นเพราะ<b>ออกซิเจนในน้ำถูกใช้จนหมด</b>จากการย่อยสลายซากสาหร่าย · “สิ่งมีชีวิตใดได้รับ DDT มากที่สุด” → ผู้บริโภคลำดับสูงสุดของห่วงโซ่
+  </div>
+</section>
+
+<section class="ch" id="vocab" data-subject="voc" data-n="ก" data-title="คลังคำศัพท์ อังกฤษ" data-group="ท่องจำ & คำศัพท์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ก</span><span class="ch-tag">เครื่องมือ: ค้นศัพท์ + กรองตามบท</span></div>
     <h2>คลังคำศัพท์ A-Level</h2>
@@ -2278,7 +2566,7 @@ footer{max-width:70ch}
   </div>
 </section>
 
-<section class="ch" id="flash" data-n="ข" data-title="Flashcard สุ่ม" data-group="ท่องจำ &amp; คำศัพท์">
+<section class="ch" id="flash" data-subject="voc" data-n="ข" data-title="Flashcard สุ่ม" data-group="ท่องจำ & คำศัพท์">
   <header class="ch-head">
     <div class="ch-kicker"><span class="ch-num">ข</span><span class="ch-tag">เครื่องมือ: การ์ดท่องจำสุ่มลำดับ</span></div>
     <h2>Flashcard — ท่องศัพท์แบบสุ่ม</h2>
@@ -2551,35 +2839,94 @@ document.getElementById("theme").addEventListener("click",()=>{
   requestAnimationFrame(redraw);
 });
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>requestAnimationFrame(redraw));
-const GKEY={"พื้นฐาน":"math","ฟังก์ชัน & กราฟ":"math","เรขาคณิต & เวกเตอร์":"math","ข้อมูล & แคลคูลัส":"math",
-  "ชีววิทยา":"bio","ภาษาอังกฤษ":"eng","ฝึกทำข้อสอบ":"exam","ท่องจำ & คำศัพท์":"voc"};
+const SUBJ={
+  math:{t:"คณิตศาสตร์",d:"16 บท · เครื่องมือลากเล่น 22 ตัว",p:"กราฟ วงกลมหนึ่งหน่วย เมทริกซ์ เวกเตอร์ และแคลคูลัส — ปรับค่าแล้วดูภาพขยับทันที"},
+  bio:{t:"ชีววิทยา",d:"21 บท · เครื่องมือ 9 ตัว",p:"ตั้งแต่ในเซลล์ถึงระบบนิเวศ อธิบายด้วยอุปมาและตารางเทียบ พร้อมกล่องข้อสอบชอบถามทุกบท"},
+  eng:{t:"ภาษาอังกฤษ",d:"19 บท · เครื่องมือ 3 ตัว",p:"ไวยากรณ์ทุกจุดที่ออกสอบ พร้อมตัวอย่างถูก–ผิดคู่กัน และเทคนิคทำข้อสอบแต่ละพาร์ต"},
+  exam:{t:"ฝึกทำข้อสอบ",d:"3 ส่วน · 63 ข้อ",p:"ข้อสอบจำลองจับเวลา แบบฝึกเติมคำ และเทคนิคบริหารเวลาในห้องสอบ"},
+  voc:{t:"ท่องจำ & คำศัพท์",d:"1,408 คำ · 4 ชุด",p:"คลังศัพท์ค้นหาได้ และ flashcard สุ่มที่จำความคืบหน้าให้"},
+  plan:{t:"วางแผนอ่าน",d:"แผน 8 สัปดาห์",p:"ลำดับการอ่านที่ออกแบบมาให้เก็บคะแนนได้เร็วที่สุดในเวลาที่เหลือ"}
+};
+const SORDER=["math","bio","eng","exam","voc","plan"];
+const GORDER={
+  math:["พื้นฐาน & พีชคณิต","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส"],
+  bio:["เซลล์ & ชีวโมเลกุล","พันธุศาสตร์ & DNA","พืช & ร่างกายมนุษย์","นิเวศ & ความหลากหลาย"],
+  eng:["ไวยากรณ์พื้นฐาน","โครงสร้างประโยค","ทักษะทำข้อสอบ"]
+};
 function buildIndex(){
-  const ul=document.getElementById("idx"); ul.innerHTML="";
-  const order=["พื้นฐาน","ฟังก์ชัน & กราฟ","เรขาคณิต & เวกเตอร์","ข้อมูล & แคลคูลัส","ชีววิทยา","ภาษาอังกฤษ","ฝึกทำข้อสอบ","ท่องจำ & คำศัพท์"];
-  const groups={}; order.forEach(g=>groups[g]=[]);
-  document.querySelectorAll("section.ch").forEach(s=>(groups[s.dataset.group]||groups["พื้นฐาน"]).push(s));
-  let first=true;
-  order.forEach(g=>{
-    if(!groups[g].length)return;
-    const k=GKEY[g]||"math";
-    if(first){
-      const h=document.querySelector(".idx-group");
-      h.textContent=g; h.dataset.g=k; first=false;
-    }
-    else{const p=document.createElement("p");p.className="idx-group";p.textContent=g;p.dataset.g=k;ul.appendChild(p)}
-    groups[g].forEach(s=>{
-      const li=document.createElement("li");
-      li.dataset.g=k;
-      li.dataset.find=(s.dataset.title+" "+s.dataset.n+" "+g).toLowerCase();
-      li.innerHTML=`<a href="#${s.id}"><span class="n">${s.dataset.n}</span><span>${s.dataset.title}</span></a>`;
-      ul.appendChild(li);
-    });
+  const ul=document.getElementById("idx");
+  const nav=ul.parentElement;
+  nav.innerHTML="";
+  const secs=[...document.querySelectorAll("section.ch")];
+  const bySub={};
+  secs.forEach(s=>{
+    const k=s.dataset.subject||"math";
+    (bySub[k]=bySub[k]||{}) ;
+    const g=s.dataset.group||"อื่น ๆ";
+    (bySub[k][g]=bySub[k][g]||[]).push(s);
   });
-  const links=[...ul.querySelectorAll("a")];
+  SORDER.forEach(k=>{
+    const groups=bySub[k]; if(!groups)return;
+    const meta=SUBJ[k]||{t:k};
+    const n=Object.values(groups).reduce((a,v)=>a+v.length,0);
+    const box=document.createElement("div");
+    box.className="navsub"; box.dataset.g=k;
+    box.innerHTML=`<button class="navsub-h" type="button" aria-expanded="false">
+        <span class="dot"></span><span>${meta.t}</span>
+        <span class="cnt">${n}</span><span class="chev">▸</span></button>
+      <div class="navsub-body"></div>`;
+    const body=box.querySelector(".navsub-body");
+    const gs=Object.entries(groups).sort((a,b)=>{
+      const o=GORDER[k]; if(!o)return 0;
+      const ia=o.indexOf(a[0]), ib=o.indexOf(b[0]);
+      return (ia<0?99:ia)-(ib<0?99:ib);
+    });
+    gs.forEach(([g,list])=>{
+      if(Object.keys(groups).length>1||g!==meta.t){
+        const p=document.createElement("p"); p.className="idx-group"; p.dataset.g=k; p.textContent=g;
+        body.appendChild(p);
+      }
+      const u=document.createElement("ul"); u.className="idx";
+      list.forEach(s=>{
+        const li=document.createElement("li");
+        li.dataset.g=k;
+        li.dataset.find=(s.dataset.title+" "+s.dataset.n+" "+g+" "+meta.t).toLowerCase();
+        li.innerHTML=`<a href="#${s.id}"><span class="n">${s.dataset.n}</span><span>${s.dataset.title}</span></a>`;
+        u.appendChild(li);
+      });
+      body.appendChild(u);
+    });
+    box.querySelector(".navsub-h").addEventListener("click",()=>{
+      const open=box.classList.toggle("open");
+      box.querySelector(".navsub-h").setAttribute("aria-expanded",open?"true":"false");
+    });
+    nav.appendChild(box);
+    /* แบนเนอร์คั่นวิชาในเนื้อหา */
+    const first=secs.find(x=>(x.dataset.subject||"math")===k);
+    if(first&&meta.p&&!document.getElementById("sb-"+k)){
+      const b=document.createElement("div");
+      b.className="sbanner"; b.id="sb-"+k; b.dataset.g=k;
+      b.innerHTML=`<span class="k">หมวดที่ ${SORDER.indexOf(k)+1}</span><h2>${meta.t}</h2><p>${meta.p}</p>
+        <div class="meta"><span><b>${n}</b> บท</span><span>${meta.d}</span></div>`;
+      first.parentNode.insertBefore(b,first);
+    }
+  });
+  const links=[...nav.querySelectorAll(".idx a")];
   const prog=document.getElementById("prog");
+  const openFor=el=>{
+    const box=el.closest(".navsub");
+    if(box&&!box.classList.contains("open")){
+      nav.querySelectorAll(".navsub.open").forEach(b=>{b.classList.remove("open");b.querySelector(".navsub-h").setAttribute("aria-expanded","false")});
+      box.classList.add("open"); box.querySelector(".navsub-h").setAttribute("aria-expanded","true");
+    }
+  };
   const io=new IntersectionObserver(es=>es.forEach(e=>{
     if(!e.isIntersecting)return;
-    links.forEach(a=>a.classList.toggle("on",a.hash==="#"+e.target.id));
+    links.forEach(a=>{
+      const on=a.hash==="#"+e.target.id;
+      a.classList.toggle("on",on);
+      if(on)openFor(a);
+    });
     const c=getComputedStyle(e.target).getPropertyValue("--sub").trim();
     if(prog&&c)prog.style.background=c;
     e.target.classList.add("seen");
@@ -2587,20 +2934,27 @@ function buildIndex(){
   const seen=new IntersectionObserver(es=>es.forEach(e=>{
     if(e.isIntersecting){e.target.classList.add("seen");seen.unobserve(e.target)}
   }),{rootMargin:"0px 0px -8% 0px"});
-  document.querySelectorAll("section.ch").forEach(s=>{io.observe(s);seen.observe(s)});
+  secs.forEach(s=>{io.observe(s);seen.observe(s)});
   document.querySelectorAll("section.sheet, footer").forEach(s=>s.classList.add("seen"));
+  const firstBox=nav.querySelector(".navsub");
+  if(firstBox){firstBox.classList.add("open");firstBox.querySelector(".navsub-h").setAttribute("aria-expanded","true")}
 
-  /* ค้นหาบทในสารบัญ */
   const find=document.getElementById("navfind");
   if(find)find.addEventListener("input",()=>{
     const q=find.value.trim().toLowerCase();
-    ul.querySelectorAll("li").forEach(li=>{
-      li.style.display=(!q||li.dataset.find.includes(q))?"":"none";
-    });
-    ul.querySelectorAll(".idx-group").forEach(p=>{
-      let n=p.nextElementSibling, any=false;
-      while(n&&n.tagName==="LI"){ if(n.style.display!=="none")any=true; n=n.nextElementSibling }
-      p.style.display=(!q||any)?"":"none";
+    nav.querySelectorAll(".navsub").forEach(box=>{
+      let hit=0;
+      box.querySelectorAll("li").forEach(li=>{
+        const ok=!q||li.dataset.find.includes(q);
+        li.style.display=ok?"":"none"; if(ok)hit++;
+      });
+      box.querySelectorAll(".idx-group").forEach(p=>{
+        let n2=p.nextElementSibling, any=false;
+        if(n2&&n2.tagName==="UL")any=[...n2.children].some(li=>li.style.display!=="none");
+        p.style.display=(!q||any)?"":"none";
+      });
+      box.style.display=(!q||hit)?"":"none";
+      if(q&&hit)box.classList.add("open");
     });
   });
 }
